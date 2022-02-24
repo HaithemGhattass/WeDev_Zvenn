@@ -1,0 +1,123 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="FooYes - Quality delivery or takeaway food">
+    <meta name="author" content="Ansonika">
+    <title>FooYes - Quality delivery or takeaway food</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('frontoffice/img/favicon.ico') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('frontoffice/img/apple-touch-icon-57x57-precomposed.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('frontoffice/img/apple-touch-icon-72x72-precomposed.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('frontoffice/img/apple-touch-icon-114x114-precomposed.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('frontoffice/img/apple-touch-icon-144x144-precomposed.png') }}">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('frontoffice/css/bootstrap_customized.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontoffice/css/style.css') }}" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="{{ asset('frontoffice/css/order-sign_up.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('frontoffice/css/custom.css') }}" rel="stylesheet">
+
+</head>
+
+<body id="register_bg">
+
+<div id="register">
+    <aside>
+        <figure>
+            <a href="index.html"><img src="{{ asset('frontoffice/img/logo_sticky.svg') }}" width="140" height="35" alt=""></a>
+        </figure>
+        <div class="access_social">
+            <a href="#0" class="social_bt facebook">Register with Facebook</a>
+            <a href="#0" class="social_bt google">Register with Google</a>
+        </div>
+        <div class="divider"><span>Or</span></div>
+        {{ form_start(registrationForm) }}
+        <form autocomplete="off">
+            <div class="form-group">
+                {{ form_widget(registrationForm.nom,{'attr':{
+                    'placeholder':'nom','class':'nom'
+                }}) }}
+                <i class="icon_pencil-edit"></i>
+            </div>
+            <div class="form-group">
+                {{ form_widget(registrationForm.prenom,{'attr':{
+                    'placeholder':'prenom','class':'prenom'
+                }}) }}
+                <i class="icon_pencil-edit"></i>
+            </div>
+            <div class="form-group">
+                {{ form_widget(registrationForm.email,{'attr':{
+                    'placeholder':'email','class':'email'
+                }}) }}
+                <i class="icon_mail_alt"></i>
+            </div>
+            <div class="form-group">
+                {{ form_widget(registrationForm.plainPassword,{'attr':{
+                    'placeholder':'password','class':'password'
+                }}) }}
+                <i class="icon_lock_alt"></i>
+            </div>
+            <div class="form-group">
+                {{ form_widget(registrationForm.adresse,{'attr':{
+                    'placeholder':'adresse','class':'adresse'
+                }}) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(registrationForm.numTel,{'attr':{
+                    'placeholder':'numero telephone','class':'numTel'
+                }}) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(registrationForm.pseudo,{'attr':{
+                    'placeholder':'pseudo','class':'pseudo'
+                }}) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(registrationForm.sexe)}}
+            </div>
+            <div class="form-group">
+                {{ form_widget(registrationForm.dateNaissance)}}
+            </div>
+            <div class="form-group">
+                {{ form_widget(registrationForm.agreeTerms)}}
+            </div>
+
+            <div class="form-group text-center">
+                <button class="btn_1 gradient">Register</button>
+                {{ form(registrationForm,{'method':'GET'}) }}
+            </div>
+
+
+        </form>
+
+        {{ form_end(registrationForm) }}
+        <div class="text-center mt-2"><small>Already have an acccount? <strong><a href="{{ path('app_login') }}">Sign In</a></strong></small></div>
+
+    </aside>
+</div>
+<!-- /login -->
+
+<!-- COMMON SCRIPTS -->
+<script src="{{ asset('frontoffice/js/common_scripts.min.js') }}"></script>
+<script src="{{ asset('frontoffice/js/common_func.js') }}"></script>
+
+<!-- SPECIFIC SCRIPTS -->
+
+
+</body>
+</html>

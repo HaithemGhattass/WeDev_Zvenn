@@ -1,0 +1,442 @@
+{% extends 'HomeFront.html.twig' %}
+{% block title %}{{ app.user.email }}{% endblock %}
+{% block javascripts %}
+<!-- COMMON SCRIPTS -->
+<script src="{{ asset('frontoffice/js/common_scripts.min.js') }}"></script>
+<script src="{{ asset('frontoffice/js/common_func.js') }}"></script>
+<script src="{{ asset('frontoffice/assets/validate.js') }}"></script>
+
+
+<!-- SPECIFIC SCRIPTS -->
+<script src="{{ asset('frontoffice/js/sticky_sidebar.min.js') }}"></script>
+<script src="{{ asset('frontoffice/js/sticky-kit.min.js') }}"></script>
+<script src="{{ asset('frontoffice/js/specific_detail.js') }}"></script>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {#{{ encore_entry_link_tags('app') }}#}
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('frontoffice/css/bootstrap_customized.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontoffice/css/style.css') }}" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="{{ asset('frontoffice/css/detail-page.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('frontoffice/css/custom.css') }}" rel="stylesheet">
+
+{% endblock %}
+{% block header %}
+<body data-spy="scroll" data-target="#secondary_nav" data-offset="75">
+
+<header class="header_in clearfix">
+    <div class="container">
+        <div id="logo">
+            <a href="index.html">
+                <img src="{{ asset('frontoffice/img/logo_sticky.svg') }}" width="140" height="35" alt="">
+            </a>
+        </div>
+        <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+        <ul id="top_menu">
+            <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
+            <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
+        </ul>
+        <!-- /top_menu -->
+        <a href="{{ path('home') }}" class="open_close">
+            <i class="icon_menu"></i><span>Menu</span>
+        </a>
+        <nav class="main-menu">
+            <div id="header_menu">
+                <a href="{{ path('home') }}" class="open_close">
+                    <i class="icon_close"></i><span>Menu</span>
+                </a>
+                <a href="index.html"><img src="{{ asset('/frontoffice/img/logo.svg') }}" width="162" height="35" alt=""></a>
+            </div>
+            <ul>
+                <li class="submenu">
+                    <a href="{{ path('home') }}" class="show-submenu">Home</a>
+                    <ul>
+                        <li><a href="index.html">Address Autocomplete</a></li>
+                        <li><a href="index-2.html">Search by Keyword</a></li>
+                        <li><a href="index-3.html">Home Version 2</a></li>
+                        <li><a href="index-4.html">Video Background</a></li>
+                        <li><a href="index-5.html">GDPR Cookie Bar EU Law</a></li>
+                        <li><a href="header-user-logged.html">Header User Logged</a></li>
+                        <li><a href="header-cart-top.html">Header Cart Top</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="#0" class="show-submenu">Listing</a>
+                    <ul>
+                        <li class="third-level"><a href="#0">List pages</a>
+                            <ul>
+                                <li><a href="grid-listing-filterscol.html">List default</a></li>
+                                <li><a href="grid-listing-filterscol-map.html">List with map</a></li>
+                                <li><a href="listing-map.html">List side map</a></li>
+                                <li><a href="grid-listing-masonry.html">List Masonry Filter</a></li>
+                            </ul>
+                        </li>
+                        <li class="third-level"><a href="#0">Detail pages</a>
+                            <ul>
+                                <li><a href="detail-restaurant.html">Detail page 1</a></li>
+                                <li><a href="detail-restaurant-2.html">Detail page 2</a></li>
+                                <li><a href="detail-restaurant-3.html">Detail page 3</a></li>
+                            </ul>
+                        </li>
+                        <li class="third-level"><a href="#0">OpenStreetMap</a>
+                            <ul>
+                                <li><a href="grid-listing-filterscol-openstreetmap.html">List with map</a></li>
+                                <li><a href="listing-map-openstreetmap.html">List side map</a></li>
+                                <li><a href="grid-listing-masonry-openstreetmap.html">List Masonry Filter</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="submit-restaurant.html">Submit Restaurant</a></li>
+                        <li><a href="submit-rider.html">Submit Rider</a></li>
+                        <li><a href="order.html">Order</a></li>
+                        <li><a href="confirm.html">Confirm Order</a></li>
+                    </ul>
+                </li>
+                <li><a href="{{ path('produits') }}">Produits</a></li>
+                <li><a href="{{ path('restaurant') }}">Restaurants</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<!-- /header -->
+{% endblock %}
+{% block body %}
+<main>
+
+
+
+    <nav class="secondary_nav sticky_horizontal">
+        <div class="container">
+            <ul id="secondary_nav">
+                <li><a class="list-group-item list-group-item-action" href="{{ path('addrestaurant') }}">addrestaurant</a></li>
+
+            </ul>
+        </div>
+        <span></span>
+    </nav>
+    <!-- /secondary_nav -->
+
+    <div class="bg_gray">
+        <div class="container margin_detail">
+            <div class="row">
+                <div class="col-lg-8 list_menu">
+                    <section id="section-1">
+                        <h4>Mes Restaurants</h4>
+                        <div class="table_wrapper">
+                            <table class="table cart-list menu-gallery">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        Restaurant
+                                    </th>
+                                    <th>
+                                        Statut
+                                    </th>
+                                    <th>
+                                        Modifier
+                                    </th>
+                                    <th>
+                                        Supprimer
+                                    </th>
+                                    <th>
+                                        Ajouter Produit
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for r in app.user.restaurants %}
+                                <tr>
+                                    <td class="d-md-flex align-items-center">
+                                        <figure>
+                                            <a href="{{asset('/uploads/' ~ r.nomImage ) }}" title="Photo title" data-effect="mfp-zoom-in"><img src="{{asset('/uploads/' ~ r.nomImage ) }}" data-src="{{asset('/uploads/' ~ r.nomImage ) }}" alt="thumb" class="lazy"></a>
+                                        </figure>
+                                        <div class="flex-md-column">
+                                            <h4>{{ r.nomRestaurant }}</h4>
+                                            <p>
+                                                {{ r.addresse }}
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {% if r.status=="not verified" %}
+                                        <strong> En cours de vérification</strong>
+                                        {% else %}
+                                            <strong > verifié</strong>
+                                            {% endif %}
+                                    </td>
+                                    <td class="options">
+                                        <div class="dropdown dropdown-options">
+                                            <a href="{{ path ('update',{'id':r.id}) }}"  aria-expanded="true"><i class="icon_pencil-edit_alt"></i></a>
+
+
+
+                                        </div>
+                                    </td>
+                                    <td class="options" >
+                                        <div class="dropdown dropdown-options">
+                                            <a href="{{ path ('deleterestaurant',{'id':r.id}) }}"  aria-expanded="true"><i class="icon_minus_alt2"></i></a>
+
+
+
+                                        </div>
+
+                                    </td>
+                                    <td class="options" >
+                                        <div class="dropdown dropdown-options">
+                                            <a href="{{ path ('ajouterproduits',{'id':r.id}) }}"  aria-expanded="true"><i class="icon_plus_alt2"></i></a>
+
+
+
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <!-- /section -->
+
+                    <section id="section-2">
+                        <h4>Mes Produits</h4>
+                        <div class="table_wrapper">
+                            <table class="table cart-list menu-gallery">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        produit
+                                    </th>
+                                    <th>
+                                        prix
+                                    </th>
+                                    <th>
+                                        Restaurant
+                                    </th>
+                                    <th>
+                                        supprimer
+                                    </th>
+                                    <th>
+                                        modifier
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for p in prod.getProduits %}
+                                    {% if p.restaurant.user.id==app.user.id %}
+
+                                <tr>
+                                    <td class="d-md-flex align-items-center">
+                                        <figure>
+                                            <a href="{{asset('/uploads/' ~ p.nomimageProduit ) }}" title="Photo title" data-effect="mfp-zoom-in"><img src="{{asset('/uploads/' ~ p.nomimageProduit ) }}" data-src="{{asset('/uploads/' ~ p.nomimageProduit ) }}" alt="thumb" class="lazy"></a>
+                                        </figure>
+                                        <div class="flex-md-column">
+                                            <h4>{{ p.nomProduit }}</h4>
+                                            <p>
+                                                {{ p.descriptionProduit }}
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong>{{ p.prixProduit }} dt</strong>
+                                    </td>
+                                    <td>
+                                        <strong>{{ p.restaurant.nomRestaurant }} dt</strong>
+                                    </td>
+                                    <td class="options">
+                                        <a href="{{ path ('deleteproduit',{'id':p.id}) }}"><i class="icon_minus_alt2"></i></a>
+                                    </td>
+                                    <td class="options">
+                                        <a href="{{ path ('updateproduit',{'id':p.id}) }}"><i class="icon_plus_alt2"></i></a>
+
+                                    </td>
+
+                                </tr>
+                                    {% endif %}
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <!-- /section -->
+
+
+                </div>
+                <!-- /col -->
+
+                <div class="col-lg-4" id="sidebar_fixed">
+                    <div class="box_order mobile_fixed">
+                        <div class="head">
+                            <h3> {{ app.user.email }}</h3>
+                            <a href="#0" class="close_panel_mobile"><i class="icon_close"></i></a>
+                        </div>
+                        <!-- /head -->
+                        <div class="main">
+                            <ul class="clearfix">
+                                <li> nom<span>--khedmet yassine--</span></li>
+                                <li> prenom</a><span>--khedmet yassine--</span></li>
+                                <li>adresse</a><span>--khedmet yassine--</span></li>
+                                <li>nombre des restaurant</a><span>--yomkon nzidha</span></li>
+                                <li><span></span></li>
+                            </ul>
+
+
+
+                        </div>
+                    </div>
+                    <!-- /box_order -->
+                    <div class="btn_reserve_fixed"><a href="#0" class="btn_1 gradient full-width">View Basket</a></div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /bg_gray -->
+
+    <div class="container margin_30_20">
+        <div class="row">
+            <div class="col-lg-8 list_menu">
+                <section id="section-5">
+                    <h4>Reviews</h4>
+                    <div class="row add_bottom_30 d-flex align-items-center reviews">
+                        <div class="col-md-3">
+                            <div id="review_summary">
+                                <strong>8.5</strong>
+                                <em>Superb</em>
+                                <small>Based on 4 reviews</small>
+                            </div>
+                        </div>
+                        <div class="col-md-9 reviews_sum_details">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6>Food Quality</h6>
+                                    <div class="row">
+                                        <div class="col-xl-10 col-lg-9 col-9">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-2 col-lg-3 col-3"><strong>9.0</strong></div>
+                                    </div>
+                                    <!-- /row -->
+                                    <h6>Service</h6>
+                                    <div class="row">
+                                        <div class="col-xl-10 col-lg-9 col-9">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-2 col-lg-3 col-3"><strong>9.5</strong></div>
+                                    </div>
+                                    <!-- /row -->
+                                </div>
+                                <div class="col-md-6">
+                                    <h6>Punctuality</h6>
+                                    <div class="row">
+                                        <div class="col-xl-10 col-lg-9 col-9">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-2 col-lg-3 col-3"><strong>6.0</strong></div>
+                                    </div>
+                                    <!-- /row -->
+                                    <h6>Price</h6>
+                                    <div class="row">
+                                        <div class="col-xl-10 col-lg-9 col-9">
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-2 col-lg-3 col-3"><strong>6.0</strong></div>
+                                    </div>
+                                    <!-- /row -->
+                                </div>
+                            </div>
+                            <!-- /row -->
+                        </div>
+                    </div>
+                    <!-- /row -->
+                    <div id="reviews">
+                        <div class="review_card">
+                            <div class="row">
+                                <div class="col-md-2 user_info">
+                                    <figure><img src="img/avatar4.jpg" alt=""></figure>
+                                    <h5>Lukas</h5>
+                                </div>
+                                <div class="col-md-10 review_content">
+                                    <div class="clearfix add_bottom_15">
+                                        <span class="rating">8.5<small>/10</small> <strong>Rating average</strong></span>
+                                        <em>Published 54 minutes ago</em>
+                                    </div>
+                                    <h4>"Great Location!!"</h4>
+                                    <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his. Tollit molestie suscipiantur his et.</p>
+                                    <ul>
+                                        <li><a href="#0"><i class="icon_like"></i><span>Useful</span></a></li>
+                                        <li><a href="#0"><i class="icon_dislike"></i><span>Not useful</span></a></li>
+                                        <li><a href="#0"><i class="arrow_back"></i> <span>Reply</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /row -->
+                        </div>
+                        <!-- /review_card -->
+                        <div class="review_card">
+                            <div class="row">
+                                <div class="col-md-2 user_info">
+                                    <figure><img src="img/avatar1.jpg" alt=""></figure>
+                                    <h5>Marika</h5>
+                                </div>
+                                <div class="col-md-10 review_content">
+                                    <div class="clearfix add_bottom_15">
+                                        <span class="rating">9.0<small>/10</small> <strong>Rating average</strong></span>
+                                        <em>Published 11 Oct. 2019</em>
+                                    </div>
+                                    <h4>"Really great dinner!!"</h4>
+                                    <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his. Tollit molestie suscipiantur his et.</p>
+                                    <ul>
+                                        <li><a href="#0"><i class="icon_like"></i><span>Useful</span></a></li>
+                                        <li><a href="#0"><i class="icon_dislike"></i><span>Not useful</span></a></li>
+                                        <li><a href="#0"><i class="arrow_back"></i> <span>Reply</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /row -->
+                            <div class="row reply">
+                                <div class="col-md-2 user_info">
+                                    <figure><img src="img/avatar.jpg" alt=""></figure>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="review_content">
+                                        <strong>Reply from Foogra</strong>
+                                        <em>Published 3 minutes ago</em>
+                                        <p><br>Hi Monika,<br><br>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his. Tollit molestie suscipiantur his et.<br><br>Thanks</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /reply -->
+                        </div>
+                        <!-- /review_card -->
+                    </div>
+                    <!-- /reviews -->
+                    <div class="text-right"><a href="leave-review.html" class="btn_1 gradient">Leave a Review</a></div>
+                </section>
+                <!-- /section -->
+            </div>
+        </div>
+    </div>
+    <!-- /container -->
+</main>
+<!-- /main -->
+{% endblock %}

@@ -1,0 +1,262 @@
+{% extends 'HomeFront.html.twig' %}
+{% block title %}Modifier un restaurant {% endblock %}
+
+{% block stylesheets %}
+    {#{{ encore_entry_link_tags('app') }}#}
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('frontoffice/css/bootstrap_customized.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontoffice/css/style.css') }}" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="{{ asset('frontoffice/css/submit.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('frontoffice/css/custom.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block header %}
+    <header class="header clearfix element_to_stick">
+        <div class="container">
+            <div id="logo">
+                <a href="{{ path('home') }}">
+                    <img src="{{ asset('frontoffice/img/logo_sticky.svg') }}" width="162" height="35" alt="">
+                </a>
+            </div>
+            <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+            <ul id="top_menu">
+                <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
+                <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
+            </ul>
+            <!-- /top_menu -->
+            <a href="#0" class="open_close">
+                <i class="icon_menu"></i><span>Menu</span>
+            </a>
+            <nav class="main-menu">
+                <div id="header_menu">
+                    <a href="{{ path('home') }}" class="open_close">
+                        <i class="icon_close"></i><span>Menu</span>
+                    </a>
+                    <a href="{{ path('home') }}"><img src="frontfooice/img/logo.svg" width="162" height="35" alt=""></a>
+                </div>
+                <ul>
+                    <li class="submenu">
+                        <a href="{{ path('home') }}" class="show-submenu">Home</a>
+                        <ul>
+                            <li><a href="index.html">Address Autocomplete</a></li>
+                            <li><a href="index-2.html">Search by Keyword</a></li>
+                            <li><a href="index-3.html">Home Version 2</a></li>
+                            <li><a href="index-4.html">Video Background</a></li>
+                            <li><a href="index-5.html">GDPR Cookie Bar EU Law</a></li>
+                            <li><a href="header-user-logged.html">Header User Logged</a></li>
+                            <li><a href="header-cart-top.html">Header Cart Top</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="{{ path('home') }}" class="show-submenu">Listing</a>
+                        <ul>
+                            <li class="third-level"><a href="#0">List pages</a>
+                                <ul>
+                                    <li><a href="grid-listing-filterscol.html">List default</a></li>
+                                    <li><a href="grid-listing-filterscol-map.html">List with map</a></li>
+                                    <li><a href="listing-map.html">List side map</a></li>
+                                    <li><a href="grid-listing-masonry.html">List Masonry Filter</a></li>
+                                </ul>
+                            </li>
+                            <li class="third-level"><a href="#0">Detail pages</a>
+                                <ul>
+                                    <li><a href="detail-restaurant.html">Detail page 1</a></li>
+                                    <li><a href="detail-restaurant-2.html">Detail page 2</a></li>
+                                    <li><a href="detail-restaurant-3.html">Detail page 3</a></li>
+                                </ul>
+                            </li>
+                            <li class="third-level"><a href="#0">OpenStreetMap</a>
+                                <ul>
+                                    <li><a href="grid-listing-filterscol-openstreetmap.html">List with map</a></li>
+                                    <li><a href="listing-map-openstreetmap.html">List side map</a></li>
+                                    <li><a href="grid-listing-masonry-openstreetmap.html">List Masonry Filter</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="submit-restaurant.html">Submit Restaurant</a></li>
+                            <li><a href="submit-rider.html">Submit Rider</a></li>
+                            <li><a href="order.html">Order</a></li>
+                            <li><a href="confirm.html">Confirm Order</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#0" class="show-submenu">Other Pages</a>
+                        <ul>
+                            <li><a href="404.html">404 Error</a></li>
+                            <li><a href="help.html">Help and Faq</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="leave-review.html">Leave a review</a></li>
+                            <li><a href="contacts.html">Contacts</a></li>
+                            <li><a href="coming_soon/index.html">Coming Soon</a></li>
+                            <li><a href="register.html">Sign Up</a></li>
+                            <li><a href="icon-pack-1.html">Icon Pack 1</a></li>
+                            <li><a href="icon-pack-2.html">Icon Pack 2</a></li>
+                            <li><a href="shortcodes.html">Shortcodes</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- /header -->
+{% endblock %}
+
+{% block body %}
+    {{ form_start(form)}}
+    <main>
+    <div class="hero_single inner_pages background-image" data-background="url(img/home_section_2.jpg)">
+        <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <h1>Modifier mon restaurant</h1>
+                        <p>avec zven vous pouvez gerer votre restaurant facilement</p>
+                        <a href="#submit" class="btn_1 gradient btn_scroll">Modifier </a>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+        </div>
+        <div class="wave hero"></div>
+    </div>
+    <!-- /hero_single -->
+
+
+
+
+
+    <div class="container margin_60_20" id="submit">
+    <div class="row justify-content-center">
+    <div class="col-lg-5">
+    <div class="text-center add_bottom_15">
+        <h4>Please fill the form below</h4>
+        <p>Id persius indoctum sed, audiam verear his in, te eum quot comprehensam. Sed impetus vocibus repudiare et.</p>
+    </div>
+    <div id="message-register"></div>
+        <form>
+            <h6>{{ form_label(form.nomRestaurant,"Nom Restaurant") }}</h6>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+
+
+                        {{ form_widget(form.nomRestaurant,{'attr':{
+                            'placeholder':'nom Restaurant','class':'nomRestaurant'
+                        }}) }}
+
+                    </div>
+                </div>
+            </div>
+            <h6>{{ form_label(form.description,"description") }}</h6>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+
+
+                        {{ form_widget(form.description,{'attr':{
+                            'placeholder':'description','class':'description'
+                        }}) }}
+
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+
+            <!-- /row -->
+            <h6>localisation</h6>
+
+            <!-- /row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        {{ form_widget(form.addresse,{'attr':{
+                            'placeholder':'addresse','class':'addresse'
+                        }}) }}
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+            <div class="row add_bottom_15">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form_widget(form.cite,{'attr':{
+                            'placeholder':'cite','class':'cite'
+                        }}) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        {{ form_widget(form.codePostal,{'attr':{
+                            'placeholder':'code Postal','class':'codePostal'
+                        }}) }}
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+
+
+
+            <div class="row add_bottom_15">
+
+
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+                        <h6>horraire ouverture</h6>
+                        {{ form_widget(form.heureOuverture,{'attr':{
+                            'placeholder':'heureOuverture','class':'heureOuverture'
+                        }}) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h6>horraire fermeture</h6>
+                        {{ form_widget(form.heureFermeture,{'attr':{
+                            'placeholder':'heureFermeture','class':'heureFermeture'
+                        }}) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row add_bottom_25">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        {{ form_widget(form.imageRestaurant,{'attr':{
+                            'placeholder':'imageRestaurant','class':'imageRestaurant'
+                        }}) }}
+
+
+                    </div>
+                    {{ form_widget(form.categorieRestaurant,{'attr':{
+                        'placeholder':'categorie Restaurant','class':'categorieRestaurant'
+                    }}) }}
+                    {{ form_row(form._token) }}
+
+                    <div class="form-group text-center">
+                        <button class="btn_1 gradient">Modifier</button>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+
+        </form>
+
+     </div>
+    </div>
+    </div>
+        <!-- /container -->
+
+    </main>
+    {{ form(form,{'method':'GET'}) }}
+{{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,266 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ajouter un restaurant {% endblock %}
+
+{% block stylesheets %}
+    {#{{ encore_entry_link_tags('app') }}#}
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('frontoffice/css/bootstrap_customized.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontoffice/css/style.css') }}" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="css/submit.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+{% endblock %}
+
+
+
+{% block header %}
+    <header class="header clearfix element_to_stick">
+        <div class="container">
+            <div id="logo">
+                <a href="{{ path('home') }}">
+                    <img src="{{ asset('frontoffice/img/logo_sticky.svg') }}" width="162" height="35" alt="">
+                </a>
+            </div>
+            <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+            <ul id="top_menu">
+                <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
+                <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
+            </ul>
+            <!-- /top_menu -->
+            <a href="#0" class="open_close">
+                <i class="icon_menu"></i><span>Menu</span>
+            </a>
+            <nav class="main-menu">
+                <div id="header_menu">
+                    <a href="{{ path('home') }}" class="open_close">
+                        <i class="icon_close"></i><span>Menu</span>
+                    </a>
+                    <a href="{{ path('home') }}"><img src="frontfooice/img/logo.svg" width="162" height="35" alt=""></a>
+                </div>
+                <ul>
+                    <li class="submenu">
+                        <a href="{{ path('home') }}" class="show-submenu">Home</a>
+
+                    </li>
+                    <li class="submenu">
+                        <a href="{{ path('afficheproduits') }}" class="show-submenu">Produits</a>
+
+                    </li>
+
+                    <li><a href="{{ path('restaurant') }}">Restaurants</a></li>
+                    <li><a href="{{ path ('ajoutrestaurant') }}">ajouter Restaurant</a></li>
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- /header -->
+{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+    <main>
+        <div class="hero_single inner_pages background-image" data-background="url(img/home_section_2.jpg)">
+            <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <h1>Attirez plus de clients</h1>
+                            <p>More bookings from diners around the corner</p>
+                            <a href="#submit" class="btn_1 gradient btn_scroll">Ajouter restaurant</a>
+                        </div>
+                    </div>
+                    <!-- /row -->
+                </div>
+            </div>
+            <div class="wave hero"></div>
+        </div>
+        <!-- /hero_single -->
+
+        <div class="container margin_30_20">
+            <div class="main_title center">
+                <span><em></em></span>
+                <h2>Why Submit to Zven</h2>
+                <p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+            </div>
+
+            <div class="row justify-content-center align-items-center add_bottom_15">
+                <div class="col-lg-6">
+                    <div class="box_about">
+                        <h3>Boost your Bookings</h3>
+                        <p class="lead">Est falli invenire interpretaris id, magna libris sensibus mel id.</p>
+                        <p>Per eu nostrud feugiat. Et quo molestiae persecuti neglegentur. At zril definitionem mei, vel ei choro volumus. An tota nulla soluta has, ei nec essent audiam, te nisl dignissim vel. Ex velit audire perfecto pro, ei mei doming vivendo legendos. Cu sit magna zril, an odio delectus constituto vis. Vis ludus omnesque ne, est veri quaeque ad.</p>
+                        <img src="{{ asset('frontoffice/img/arrow_about.png') }}" alt="" class="arrow_1">
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center d-none d-lg-block">
+                    <img src="{{ asset('frontoffice/img/about_1.svg') }}" alt="" class="img-fluid" width="250" height="250">
+                </div>
+            </div>
+            <!-- /row -->
+            <div class="row justify-content-center align-items-center add_bottom_15">
+                <div class="col-lg-6 text-center d-none d-lg-block">
+                    <img src="{{ asset('frontoffice/img/about_2.svg') }}" alt="" class="img-fluid" width="250" height="250">
+                </div>
+                <div class="col-lg-6">
+                    <div class="box_about">
+                        <h3>Manage Easly</h3>
+                        <p class="lead">Est falli invenire interpretaris id, magna libris sensibus mel id.</p>
+                        <p>Per eu nostrud feugiat. Et quo molestiae persecuti neglegentur. At zril definitionem mei, vel ei choro volumus. An tota nulla soluta has, ei nec essent audiam, te nisl dignissim vel. Ex velit audire perfecto pro, ei mei doming vivendo legendos. Cu sit magna zril, an odio delectus constituto vis. Vis ludus omnesque ne, est veri quaeque ad.</p>
+                        <img src="{{ asset('frontoffice/img/arrow_about.png') }}" alt="" class="arrow_2">
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+            <div class="row justify-content-center align-items-center">
+                <div class="col-lg-6">
+                    <div class="box_about">
+                        <h3>Reach New Customers</h3>
+                        <p class="lead">Est falli invenire interpretaris id, magna libris sensibus mel id.</p>
+                        <p>Per eu nostrud feugiat. Et quo molestiae persecuti neglegentur. At zril definitionem mei, vel ei choro volumus. An tota nulla soluta has, ei nec essent audiam, te nisl dignissim vel. Ex velit audire perfecto pro, ei mei doming vivendo legendos. Cu sit magna zril, an odio delectus constituto vis. Vis ludus omnesque ne, est veri quaeque ad.</p>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 text-center d-none d-lg-block">
+                    <img src="{{ asset('frontoffice/img/about_3.svg') }}" alt="" class="img-fluid" width="250" height="250">
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+
+
+
+        <div class="container margin_60_20" id="submit">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="text-center add_bottom_15">
+                        <h4>Please fill the form below</h4>
+                        <p>Id persius indoctum sed, audiam verear his in, te eum quot comprehensam. Sed impetus vocibus repudiare et.</p>
+                    </div>
+                    <div id="message-register"></div>
+                    <form>
+                        <h6>{{ form_label(form.nomRestaurant,"Nom Restaurant") }}</h6>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+
+
+                                    {{ form_widget(form.nomRestaurant,{'attr':{
+                                        'placeholder':'nom Restaurant','class':'nomRestaurant'
+                                    }}) }}
+
+                                </div>
+                            </div>
+                        </div>
+                        <h6>{{ form_label(form.description,"description") }}</h6>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+
+
+                                    {{ form_widget(form.description,{'attr':{
+                                        'placeholder':'description','class':'description'
+                                    }}) }}
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /row -->
+
+                        <!-- /row -->
+                        <h6>localisation</h6>
+
+                        <!-- /row -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.addresse,{'attr':{
+                                        'placeholder':'addresse','class':'addresse'
+                                    }}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /row -->
+                        <div class="row add_bottom_15">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_widget(form.cite,{'attr':{
+                                        'placeholder':'cite','class':'cite'
+                                    }}) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_widget(form.codePostal,{'attr':{
+                                        'placeholder':'code Postal','class':'codePostal'
+                                    }}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /row -->
+
+
+
+                        <div class="row add_bottom_15">
+
+
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <h6>horraire ouverture</h6>
+                                    {{ form_widget(form.heureOuverture,{'attr':{
+                                        'placeholder':'heureOuverture','class':'heureOuverture'
+                                    }}) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <h6>horraire fermeture</h6>
+                                    {{ form_widget(form.heureFermeture,{'attr':{
+                                        'placeholder':'heureFermeture','class':'heureFermeture'
+                                    }}) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row add_bottom_25">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.imageRestaurant,{'attr':{
+                                        'placeholder':'imageRestaurant','class':'imageRestaurant'
+                                    }}) }}
+
+
+                                </div>
+                                {{ form_widget(form.categorieRestaurant,{'attr':{
+                                    'placeholder':'categorie Restaurant','class':'categorieRestaurant'
+                                }}) }}
+                                {{ form_row(form._token) }}
+                                <div class="form-group text-center">
+                                    <button class="btn_1 gradient">Ajouter</button>
+                                </div>
+                            </div>
+                            <!-- /row -->
+
+                            {{ form(form,{'method':'GET'}) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /container -->
+
+    </main>
+    <!-- /main -->
+    {{ form_end(form) }}
+{% endblock %}
+
+
+

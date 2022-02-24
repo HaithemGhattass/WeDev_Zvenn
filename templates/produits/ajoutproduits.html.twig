@@ -1,0 +1,231 @@
+
+{% extends 'HomeFront.html.twig' %}
+{% block title %}Ajouter un restaurant {% endblock %}
+
+{% block stylesheets %}
+    {#{{ encore_entry_link_tags('app') }}#}
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('frontoffice/css/bootstrap_customized.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontoffice/css/style.css') }}" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="{{ asset('frontoffice/css/wizard.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('frontoffice/css/custom.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+    <header class="header clearfix element_to_stick">
+        <div class="container">
+            <div id="logo">
+                <a href="{{ path('home') }}">
+                    <img src="{{ asset('frontoffice/img/logo_sticky.svg') }}" width="162" height="35" alt="">
+                </a>
+            </div>
+            <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+            <ul id="top_menu">
+                <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
+                <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
+            </ul>
+            <!-- /top_menu -->
+            <a href="#0" class="open_close">
+                <i class="icon_menu"></i><span>Menu</span>
+            </a>
+            <nav class="main-menu">
+                <div id="header_menu">
+                    <a href="{{ path('home') }}" class="open_close">
+                        <i class="icon_close"></i><span>Menu</span>
+                    </a>
+                    <a href="{{ path('home') }}"><img src="frontfooice/img/logo.svg" width="162" height="35" alt=""></a>
+                </div>
+                <ul>
+                    <li class="submenu">
+                        <a href="{{ path('home') }}" class="show-submenu">Home</a>
+                        <ul>
+                            <li><a href="index.html">Address Autocomplete</a></li>
+                            <li><a href="index-2.html">Search by Keyword</a></li>
+                            <li><a href="index-3.html">Home Version 2</a></li>
+                            <li><a href="index-4.html">Video Background</a></li>
+                            <li><a href="index-5.html">GDPR Cookie Bar EU Law</a></li>
+                            <li><a href="header-user-logged.html">Header User Logged</a></li>
+                            <li><a href="header-cart-top.html">Header Cart Top</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="{{ path('home') }}" class="show-submenu">Listing</a>
+                        <ul>
+                            <li class="third-level"><a href="#0">List pages</a>
+                                <ul>
+                                    <li><a href="grid-listing-filterscol.html">List default</a></li>
+                                    <li><a href="grid-listing-filterscol-map.html">List with map</a></li>
+                                    <li><a href="listing-map.html">List side map</a></li>
+                                    <li><a href="grid-listing-masonry.html">List Masonry Filter</a></li>
+                                </ul>
+                            </li>
+                            <li class="third-level"><a href="#0">Detail pages</a>
+                                <ul>
+                                    <li><a href="detail-restaurant.html">Detail page 1</a></li>
+                                    <li><a href="detail-restaurant-2.html">Detail page 2</a></li>
+                                    <li><a href="detail-restaurant-3.html">Detail page 3</a></li>
+                                </ul>
+                            </li>
+                            <li class="third-level"><a href="#0">OpenStreetMap</a>
+                                <ul>
+                                    <li><a href="grid-listing-filterscol-openstreetmap.html">List with map</a></li>
+                                    <li><a href="listing-map-openstreetmap.html">List side map</a></li>
+                                    <li><a href="grid-listing-masonry-openstreetmap.html">List Masonry Filter</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="submit-restaurant.html">Submit Restaurant</a></li>
+                            <li><a href="submit-rider.html">Submit Rider</a></li>
+                            <li><a href="order.html">Order</a></li>
+                            <li><a href="confirm.html">Confirm Order</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="#0" class="show-submenu">Other Pages</a>
+                        <ul>
+                            <li><a href="404.html">404 Error</a></li>
+                            <li><a href="help.html">Help and Faq</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="leave-review.html">Leave a review</a></li>
+                            <li><a href="contacts.html">Contacts</a></li>
+                            <li><a href="coming_soon/index.html">Coming Soon</a></li>
+                            <li><a href="register.html">Sign Up</a></li>
+                            <li><a href="icon-pack-1.html">Icon Pack 1</a></li>
+                            <li><a href="icon-pack-2.html">Icon Pack 2</a></li>
+                            <li><a href="shortcodes.html">Shortcodes</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- /header -->
+{% endblock %}
+
+
+
+
+{% block body %}
+    {{ form_start(form) }}
+    <main>
+        <div class="hero_single inner_pages background-image" data-background="url(img/hero_submit_2.jpg)">
+            <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-9 col-lg-10 col-md-8">
+                            <h1>Ajouter Produit</h1>
+                            <p>A un de vos restaurants</p>
+                            <a href="#apply" class="btn_1 gradient btn_scroll">Ajouter Produit</a>
+                        </div>
+                    </div>
+                    <!-- /row -->
+                </div>
+            </div>
+            <div class="wave hero gray"></div>
+        </div>
+        <!-- /hero_single -->
+
+
+
+        <div class="container margin_60_40" id="apply">
+
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
+                    <div class="main_title center">
+                        <span><em></em></span>
+                        <h2>Apply Now</h2>
+                        <p>Note that you must be over 18 years old</p>
+                    </div>
+
+                    <div id="wizard_container">
+                        <div id="top-wizard">
+                            <div id="progressbar"></div>
+                        </div>
+                        <!-- /top-wizard -->
+                        <form id="wrapped" method="POST">
+                            <input id="website" name="website" type="text" value="">
+                            <!-- Leave for security protection, read docs for details -->
+                            <div id="middle-wizard">
+                                {{ form_start(form) }}
+
+                                <div class="submit step">
+                                    <h3 class="main_question"><strong>5/5</strong>nouveau produit</h3>
+                                    <div class="form-group">
+                                        {{ form_widget(form.nomProduit,{'attr':{
+                                            'placeholder':'nom Produit','class':'nomProduit'
+                                        }}) }}
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_widget(form.DescriptionProduit,{'attr':{
+                                            'placeholder':'description Produit','class':'description Produit'
+                                        }}) }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        {{ form_widget(form.imageProduit) }}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                {{ form_widget(form.prixProduit,{'attr':{
+                                                    'placeholder':'prix Produit','class':'prix Produit'
+                                                }}) }}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!-- /row -->
+
+                                </div>
+                                <!-- /step-->
+
+                            </div>
+                            <!-- /middle-wizard -->
+                            <div id="bottom-wizard">
+                                <button type="button" name="backward" class="backward">Prev</button>
+                                <button type="button" name="forward" class="forward">Next</button>
+                                <button type="submit" name="process" class="submit">Submit</button>
+
+
+
+
+                            </div>
+
+                            <!-- /bottom-wizard -->
+                        </form>
+                        {{ form_end(form) }}
+                    </div>
+                    <!-- /Wizard container -->
+                </div>
+                <!-- /col -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+
+    </main>
+
+{% endblock %}
+
+
+
+
+
+{% block javascripts %}
+    <!-- COMMON SCRIPTS -->
+    <script src="{{ asset('frontoffice/js/common_scripts.min.js') }}"></script>
+    <script src="{{ asset('frontoffice/js/common_func.js') }}"></script>
+    <script src="{{ asset('frontoffice/assets/validate.js') }}"></script>
+
+    <!-- SPECIFIC SCRIPTS -->
+    <script src="{{ asset('frontoffice/js/wizard/wizard_scripts.js') }}"></script>
+    <script src="{{ asset('frontoffice/js/wizard/wizard_func.js') }}"></script>
+
+{% endblock %}
