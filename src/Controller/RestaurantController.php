@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Restaurant;
 use App\Form\RestaurantType;
 use App\Repository\ProduitsRepository;
+use App\Repository\ReclamationRepository;
+use App\Repository\ReplyRepository;
 use App\Repository\RestaurantRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -133,12 +135,15 @@ class RestaurantController extends AbstractController
      * @return Response
      * @Route ("produits/restaurant/{id}",name="listbyrestaurant")
      */
-    function ListProduitByName(RestaurantRepository $repRestaurant,ProduitsRepository $repProduit,$id){
+    function ListProduitByName(RestaurantRepository $repRestaurant,ProduitsRepository $repProduit,ReclamationRepository $repReclamation,ReplyRepository $repReply,$id){
         $restaurant=$repRestaurant->find($id);
         $produit=$repProduit->listproduitbyrestaurant($restaurant->getId());
+        $reclamation=$repReclamation->listreclamationbyrestaurant($restaurant->getId());
+
+
         return $this->render("restaurant/showproduct.html.twig",
             [
-                'restaurant'=>$restaurant,'produits'=>$produit
+                'restaurant'=>$restaurant,'produits'=>$produit,'reclamation'=>$reclamation
             ]);
 
     }

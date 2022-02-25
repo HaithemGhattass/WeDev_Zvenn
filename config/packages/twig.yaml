@@ -8,4 +8,6 @@ twig:
         user: '@App\Twig\UserExension'
         prod: '@App\Twig\ProdExtension'
         rest: '@App\Twig\RestExtension'
+        rec: '@App\Twig\RecExtension'
+        rep: '@App\Twig\RepExtension'
 

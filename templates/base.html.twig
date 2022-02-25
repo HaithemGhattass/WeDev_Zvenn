@@ -3,17 +3,264 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
+
         {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
         {% endblock %}
 
         {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
+
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+    {%if app.user%}
+        <header class="header black_nav clearfix element_to_stick">
+            <div class="container">
+                <div id="logo">
+                    <a href="index.html">
+                        <img src="img/logo_sticky.svg" width="162" height="35" alt="">
+                    </a>
+                </div>
+                <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+                <ul id="top_menu" class="drop_user">
+                    <li>
+                        <div class="dropdown user clearfix">
+                            <a href="{{ path('user')}}" data-toggle="dropdown">
+                                <figure><img src={{asset('/uploads/' ~ app.user.nomimage ) }}  alt=""></figure><span> {{  app.user.pseudo }}</span>
+                            </a>
+                            <div class="dropdown-menu">
+                                <div class="dropdown-menu-content">
+                                    <ul>
+                                        <li><a href="{{ path('user')}}"><i class="icon_document"></i>Mon profil</a></li>
+                                        <li><a href="{{ path('dashboard') }}"><i class="icon_heart"></i>Dashboard</a></li>
+                                        <li><a href="{{ path('app_logout') }}"><i class="icon_key"></i>Log out</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /dropdown -->
+                    </li>
+                </ul>
+                <!-- /top_menu -->
+                <a href="#0" class="open_close">
+                    <i class="icon_menu"></i><span>Menu</span>
+                </a>
+                <nav class="main-menu">
+                    <div id="header_menu">
+                        <a href="#0" class="open_close">
+                            <i class="icon_close"></i><span>Menu</span>
+                        </a>
+                        <a href="index.html"><img src="img/logo.svg" width="162" height="35" alt=""></a>
+                    </div>
+                    <ul>
+                        <li class="submenu">
+                            <a href="{{ path('home')}}" class="show-submenu">Home</a>
+                            <ul>
+                                <li><a href="index.html">Address Autocomplete</a></li>
+                                <li><a href="index-2.html">Search by Keyword</a></li>
+                                <li><a href="index-3.html">Home Version 2</a></li>
+                                <li><a href="index-4.html">Video Background</a></li>
+                                <li><a href="index-5.html">GDPR Cookie Bar EU Law</a></li>
+                                <li><a href="header-user-logged.html">Header User Logged</a></li>
+                                <li><a href="header-cart-top.html">Header Cart Top</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#0" class="show-submenu">Listing</a>
+                            <ul>
+                                <li class="third-level"><a href="#0">List pages</a>
+                                    <ul>
+                                        <li><a href="grid-listing-filterscol.html">List default</a></li>
+                                        <li><a href="grid-listing-filterscol-map.html">List with map</a></li>
+                                        <li><a href="listing-map.html">List side map</a></li>
+                                        <li><a href="grid-listing-masonry.html">List Masonry Filter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="third-level"><a href="#0">Detail pages</a>
+                                    <ul>
+                                        <li><a href="detail-restaurant.html">Detail page 1</a></li>
+                                        <li><a href="detail-restaurant-2.html">Detail page 2</a></li>
+                                        <li><a href="detail-restaurant-3.html">Detail page 3</a></li>
+                                    </ul>
+                                </li>
+                                <li class="third-level"><a href="#0">OpenStreetMap</a>
+                                    <ul>
+                                        <li><a href="grid-listing-filterscol-openstreetmap.html">List with map</a></li>
+                                        <li><a href="listing-map-openstreetmap.html">List side map</a></li>
+                                        <li><a href="grid-listing-masonry-openstreetmap.html">List Masonry Filter</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="submit-restaurant.html">Submit Restaurant</a></li>
+                                <li><a href="submit-rider.html">Submit Rider</a></li>
+                                <li><a href="order.html">Order</a></li>
+                                <li><a href="confirm.html">Confirm Order</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#0" class="show-submenu">Other Pages</a>
+                            <ul>
+                                <li><a href="404.html">404 Error</a></li>
+                                <li><a href="help.html">Help and Faq</a></li>
+                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="leave-review.html">Leave a review</a></li>
+                                <li><a href="contacts.html">Contacts</a></li>
+                                <li><a href="coming_soon/index.html">Coming Soon</a></li>
+                                <li><a href="register.html">Sign Up</a></li>
+                                <li><a href="icon-pack-1.html">Icon Pack 1</a></li>
+                                <li><a href="icon-pack-2.html">Icon Pack 2</a></li>
+                                <li><a href="shortcodes.html">Shortcodes</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ path('restaurant') }}">Restaurants</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    {% else %}
+        <header class="header black_nav clearfix element_to_stick">
+            <div class="container">
+                <div id="logo">
+                    <a href="index.html">
+                        <img src="img/logo_sticky.svg" width="162" height="35" alt="">
+                    </a>
+                </div>
+                <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+                <ul id="top_menu">
+                    <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
+                    <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
+                </ul>
+                <!-- /top_menu -->
+                <a href="#0" class="open_close">
+                    <i class="icon_menu"></i><span>Menu</span>
+                </a>
+                <nav class="main-menu">
+                    <div id="header_menu">
+                        <a href="#0" class="open_close">
+                            <i class="icon_close"></i><span>Menu</span>
+                        </a>
+                        <a href="index.html"><img src="img/logo.svg" width="162" height="35" alt=""></a>
+                    </div>
+                    <ul>
+                        <li class="submenu">
+                            <a href="{{ path('user')}}" class="show-submenu">Home</a>
+                            <ul>
+                                <li><a href="index.html">Address Autocomplete</a></li>
+                                <li><a href="index-2.html">Search by Keyword</a></li>
+                                <li><a href="index-3.html">Home Version 2</a></li>
+                                <li><a href="index-4.html">Video Background</a></li>
+                                <li><a href="index-5.html">GDPR Cookie Bar EU Law</a></li>
+                                <li><a href="header-user-logged.html">Header User Logged</a></li>
+                                <li><a href="header-cart-top.html">Header Cart Top</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#0" class="show-submenu">Listing</a>
+                            <ul>
+                                <li class="third-level"><a href="#0">List pages</a>
+                                    <ul>
+                                        <li><a href="grid-listing-filterscol.html">List default</a></li>
+                                        <li><a href="grid-listing-filterscol-map.html">List with map</a></li>
+                                        <li><a href="listing-map.html">List side map</a></li>
+                                        <li><a href="grid-listing-masonry.html">List Masonry Filter</a></li>
+                                    </ul>
+                                </li>
+                                <li class="third-level"><a href="#0">Detail pages</a>
+                                    <ul>
+                                        <li><a href="detail-restaurant.html">Detail page 1</a></li>
+                                        <li><a href="detail-restaurant-2.html">Detail page 2</a></li>
+                                        <li><a href="detail-restaurant-3.html">Detail page 3</a></li>
+                                    </ul>
+                                </li>
+                                <li class="third-level"><a href="#0">OpenStreetMap</a>
+                                    <ul>
+                                        <li><a href="grid-listing-filterscol-openstreetmap.html">List with map</a></li>
+                                        <li><a href="listing-map-openstreetmap.html">List side map</a></li>
+                                        <li><a href="grid-listing-masonry-openstreetmap.html">List Masonry Filter</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="submit-restaurant.html">Submit Restaurant</a></li>
+                                <li><a href="submit-rider.html">Submit Rider</a></li>
+                                <li><a href="order.html">Order</a></li>
+                                <li><a href="confirm.html">Confirm Order</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="#0" class="show-submenu">Other Pages</a>
+                            <ul>
+                                <li><a href="404.html">404 Error</a></li>
+                                <li><a href="help.html">Help and Faq</a></li>
+                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="leave-review.html">Leave a review</a></li>
+                                <li><a href="contacts.html">Contacts</a></li>
+                                <li><a href="coming_soon/index.html">Coming Soon</a></li>
+                                <li><a href="register.html">Sign Up</a></li>
+                                <li><a href="icon-pack-1.html">Icon Pack 1</a></li>
+                                <li><a href="icon-pack-2.html">Icon Pack 2</a></li>
+                                <li><a href="shortcodes.html">Shortcodes</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#0">Buy this template</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
+            <div class="modal_header">
+                <h3>Sign In</h3>
+            </div>
+            <form method="post">
+                <div class="sign-in-wrapper">
+                    {#  <a href="#0" class="social_bt facebook">Login with Facebook</a>
+                    <a href="#0" class="social_bt google">Login with Google</a>#}
+                    <div class="divider"><span>Or</span></div>
+                    <div class="form-group">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+                        <label>Email</label>
+                        <input  value="{{ last_username }}" type="email" class="form-control" name="email" id="email">
+                        <i class="icon_mail_alt"></i>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input  id="inputPassword" type="password" class="form-control" name="password" id="password"  autocomplete="current-password">
+
+                        <input type="hidden" name="_csrf_token"
+                               value="{{ csrf_token('authenticate') }}"
+                        >
+                        <i class="icon_lock_alt"></i>
+
+                    </div>
+                    <div class="clearfix add_bottom_15">
+                        <div class="checkboxes float-left">
+                            <label class="container_check">Remember me
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="float-right"><a id="forgot" href="javascript:void(0);">Forgot Password?</a></div>
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" value="Log In" class="btn_1 full-width mb_5">
+                        Don’t have an account? <a href="register">Sign up</a>
+                    </div>
+                    <div id="forgot_pw">
+                        <div class="form-group">
+                            <label>Please confirm login email below</label>
+                            <input type="email" class="form-control" name="email_forgot" id="email_forgot">
+                            <i class="icon_mail_alt"></i>
+                        </div>
+                        <p>You will receive an email containing a link allowing you to reset your password to a new preferred one.</p>
+                        <div class="text-center"><input type="submit" value="Reset Password" class="btn_1"></div>
+                    </div>
+                </div>
+            </form>
+            <!--form -->
+        </div>
+    {% endif %}
+        {% block body %}
+
+        {% endblock %}
+
     </body>
+
 </html>

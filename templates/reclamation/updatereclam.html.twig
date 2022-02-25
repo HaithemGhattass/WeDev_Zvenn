@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="FooYes - Quality delivery or takeaway food">
+    <meta name="author" content="Ansonika">
+    <title>FooYes - Quality delivery or takeaway food</title>
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="/frontoffice/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="/frontoffice/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/frontoffice/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="/frontoffice/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="/frontoffice/img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="/frontoffice/css/bootstrap_customized.min.css" rel="stylesheet">
+    <link href="/frontoffice/css/style.css" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="/frontoffice/css/review.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="/frontoffice/css/custom.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+<main class="bg_gray">
+
+    <div class="container margin_60_20">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="box_general write_review">
+                    <h1 class="add_bottom_15">Ecrire votre reclamation</h1>
+                    <label class="d-block add_bottom_15">votre opinion</label>
+                    <div class="row">
+                        <div class="col-md-3 add_bottom_25">
+                            <div class="add_bottom_15">Food Quality <strong class="food_quality_val"></strong></div>
+                            <input data-orientation="horizontal" id="food_quality" value="0"  type="range" min="0" max="10" step="1" {{ form_widget(form.foodqulaite,{'attr':{'class':'RangeType' }}) }}
+                        </div>
+
+                        <div class="col-md-3 add_bottom_25">
+                            <div class="add_bottom_15">Prix <strong class="price_val"></strong></div>
+                            <input type="range" value="0" min="0" max="10" step="1"  data-orientation="horizontal" id="price" {{ form_widget(form.price,{'attr':{'class':'RangeType' }})}}
+                        </div>
+                        <div class="col-md-3 add_bottom_25">
+                            <div class="add_bottom_15">service <strong class="service_val"></strong></div>
+                            <input type="range" value="0" min="0" max="10" step="1" data-orientation="horizontal" id="service"  {{ form_widget(form.service,{'attr':{'class':'RangeType' }}) }}
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Titre de votre reclamation</label>
+                        {{ form_errors(form.titre) }}
+                        {{ form_widget(form.titre,{'attr':{'placeholder':'titre'}}) }}
+
+                    </div>
+                    <div class="form-group">
+                        <label>Votre reclamation</label>
+                        {{ form_errors(form.description) }}
+                        <textarea class="form-control" style="height: 180px;" placeholder="Ecrire votre reclamation ici!!" {{ form_widget(form.description,{'attr':{'placeholder':'description','class':'description'}}) }}</textarea>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Ajouter une photo pour mieux expliquer</label>
+                        <div class="fileupload">
+
+                            {{ form_widget(form.image,{'attr':{'class':'image'}}) }}
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkboxes float-left add_bottom_15 add_top_15">
+                                <label class="container_check">Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.
+
+                                </label>
+                            </div>
+                            <div class="form-group text-center">
+                                <button class="btn_1 gradient">Ajoutter</button>
+                            </div>
+                            {{ form(form,{'method':'GET'}) }}
+
+
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                    <!-- /row -->
+                </div>
+                <!-- /container -->
+
+
+                <!-- /main -->
+
+
+
+                <div id="toTop"></div><!-- Back to top button -->
+
+
+
+
+                <!-- COMMON SCRIPTS -->
+                <script src="{{ asset('frontoffice/js/common_scripts.min.js') }}"></script>
+                <script src="{{ asset('frontoffice/js/common_func.js') }}"></script>
+                <script src="{{ asset('frontoffice/assets/validate.js') }}"></script>
+
+                <!-- SPECIFIC SCRIPTS -->
+                <script src="{{ asset("/frontoffice/js/specific_review.js") }}"></script>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+</body>
+</html>

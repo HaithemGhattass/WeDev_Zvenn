@@ -1,0 +1,61 @@
+
+
+{% extends 'HomeFront.html.twig' %}
+{% block title %}Modifier Votre profil {% endblock %}
+
+{% block stylesheets %}
+    {#{{ encore_entry_link_tags('app') }}#}
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('frontoffice/css/bootstrap_customized.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontoffice/css/style.css') }}" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="{{ asset('frontoffice/css/submit.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('frontoffice/css/custom.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <main style="margin-top: 60px" >
+
+        <!-- /hero_single -->
+        <div class="container margin_60_20" id="submit">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="text-center add_bottom_15">
+                        <h4>Veuillez remplir ce champs</h4>
+                        <p>Id persius indoctum sed, audiam verear his in, te eum quot comprehensam. Sed impetus vocibus repudiare et.</p>
+                    </div>
+                    <div id="message-register"></div>
+
+
+                     <form method="post">
+                         <div class="row">
+                             <div class="col-lg-12">
+                                 <div class="form-group">
+
+                                     <input name="pass" type="password" class="form-control" placeholder="ecrire mot de passe">
+                                     <input name="pass2" type="password" class="form-control" placeholder="repeter mot de passe ">
+                                     {% for message in app.flashes('error') %}
+                                         <p style="color: red" >{{ message }}</p>
+                                     {% endfor %}
+                                     <button type="submit">Changer mot de passe</button>
+
+                                 </div>
+                             </div>
+                         </div>
+
+                     </form>
+                </div>
+
+            </div>
+        </div>
+        <!-- /container -->
+
+    </main>
+
+
+{% endblock %}

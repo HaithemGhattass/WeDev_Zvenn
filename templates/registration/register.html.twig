@@ -13,6 +13,8 @@
     <title>FooYes - Quality delivery or takeaway food</title>
 
     <!-- Favicons-->
+    <link href="{{ asset('/frontoffice/css/bootstrap_customized.min.css') }}" rel="stylesheet">
+
     <link rel="shortcut icon" href="{{ asset('frontoffice/img/favicon.ico') }}" type="image/x-icon">
     <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('frontoffice/img/apple-touch-icon-57x57-precomposed.png') }}">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('frontoffice/img/apple-touch-icon-72x72-precomposed.png') }}">
@@ -46,38 +48,45 @@
             <a href="#0" class="social_bt google">Register with Google</a>
         </div>
         <div class="divider"><span>Or</span></div>
-        {{ form_start(registrationForm) }}
+        {{ form_start(registrationForm,{'attr':{'novalidate': 'novalidate'}}) }}
+
         <form autocomplete="off">
             <div class="form-group">
+                {{ form_errors(registrationForm.nom) }}
                 {{ form_widget(registrationForm.nom,{'attr':{
                     'placeholder':'nom','class':'nom'
                 }}) }}
                 <i class="icon_pencil-edit"></i>
             </div>
             <div class="form-group">
+                {{ form_errors(registrationForm.prenom) }}
                 {{ form_widget(registrationForm.prenom,{'attr':{
                     'placeholder':'prenom','class':'prenom'
                 }}) }}
                 <i class="icon_pencil-edit"></i>
             </div>
             <div class="form-group">
+                {{ form_errors(registrationForm.email) }}
                 {{ form_widget(registrationForm.email,{'attr':{
                     'placeholder':'email','class':'email'
                 }}) }}
                 <i class="icon_mail_alt"></i>
             </div>
             <div class="form-group">
+                {{ form_errors(registrationForm.plainPassword) }}
                 {{ form_widget(registrationForm.plainPassword,{'attr':{
                     'placeholder':'password','class':'password'
                 }}) }}
-                <i class="icon_lock_alt"></i>
+
             </div>
             <div class="form-group">
+                <div class="alert alert-warning" role="alert">{{ form_errors(registrationForm.adresse) }} </div>
                 {{ form_widget(registrationForm.adresse,{'attr':{
                     'placeholder':'adresse','class':'adresse'
                 }}) }}
             </div>
             <div class="form-group">
+                <div class="some_class">{{ form_errors(registrationForm.numTel) }} </div>
                 {{ form_widget(registrationForm.numTel,{'attr':{
                     'placeholder':'numero telephone','class':'numTel'
                 }}) }}
@@ -96,10 +105,10 @@
             <div class="form-group">
                 {{ form_widget(registrationForm.agreeTerms)}}
             </div>
-
+            {{ form_row(registrationForm._token) }}
             <div class="form-group text-center">
                 <button class="btn_1 gradient">Register</button>
-                {{ form(registrationForm,{'method':'GET'}) }}
+
             </div>
 
 

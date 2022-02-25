@@ -8,7 +8,7 @@
                 <div class="card my-4">
                     <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                            <h6 class="text-white text-capitalize ps-3">tableau des restaurants</h6>
+                            <h6 class="text-white text-capitalize ps-3">tableau des utilisateur</h6>
                         </div>
                     </div>
                     <div class="card-body px-0 pb-2">
@@ -16,51 +16,75 @@
                             <table class="table align-items-center mb-0">
                                 <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Restaurant</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">categorie</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date ajout</th>
-                                    <th class="text-secondary opacity-7"></th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">nom et prenom</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">email</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">etat</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date creation</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Role</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for r in restaurant %}
+                                {% for u in user %}
                                 <tr>
                                     <td>
 
                                         <div class="d-flex px-2 py-1">
                                             <div>
-                                                <img src="{{ asset('/uploads/' ~ r.nomImage ) }}" class="avatar avatar-sm me-3 border-radius-lg" alt="user1">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm">{{ r.nomRestaurant }}</h6>
-                                                <p class="text-xs text-secondary mb-0">{{ r.user.email }}</p>
+                                                <h6 class="mb-0 text-sm">{{ u.nom }}</h6>
+                                                <p class="text-xs text-secondary mb-0">{{ u.prenom }}</p>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{ r.categorieRestaurant }}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{ u.email }}</p>
                                     </td>
                                     <td class="align-middle text-center text-sm">
-                                    {% if r.status=="verified" %}
+                                          <a href="{{ path ('updateetat',{'id':u.id}) }}" class="text-secondary font-weight-bold text-xs"  >
+
+                                    {% if u.etat=="1" %}
+
                                         <span class="badge badge-sm bg-gradient-success">verified</span>
+
                                         {% else %}
-                                        <span class="badge badge-sm bg-gradient-danger">archived</span>
+                                        <span class="badge badge-sm bg-gradient-danger">Not verified</span>
+
                                         {% endif %}
+                                           </a>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <span class="text-secondary text-xs font-weight-bold">{{ r.createdAt|date('d/m/y h:m:s')}} </span>
+                                        <span class="text-secondary text-xs font-weight-bold">{{ u.datecreation|date('d/m/y h:m:s')}} </span>
                                     </td>
                                     <td class="align-middle">
-                                    {% if r.status == 'not verified' %}
-                                        <a href="{{ path ('updatearchive',{'id':r.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                            verifier
+                                      {% set break = false %}
+                                    {% for unrole in u.roles %}
+{% if break == false %}
+
+                                         {% if unrole == 'ROLE_ADMIN'%}
+  {% set break = true %}
+                            <a href="{{ path ('updaterole',{'id':u.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                   <span class="badge badge-sm bg-gradient-success">MAKE AS ADMIN</span
                                         </a>
+
                                         {% else %}
-                                        <a href="{{ path ('updatearchive',{'id':r.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                            archiver
+                                       <a href="{{ path ('updaterole',{'id':u.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                           <span class="badge badge-sm bg-gradient-success">MAKE AS USER</span>
+
                                         </a>
-                                        {% endif %}
+
+
+{% endif %}
+
+{% endif %}
+{% endfor %}
+
+                                    </td>
+                                       </td>
+                                    <td class="align-middle text-center">
+                                        <a href="{{ path ('deleteuser',{'id':u.id}) }}" class="text-secondary text-xs font-weight-bold"><p style="color: red">x</p></a>
+
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -76,65 +100,8 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="card my-4">
-                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                            <h6 class="text-white text-capitalize ps-3">Produits</h6>
-                        </div>
-                    </div>
-                    <div class="card-body px-0 pb-2">
-                        <div class="table-responsive p-0">
-                            <table class="table align-items-center justify-content-center mb-0">
-                                <thead>
-                                <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Image</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Nom</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Restaurant</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  opacity-7 ps-2">Prix</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder  opacity-7 ps-2">Date Ajout</th>
 
-                                </tr>
-                                </thead>
 
-                                <tbody>
-                                    {% for p in prod.getProduits %}
-
-                                <tr>
-                                    <td>
-                                        <div class="d-flex px-2">
-                                            <div>
-                                                <img src="{{ asset('/uploads/' ~ p.nomimageProduit ) }}" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
-                                            </div>
-                                            <div class="my-auto">
-                                                <h6 class="mb-0 text-sm"></h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="text-sm font-weight-bold mb-0">{{ p.nomProduit }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="text-xs font-weight-bold">{{p.restaurant.nomRestaurant}}</span>
-                                    </td>
-                                    <td>
-                                        <span class="text-sm font-weight-bold mb-0">{{ p.prixProduit }} dt</span>
-                                    </td>
-                                    <td>
-                                        <span class="text-xs font-weight-bold">{{ p.createdAt|date('d/m/y h:m:s')}}</span>
-                                    </td>
-
-                                </tr>
-                                    {% endfor %}
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         {% endblock %}
 
     {% block body %}

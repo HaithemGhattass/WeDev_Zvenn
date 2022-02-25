@@ -23,7 +23,7 @@ class BackHomeController {
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
-     * @Route ("/dashboard",name="dashboard")
+     * @Route ("/admin/dashboard",name="dashboard")
      */
     public function index(): Response
     {

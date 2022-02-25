@@ -8,11 +8,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity("email"), message="There is already an account with this email")
+ *  * @UniqueEntity("pseudo"), message="There is already an account with this email")
  */
 class User implements UserInterface
 {
@@ -20,11 +22,14 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+   * @Assert\Email()
+
      */
     private $email;
 
@@ -40,15 +45,20 @@ class User implements UserInterface
     private $password;
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="IL FAUT REMPLIR LE CHAMPS")
      */
     private $nom;
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\NotBlank(message="IL FAUT REMPLIR LE CHAMPS")
+
+
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="datetime")
+
      */
     private $dateCreation;
     /**
@@ -61,14 +71,20 @@ class User implements UserInterface
     private $nomImage;
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="IL FAUT REMPLIR LE CHAMPS")
+
      */
     private $adresse;
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="IL FAUT REMPLIR LE CHAMPS")
+
      */
     private $numTel;
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="IL FAUT REMPLIR LE CHAMPS")
+
      */
     private $pseudo;
     /**

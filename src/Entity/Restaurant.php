@@ -91,9 +91,15 @@ class Restaurant
      */
     private $produits;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Reclamation::class, mappedBy="restaurant", orphanRemoval=true)
+     */
+    private $reclamations;
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
+        $this->reclamations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -281,6 +287,36 @@ class Restaurant
             // set the owning side to null (unless already changed)
             if ($produit->getRestaurant() === $this) {
                 $produit->setRestaurant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reclamation>
+     */
+    public function getReclamations(): Collection
+    {
+        return $this->reclamations;
+    }
+
+    public function addReclamation(Reclamation $reclamation): self
+    {
+        if (!$this->reclamations->contains($reclamation)) {
+            $this->reclamations[] = $reclamation;
+            $reclamation->setRestaurant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReclamation(Reclamation $reclamation): self
+    {
+        if ($this->reclamations->removeElement($reclamation)) {
+            // set the owning side to null (unless already changed)
+            if ($reclamation->getRestaurant() === $this) {
+                $reclamation->setRestaurant(null);
             }
         }
 

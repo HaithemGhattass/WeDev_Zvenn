@@ -19,53 +19,11 @@
 
 
 
-{% block header %}
-    <header class="header clearfix element_to_stick">
-        <div class="container">
-            <div id="logo">
-                <a href="{{ path('home') }}">
-                    <img src="{{ asset('frontoffice/img/logo_sticky.svg') }}" width="162" height="35" alt="">
-                </a>
-            </div>
-            <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
-            <ul id="top_menu">
-                <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
-                <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
-            </ul>
-            <!-- /top_menu -->
-            <a href="#0" class="open_close">
-                <i class="icon_menu"></i><span>Menu</span>
-            </a>
-            <nav class="main-menu">
-                <div id="header_menu">
-                    <a href="{{ path('home') }}" class="open_close">
-                        <i class="icon_close"></i><span>Menu</span>
-                    </a>
-                    <a href="{{ path('home') }}"><img src="frontfooice/img/logo.svg" width="162" height="35" alt=""></a>
-                </div>
-                <ul>
-                    <li class="submenu">
-                        <a href="{{ path('home') }}" class="show-submenu">Home</a>
 
-                    </li>
-                    <li class="submenu">
-                        <a href="{{ path('afficheproduits') }}" class="show-submenu">Produits</a>
-
-                    </li>
-
-                    <li><a href="{{ path('restaurant') }}">Restaurants</a></li>
-                    <li><a href="{{ path ('ajoutrestaurant') }}">ajouter Restaurant</a></li>
-
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <!-- /header -->
-{% endblock %}
 
 {% block body %}
     {{ form_start(form) }}
-    <main>
+    <main style="margin-top: 100px">
         <div class="hero_single inner_pages background-image" data-background="url(img/home_section_2.jpg)">
             <div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)">
                 <div class="container">

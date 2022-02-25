@@ -34,6 +34,7 @@ class RegistrationController extends AbstractController
             );
             $user->setDateCreation(new \DateTime());
             $user->setEtat(0);
+            $user->setRoles(array('ROLE_ADMIN'));
 
             $entityManager->persist($user);
             $entityManager->flush();
@@ -44,11 +45,16 @@ class RegistrationController extends AbstractController
                 $request,
                 $authenticator,
                 'main' // firewall name in security.yaml
+
             );
+            return $this->redirectToRoute('home');
+
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
+
+
 }
