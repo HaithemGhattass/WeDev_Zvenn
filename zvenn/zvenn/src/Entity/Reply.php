@@ -4,10 +4,9 @@ namespace App\Entity;
 
 use App\Repository\ReplyRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Vangrg\ProfanityBundle\Validator\Constraints as ProfanityAssert;
+
 
 /**
  * @ORM\Entity(repositoryClass=ReplyRepository::class)
@@ -23,15 +22,15 @@ class Reply
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Ecrire votre titre")
+     * @Assert\NotNull
+     *  @Assert\Length(
+     *      min = 2,
+     *      max = 15,
+     *      minMessage = "titre Reclamation doit etre au minimum {{ limit }} characters long",
+     *      maxMessage = "titre Reclamation ne doit pas passer {{ limit }} characters")
+     *
      */
     private $titre;
-
-    /**
-     * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="Ecrire votre réponse")
-     */
-    private $description;
 
     /**
      * @ORM\Column(type="datetime")
@@ -39,16 +38,28 @@ class Reply
     private $datereply;
 
     /**
+     * @ORM\Column(type="text")
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 200,
+     *      minMessage = "description doit etre au minimum {{ limit }} characters long",
+     *      maxMessage = "description ne doit pas depasser {{ limit }} characters"
+     * )
+     *
+     */
+    private $description;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Reclamation::class, inversedBy="replies")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $reclamation;
+    private $Reclamation;
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
 
     public function getTitre(): ?string
     {
@@ -58,18 +69,6 @@ class Reply
     public function setTitre(string $titre): self
     {
         $this->titre = $titre;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }
@@ -86,14 +85,26 @@ class Reply
         return $this;
     }
 
-    public function getReclamation(): ?Reclamation
+    public function getDescription(): ?string
     {
-        return $this->reclamation;
+        return $this->description;
     }
 
-    public function setReclamation(?Reclamation $reclamation): self
+    public function setDescription(string $description): self
     {
-        $this->reclamation = $reclamation;
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getReclamation(): ?Reclamation
+    {
+        return $this->Reclamation;
+    }
+
+    public function setReclamation(?Reclamation $Reclamation): self
+    {
+        $this->Reclamation = $Reclamation;
 
         return $this;
     }

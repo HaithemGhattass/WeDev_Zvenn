@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\ReclamationRepository;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Vangrg\ProfanityBundle\Validator\Constraints as ProfanityAssert;
+
+
 
 /**
  * @ORM\Entity(repositoryClass=ReclamationRepository::class)
@@ -18,55 +21,94 @@ class Reclamation
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Ecrire votre titre de reclamation")
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 15,
+     *      minMessage = "titre Reclamation doit etre au minimum {{ limit }} characters long",
+     *      maxMessage = "titre Reclamation ne doit pas passer {{ limit }} characters")
+     * @Groups("post:read")
+     * @ProfanityAssert\ProfanityCheck
      */
     private $titre;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="Ecrire votre reclamation")
+     * @Assert\NotNull
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 200,
+     *      minMessage = "description doit etre au minimum {{ limit }} characters long",
+     *      maxMessage = "description ne doit pas depasser {{ limit }} characters"
+     *
+     * )
+     * @Groups("post:read")
+     * @ProfanityAssert\ProfanityCheck
      */
     private $description;
 
     /**
-     * @ORM\Column(type="blob")
+     * @ORM\Column(type="blob", nullable=true)
+     * @Groups("post:read")
      */
     private $image;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("post:read")
+     */
+    private $nomimage;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("post:read")
      */
     private $foodqulaite;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("post:read")
      */
     private $service;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups("post:read")
      */
     private $price;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups("post:read")
      */
     private $daterec;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("post:read")
      */
-    private $nomimage;
+    private $etat;
 
     /**
-     * @ORM\OneToMany(targetEntity=Reply::class, mappedBy="reclamation",cascade={all}, orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="reclamations")
+     * @ORM\JoinColumn(nullable=false)
+     *
+     * @Groups("post:read")
+     */
+    private $restaurant;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reply::class, mappedBy="Reclamation", orphanRemoval=true)
+     * @Groups("post:read")
      */
     private $replies;
+
 
     public function __construct()
     {
@@ -76,12 +118,6 @@ class Reclamation
     public function getId(): ?int
     {
         return $this->id;
-    }
-    public function setId(int $id): self
-    {
-        $this->titre = $id;
-
-        return $this;
     }
 
     public function getTitre(): ?string
@@ -116,6 +152,18 @@ class Reclamation
     public function setImage($image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getNomimage(): ?string
+    {
+        return $this->nomimage;
+    }
+
+    public function setNomimage(?string $nomimage): self
+    {
+        $this->nomimage = $nomimage;
 
         return $this;
     }
@@ -168,14 +216,26 @@ class Reclamation
         return $this;
     }
 
-    public function getNomimage(): ?string
+    public function getEtat(): ?string
     {
-        return $this->nomimage;
+        return $this->etat;
     }
 
-    public function setNomimage(string $nomimage): self
+    public function setEtat(string $etat): self
     {
-        $this->nomimage = $nomimage;
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getRestaurant(): ?Restaurant
+    {
+        return $this->restaurant;
+    }
+
+    public function setRestaurant(?Restaurant $restaurant): self
+    {
+        $this->restaurant = $restaurant;
 
         return $this;
     }
@@ -209,4 +269,6 @@ class Reclamation
 
         return $this;
     }
+
+
 }
