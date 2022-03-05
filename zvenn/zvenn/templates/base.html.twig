@@ -1,54 +1,19 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+        {% endblock %}
 
-    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('images/apple-touch-icon-57x57-precomposed.png') }}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('images/apple-touch-icon-72x72-precomposed.png') }}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('images/apple-touch-icon-114x114-precomposed.png') }}">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('images/apple-touch-icon-144x144-precomposed.png') }}">
-
-
-    {% block stylesheets %}
-
-        <!-- GOOGLE WEB FONT -->
-        <link href="{{ asset("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap") }}" rel="stylesheet">
-        <!-- BASE CSS -->
-        <link href="{{ asset("zvenn/public/frontoffice/css/bootstrap_customized.css/bootstrap_customized.min.css") }}" rel="stylesheet">
-        <link href="{{asset("zvenn/public/frontoffice/css/style.css") }}" rel="stylesheet">
-
-        <!-- SPECIFIC CSS -->
-        <link href="{{ asset("zvenn/public/frontoffice/css/home.css") }}" rel="stylesheet">
-
-        <!-- YOUR CUSTOM CSS -->
-        <link href="{{ asset("zvenn/public/frontoffice/css/custom.css") }}" rel="stylesheet">
-
-    {% endblock %}
-
-    {% block javascripts %}
-        <!-- COMMON SCRIPTS -->
-        <script src="{{"zvenn/public/frontoffice/js/common_scripts.min.js" }}"></script>
-        <script src="{{ "zvenn/public/frontoffice/js/common_func.js" }}"></script>
-        <script src="{{ "assets/validate.js" }}"></script>
-    {% endblock %}
-</head>
-<body>
-{% block body %}
-    <div class="subscribe-form">
-        <form class="d-flex flex-wrap align-items-center">
-            <input type="email" placeholder="Your email">
-            <input type="submit" value="send">
-        </form><!-- .flex -->
-    </div><
-{% endblock %}
-{{ include('header.html.twig') }}
-{{ include('footer.html.twig') }}
-</body>
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
 </html>
-
-

@@ -47,4 +47,12 @@ class ReclamationRepository extends ServiceEntityRepository
         ;
     }
     */
+    function listreclamationbyrestaurant($id){
+        return $this->createQueryBuilder('re')
+            ->join('re.restaurant','res')
+            ->addSelect('re')
+            ->where('res.id=:id')
+            ->setParameter('id',$id)
+            ->getQuery()->getResult();
+    }
 }

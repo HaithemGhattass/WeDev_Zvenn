@@ -47,12 +47,15 @@ class ReplyRepository extends ServiceEntityRepository
         ;
     }
     */
-    function listreplybyreclamation($id){
-        return $this->createQueryBuilder('p')
-            ->join('p.reclamation','rec')
-            ->addSelect('p')
+
+    function listreplybyrestaurant($id){
+        return $this->createQueryBuilder('rep')
+            ->join('rep.reclamation','rec')
+            ->addSelect('rep')
             ->where('rec.id=:id')
             ->setParameter('id',$id)
             ->getQuery()->getResult();
     }
+
+
 }

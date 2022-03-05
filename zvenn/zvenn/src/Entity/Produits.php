@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use App\Repository\ProduitsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=ProduitsRepository::class)
@@ -14,110 +17,153 @@ class Produits
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("post:read")
      */
-
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 10,
+     *      minMessage = "description doit etre au minimum {{ limit }} characters long",
+     *      maxMessage = "description ne doit pas depasser {{ limit }} characters"
+     * )
+     * @Assert\NotNull
+     * @Groups("post:read")
      */
-    private $nom_produit;
+    private $nomProduit;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 200,
+     *      minMessage = "description doit etre au minimum {{ limit }} characters long",
+     *      maxMessage = "description ne doit pas depasser {{ limit }} characters"
+     * )
+     * @Assert\NotNull
+     * @Groups("post:read")
      */
-    private $descriptionp;
+    private $DescriptionProduit;
 
     /**
      * @ORM\Column(type="blob")
+     * @Groups("post:read")
      */
-    private $image_produit;
-
-    private $rawPhoto;
-
-    public function displayPhoto()
-    {
-        if(null === $this->rawPhoto) {
-            $this->rawPhoto = "data:image/png;base64," . base64_encode(stream_get_contents($this->getimageproduit()));
-        }
-
-        return $this->rawPhoto;
-    }
+    private $imageProduit;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="datetime")
+     * @Groups("post:read")
      */
-    private $prix_produit;
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\NotNull
+     * @Groups("post:read")
+     */
+    private $prixProduit;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("post:read")
      */
-    private $type_produit;
+    private $nomimageProduit;
 
-
+    /**
+     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="produits")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups("post:read")
+     */
+    private $restaurant;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-
-    public function getnomproduit(): ?string
+    public function getNomProduit(): ?string
     {
-        return $this->nom_produit;
+        return $this->nomProduit;
     }
 
-    public function setNomProduit(string $nom_produit): self
+    public function setNomProduit(string $nomProduit): self
     {
-        $this->nom_produit = $nom_produit;
+        $this->nomProduit = $nomProduit;
 
         return $this;
     }
 
-    public function getdescriptionp(): ?string
+    public function getDescriptionProduit(): ?string
     {
-        return $this->descriptionp;
+        return $this->DescriptionProduit;
     }
 
-    public function setDescriptionp(string $descriptionp): self
+    public function setDescriptionProduit(string $DescriptionProduit): self
     {
-        $this->descriptionp = $descriptionp;
+        $this->DescriptionProduit = $DescriptionProduit;
 
         return $this;
     }
 
-    public function getimageproduit()
+    public function getImageProduit()
     {
-        return $this->image_produit;
+        return $this->imageProduit;
     }
 
-    public function setImageProduit($image_produit): self
+    public function setImageProduit($imageProduit): self
     {
-        $this->image_produit = $image_produit;
+        $this->imageProduit = $imageProduit;
 
         return $this;
     }
 
-    public function getprixproduit(): ?float
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->prix_produit;
+        return $this->createdAt;
     }
 
-    public function setPrixProduit(float $prix_produit): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->prix_produit = $prix_produit;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getTypeProduit(): ?string
+    public function getPrixProduit(): ?int
     {
-        return $this->type_produit;
+        return $this->prixProduit;
     }
 
-    public function setTypeProduit(string $type_produit): self
+    public function setPrixProduit(int $prixProduit): self
     {
-        $this->type_produit = $type_produit;
+        $this->prixProduit = $prixProduit;
+
+        return $this;
+    }
+
+    public function getNomimageProduit(): ?string
+    {
+        return $this->nomimageProduit;
+    }
+
+    public function setNomimageProduit(string $nomimageProduit): self
+    {
+        $this->nomimageProduit = $nomimageProduit;
+
+        return $this;
+    }
+
+    public function getRestaurant(): ?Restaurant
+    {
+        return $this->restaurant;
+    }
+
+    public function setRestaurant(?Restaurant $restaurant): self
+    {
+        $this->restaurant = $restaurant;
 
         return $this;
     }

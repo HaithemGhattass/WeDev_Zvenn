@@ -68,7 +68,7 @@ class ReplyController extends AbstractController
             $reply->getReclamation($Re)->setEtat('traite');
             $em=$this->getDoctrine()->getManager();
             $badwords = array('bad1', 'bad2', 'bad3', 'ass','zab','tahan','khamej');
-            $gddgd=$r->getProfanities();
+$gddgd=$r->getProfanities();
             $text = $reply->getTitre();
             $des=$reply->getDescription();
 
@@ -95,7 +95,7 @@ class ReplyController extends AbstractController
      ** @param Request $request
      * @Route("reply/updateReply/{id}",name="updateReply")
      */
-    function Update(ReplyRepository $repository,$id,Request $request)
+    function Update(ReplyRepository $repository,$id,Request $request,ProfanitiesStorageDefault $r)
     {
         $reply=new Reply();
         $reply = $repository->find($id);
@@ -104,20 +104,20 @@ class ReplyController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $reply->setDatereply(new \DateTime());
-            $badwords = array('bad1', 'bad2', 'bad3', 'ass','zab','tahan','khamej');
+            $gddgd=$r->getProfanities();
 
             $text = $reply->getTitre();
             $des=$reply->getDescription();
 
-            function filterBadwords($text, array $badwords, $replaceChar = '*') {
+            function filterBadwords($text, array $gddgd, $replaceChar = '*') {
                 return preg_replace_callback(
-                    array_map(function($w) { return '/\b' . preg_quote($w, '/') . '\b/i'; }, $badwords),
+                    array_map(function($w) { return '/\b' . preg_quote($w, '/') . '\b/i'; }, $gddgd),
                     function($match) use ($replaceChar) { return str_repeat($replaceChar, strlen($match[0])); },
                     $text
                 );
             }
-            $reply->setTitre(filterBadwords($text,$badwords,'*'));
-            $reply->setDescription(filterBadwords($des,$badwords,'*'));
+            $reply->setTitre(filterBadwords($text,$gddgd,'*'));
+            $reply->setDescription(filterBadwords($des,$gddgd,'*'));
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             return $this->redirectToRoute('listbyrestaurant',['id' => $reply->getReclamation($id)->getRestaurant()->getId()]);

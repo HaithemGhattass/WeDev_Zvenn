@@ -23,6 +23,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Validator\Constraints\Json;
 use symfony\Component\Serializer\Annotation\Groups;
 use Knp\Component\Pager\PaginatorInterface;
+use Vangrg\ProfanityBundle\Storage\ProfanitiesStorageDefault;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 
@@ -57,7 +58,7 @@ class ReclamationController extends AbstractController
      * @return Response
      * @Route ("/addReclamation/{id}",name="addReclamation")
      */
-    function AjouterReclamation(Request $request,RestaurantRepository $repository,$id){
+    function AjouterReclamation(Request $request,RestaurantRepository $repository,$id,ProfanitiesStorageDefault $r){
 
         $re=$repository->find($id);
         $etat="non traite";
@@ -87,20 +88,20 @@ class ReclamationController extends AbstractController
 
             $reclamation->setDaterec(new \DateTime());
             $reclamation->setEtat($etat);
+            $gddgd=$r->getProfanities();
 
-            $badwords = array('bad1', 'bad2', 'bad3', 'ass','zab','tahan','khamej');
             $text = $reclamation->getTitre();
             $des=$reclamation->getDescription();
 
-            function filterBadwords($text, array $badwords, $replaceChar = '*') {
+            function filterBadwords($text, array $gddgd, $replaceChar = '*') {
                 return preg_replace_callback(
-                    array_map(function($w) { return '/\b' . preg_quote($w, '/') . '\b/i'; }, $badwords),
+                    array_map(function($w) { return '/\b' . preg_quote($w, '/') . '\b/i'; }, $gddgd),
                     function($match) use ($replaceChar) { return str_repeat($replaceChar, strlen($match[0])); },
                     $text
                 );
             }
-            $reclamation->setTitre(filterBadwords($text,$badwords,'*'));
-            $reclamation->setDescription(filterBadwords($des,$badwords,'*'));
+            $reclamation->setTitre(filterBadwords($text,$gddgd,'*'));
+            $reclamation->setDescription(filterBadwords($des,$gddgd,'*'));
             $em=$this->getDoctrine()->getManager();
 
             $em->persist($reclamation);
@@ -115,7 +116,7 @@ class ReclamationController extends AbstractController
      ** @param Request $request
      * @Route("reclmation/update/{id}",name="updaterec")
      */
-    function Update(ReclamationRepository $repository,$id,Request $request)
+    function Update(ReclamationRepository $repository,$id,Request $request,ProfanitiesStorageDefault $r)
     {
         $reclamation=new Reclamation();
         $reclamation = $repository->find($id);
@@ -138,19 +139,20 @@ class ReclamationController extends AbstractController
             }
 
             $reclamation->setDaterec(new \DateTime());
-            $badwords = array('bad1', 'bad2', 'bad3', 'ass','zab','tahan','khamej');
+            $gddgd=$r->getProfanities();
+
             $text = $reclamation->getTitre();
             $des=$reclamation->getDescription();
 
-            function filterBadwords($text, array $badwords, $replaceChar = '*') {
+            function filterBadwords($text, array $gddgd, $replaceChar = '*') {
                 return preg_replace_callback(
-                    array_map(function($w) { return '/\b' . preg_quote($w, '/') . '\b/i'; }, $badwords),
+                    array_map(function($w) { return '/\b' . preg_quote($w, '/') . '\b/i'; }, $gddgd),
                     function($match) use ($replaceChar) { return str_repeat($replaceChar, strlen($match[0])); },
                     $text
                 );
             }
-            $reclamation->setTitre(filterBadwords($text,$badwords,'*'));
-            $reclamation->setDescription(filterBadwords($des,$badwords,'*'));
+            $reclamation->setTitre(filterBadwords($text,$gddgd,'*'));
+            $reclamation->setDescription(filterBadwords($des,$gddgd,'*'));
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             return $this->redirectToRoute('listbyrestaurant',['id' => $reclamation->getRestaurant($id)->getId() ]);

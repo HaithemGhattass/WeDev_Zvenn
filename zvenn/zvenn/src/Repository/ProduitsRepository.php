@@ -47,4 +47,12 @@ class ProduitsRepository extends ServiceEntityRepository
         ;
     }
     */
+    function listproduitbyrestaurant($id){
+        return $this->createQueryBuilder('p')
+            ->join('p.restaurant','r')
+            ->addSelect('p')
+            ->where('r.id=:id')
+            ->setParameter('id',$id)
+            ->getQuery()->getResult();
+    }
 }

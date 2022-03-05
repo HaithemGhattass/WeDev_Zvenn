@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -7,332 +7,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="FooYes - Quality delivery or takeaway food">
     <meta name="author" content="Ansonika">
-    <title>Foogra - Discover & Book the best restaurants at the best price</title>
-
+    <title>FooYes - Quality delivery or takeaway food</title>
     <!-- Favicons-->
-    <link rel="shortcut icon" href="/img/favicon.ico" type="/image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="/img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="/img/apple-touch-icon-144x144-precomposed.png">
+    <link rel="shortcut icon" href="/frontoffice/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="/frontoffice/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/frontoffice/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="/frontoffice/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="/frontoffice/img/apple-touch-icon-144x144-precomposed.png">
 
     <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- BASE CSS -->
-    <link href="/css/bootstrap_customized.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
+    <link href="/frontoffice/css/bootstrap_customized.min.css" rel="stylesheet">
+    <link href="/frontoffice/css/style.css" rel="stylesheet">
 
     <!-- SPECIFIC CSS -->
-    <link href="/css/detail-page.css" rel="stylesheet">
+    <link href="/frontoffice/css/review.css" rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
-    <link href="/css/custom.css" rel="stylesheet">
+    <link href="/frontoffice/css/custom.css" rel="stylesheet">
 
 </head>
 
-<body data-spy="scroll" data-target="#secondary_nav" data-offset="75">
+<body>
 
-<header class="header_in clearfix">
-    <div class="container">
-        <div id="logo">
-            <a href="index.html">
-                <img src="/img/logo_sticky.svg" width="140" height="35" alt="">
-            </a>
-        </div>
-        <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
-        <ul id="top_menu">
-            <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
-            <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
-        </ul>
-        <!-- /top_menu -->
-        <a href="#0" class="open_close">
-            <i class="icon_menu"></i><span>Menu</span>
-        </a>
-        <nav class="main-menu">
-            <div id="header_menu">
-                <a href="#0" class="open_close">
-                    <i class="icon_close"></i><span>Menu</span>
-                </a>
-                <a href="/index.html"><img src="/img/logo.svg" width="162" height="35" alt=""></a>
-            </div>
-            <ul>
-                <li class="submenu">
-                    <a href="#0" class="show-submenu">Home</a>
-                    <ul>
-                        <li><a href="index.html">Address Autocomplete</a></li>
-                        <li><a href="index-2.html">Search by Keyword</a></li>
-                        <li><a href="index-3.html">Home Version 2</a></li>
-                        <li><a href="/index-4.html">Video Background</a></li>
-                        <li><a href="index-5.html">GDPR Cookie Bar EU Law</a></li>
-                        <li><a href="header-user-logged.html">Header User Logged</a></li>
-                        <li><a href="header-cart-top.html">Header Cart Top</a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="#0" class="show-submenu">Listing</a>
-                    <ul>
-                        <li class="third-level"><a href="#0">List pages</a>
-                            <ul>
-                                <li><a href="/grid-listing-filterscol.html">List default</a></li>
-                                <li><a href="/grid-listing-filterscol-map.html">List with map</a></li>
-                                <li><a href="/listing-map.html">List side map</a></li>
-                                <li><a href="/grid-listing-masonry.html">List Masonry Filter</a></li>
-                            </ul>
-                        </li>
-                        <li class="third-level"><a href="#0">Detail pages</a>
-                            <ul>
-                                <li><a href="/detail-restaurant.html">Detail page 1</a></li>
-                                <li><a href="/detail-restaurant-2.html">Detail page 2</a></li>
-                                <li><a href="/detail-restaurant-3.html">Detail page 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="third-level"><a href="#0">OpenStreetMap</a>
-                            <ul>
-                                <li><a href="grid-listing-filterscol-openstreetmap.html">List with map</a></li>
-                                <li><a href="listing-map-openstreetmap.html">List side map</a></li>
-                                <li><a href="grid-listing-masonry-openstreetmap.html">List Masonry Filter</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="submit-restaurant.html">Submit Restaurant</a></li>
-                        <li><a href="submit-rider.html">Submit Rider</a></li>
-                        <li><a href="order.html">Order</a></li>
-                        <li><a href="confirm.html">Confirm Order</a></li>
-                    </ul>
-                </li>
-                <li class="submenu">
-                    <a href="#0" class="show-submenu">Other Pages</a>
-                    <ul>
-                        <li><a href="404.html">404 Error</a></li>
-                        <li><a href="help.html">Help and Faq</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="leave-review.html">Leave a review</a></li>
-                        <li><a href="contacts.html">Contacts</a></li>
-                        <li><a href="coming_soon/index.html">Coming Soon</a></li>
-                        <li><a href="register.html">Sign Up</a></li>
-                        <li><a href="icon-pack-1.html">Icon Pack 1</a></li>
-                        <li><a href="icon-pack-2.html">Icon Pack 2</a></li>
-                        <li><a href="shortcodes.html">Shortcodes</a></li>
-                    </ul>
-                </li>
-                <li><a href="#0">Buy this template</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-<!-- /header -->
+{{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
 
-<main>
+<main class="bg_gray">
+
+    <div class="container margin_60_20">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="box_general write_review">
+                    <h1 class="add_bottom_15">Ecrire votre réponse</h1>
+                    <label class="d-block add_bottom_15"> </label>
 
 
-
-
-    <!-- /bg_gray -->
-
-    <div class="container margin_30_20">
-        <div class="row">
-            <div class="col-lg-8 list_menu">
-                <section id="section-5">
-                    <h4>Replys</h4>
-                    <div class="row add_bottom_30 d-flex align-items-center reviews">
-
+                    <div class="form-group">
+                        <label>Titre de votre réponse</label>
+                        {{ form_errors(form.titre) }}
+                        {{ form_widget(form.titre,{'attr':{'placeholder':'titre'}}) }}
 
                     </div>
-                    <!-- /row -->
-                    {% for x in reply %}
-                    <div id="reviews">
-                        <div class="review_card">
-                            <div class="row">
-                                <div class="col-md-2 user_info">
-                                    <figure><img src="/img/avatar4.jpg" alt=""></figure>
-                                    <h5>Lukas</h5>
-                                </div>
-                                <div class="col-md-10 review_content">
-                                    <h4>{{ x.reclamation.titre }}</h4>
-                                    <p> {{ x.reclamation.description }}</p>
+                    <div class="form-group">
+                        <label>Votre réponse</label>
+                        {{ form_errors(form.description) }}
+                        <textarea class="form-control" style="height: 180px;" placeholder="Ecrire votre reponse ici!!" {{ form_widget(form.description,{'attr':{'placeholder':'description','class':'description'}}) }}</textarea>
 
-                                </div>
+                    </div>
 
-                                <!-- /row -->
-                            </div>
-                            <!-- /review_card -->
 
-                            {% if x.titre is not null %}
-                            <!-- /row -->
-                            <div class="row reply">
-                                <div class="col-md-2 user_info">
-                                    <figure><img src="/img/avatar.jpg" alt=""></figure>
-                                    <h5>Admin</h5>
-                                </div>
+                    <div class="form-group">
+                        <div class="checkboxes float-left add_bottom_15 add_top_15">
 
-                                <div class="row reply">
-                                    <div class="col-md-2 user_info">
-                                        <figure><img src="/img/avatar.jpg" alt="" hidden="true"></figure>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <div class="review_content">
-                                            <strong>{{ x.titre}}</strong>
-                                            <em>le: {{ x.datereply|date('d/m/Y h:m:s') }}</em>
-                                            <p><br>Hi Monika,<br><br>{{ x.description }}<br><br>Thanks</p>
-                                            <ul>
-                                                <li><a href="{{ path ('updateReply',{'id':x.id}) }}"><i class="btn"></i><span>Modifier</span></a></li>
-                                                <li><a href="{{ path ('delete',{'id':x.id}) }}"><i class="btn"></i><span>Supprimer</span></a></li>
-                                            </ul>
-                                        </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-
-                            </div>
 
                         </div>
-                        {% endfor %}
-                        <!-- /reply -->
+                        <div class="form-group text-center">
+                            <button class="btn_1 gradient">Répondre</button>
+                        </div>
+                        {{ form(form,{'method':'GET'}) }}
+
+
                     </div>
-                    <!-- /review_card -->
-
-                    <!-- /reviews -->
-
-
-                </section>
-                <!-- /section -->
+                </div>
+                {{ form_end(form) }}
+                <!-- /row -->
             </div>
+            <!-- /container -->
+
+
+            <!-- /main -->
+
+
+
+            <div id="toTop"></div><!-- Back to top button -->
+
+
+
+
+            <script src="{{ asset('frontoffice/js/common_scripts.min.js') }}"></script>
+            <script src="{{ asset('frontoffice/js/common_func.js') }}"></script>
+            <script src="{{ asset('frontoffice/assets/validate.js') }}"></script>
+
+            <!-- SPECIFIC SCRIPTS -->
+            <script src="{{ asset("/frontoffice/js/specific_review.js") }}"></script>
         </div>
     </div>
-    <!-- /container -->
-
 </main>
-<!-- /main -->
-
-
-
-<div id="toTop" class="detail_page"></div><!-- Back to top button -->
-
-
-<!-- Sign In Modal -->
-<div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
-    <div class="modal_header">
-        <h3>Sign In</h3>
-    </div>
-    <form>
-        <div class="sign-in-wrapper">
-            <a href="#0" class="social_bt facebook">Login with Facebook</a>
-            <a href="#0" class="social_bt google">Login with Google</a>
-            <div class="divider"><span>Or</span></div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" class="form-control" name="email" id="email">
-                <i class="icon_mail_alt"></i>
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" name="password" id="password" value="">
-                <i class="icon_lock_alt"></i>
-            </div>
-            <div class="clearfix add_bottom_15">
-                <div class="checkboxes float-left">
-                    <label class="container_check">Remember me
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                </div>
-                <div class="float-right"><a id="forgot" href="javascript:void(0);">Forgot Password?</a></div>
-            </div>
-            <div class="text-center">
-                <input type="submit" value="Log In" class="btn_1 full-width mb_5">
-                Don’t have an account? <a href="account.html">Sign up</a>
-            </div>
-            <div id="forgot_pw">
-                <div class="form-group">
-                    <label>Please confirm login email below</label>
-                    <input type="email" class="form-control" name="email_forgot" id="email_forgot">
-                    <i class="icon_mail_alt"></i>
-                </div>
-                <p>You will receive an email containing a link allowing you to reset your password to a new preferred one.</p>
-                <div class="text-center"><input type="submit" value="Reset Password" class="btn_1"></div>
-            </div>
-        </div>
-    </form>
-    <!--form -->
-</div>
-<!-- /Sign In Modal -->
-
-<!-- Modal item order -->
-<div id="modal-dialog" class="zoom-anim-dialog mfp-hide">
-    <div class="small-dialog-header">
-        <h3>Cheese Quesadilla</h3>
-    </div>
-    <div class="content">
-        <h5>Quantity</h5>
-        <div class="numbers-row">
-            <input type="text" value="1" id="qty_1" class="qty2 form-control" name="quantity">
-        </div>
-        <h5>Size</h5>
-        <ul class="clearfix">
-            <li>
-                <label class="container_radio">Medium<span>+ $3.30</span>
-                    <input type="radio" value="option1" name="options_1">
-                    <span class="checkmark"></span>
-                </label>
-            </li>
-            <li>
-                <label class="container_radio">Large<span>+ $5.30</span>
-                    <input type="radio" value="option2" name="options_1">
-                    <span class="checkmark"></span>
-                </label>
-            </li>
-            <li>
-                <label class="container_radio">Extra Large<span>+ $8.30</span>
-                    <input type="radio" value="option3" name="options_1">
-                    <span class="checkmark"></span>
-                </label>
-            </li>
-        </ul>
-        <h5>Extra Ingredients</h5>
-        <ul class="clearfix">
-            <li>
-                <label class="container_check">Extra Tomato<span>+ $4.30</span>
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label>
-            </li>
-            <li>
-                <label class="container_check">Extra Peppers<span>+ $2.50</span>
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label>
-            </li>
-            <li>
-                <label class="container_check">Extra Ham<span>+ $4.30</span>
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                </label>
-            </li>
-        </ul>
-    </div>
-    <div class="footer">
-        <div class="row small-gutters">
-            <div class="col-md-4">
-                <button type="reset" class="btn_1 outline full-width mb-mobile">Cancel</button>
-            </div>
-            <div class="col-md-8">
-                <button type="reset" class="btn_1 full-width">Add to cart</button>
-            </div>
-        </div>
-        <!-- /Row -->
-    </div>
-</div>
-<!-- /Modal item order -->
-
-<!-- COMMON SCRIPTS -->
-<script src="/js/common_scripts.min.js"></script>
-<script src="/js/common_func.js"></script>
-<script src="/assets/validate.js"></script>
-
-<!-- SPECIFIC SCRIPTS -->
-<script src="/js/sticky_sidebar.min.js"></script>
-<script src="/js/sticky-kit.min.js"></script>
-<script src="/js/specific_detail.js"></script>
 
 </body>
 </html>

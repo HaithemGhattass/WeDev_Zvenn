@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Reclamation;
 use App\Entity\Reply;
 use Cassandra\Exception\TruncateException;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,11 +16,7 @@ class ReplyType extends AbstractType
         $builder
             ->add('titre')
             ->add('description')
-            ->add('reclamation',EntityType::class,[
-                'class'=>Reclamation::class,
-                'choice_label'=>'titre',
 
-            ])
         ;
     }
 
