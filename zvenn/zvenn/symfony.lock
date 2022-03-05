@@ -31,11 +31,13 @@
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "2.4",
-            "ref": "06a5dfe6c1b12da89276b72ed281be757d24c8a0"
+            "version": "2.3",
+            "ref": "52eabf77a390fe5a12a589d74d8f2a31f60ad013"
         },
         "files": [
             "./config/packages/doctrine.yaml",
+            "./config/packages/prod/doctrine.yaml",
+            "./config/packages/test/doctrine.yaml",
             "./src/Entity/.gitignore",
             "./src/Repository/.gitignore"
         ]
@@ -83,24 +85,14 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
-    "imagine/imagine": {
-        "version": "1.2.4"
+    "knplabs/knp-components": {
+        "version": "v3.4.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.8.0"
     },
     "laminas/laminas-code": {
         "version": "4.5.1"
-    },
-    "liip/imagine-bundle": {
-        "version": "2.7",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "1.8",
-            "ref": "d1227d002b70d1a1f941d91845fcd7ac7fbfc929"
-        },
-        "files": [
-            "./config/packages/liip_imagine.yaml",
-            "./config/routes/liip_imagine.yaml"
-        ]
     },
     "monolog/monolog": {
         "version": "1.26.1"
@@ -115,7 +107,7 @@
         "version": "2.0.3"
     },
     "phar-io/version": {
-        "version": "3.1.1"
+        "version": "3.2.1"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -130,7 +122,7 @@
         "version": "v1.15.0"
     },
     "phpunit/php-code-coverage": {
-        "version": "9.2.10"
+        "version": "9.2.11"
     },
     "phpunit/php-file-iterator": {
         "version": "3.0.6"
@@ -195,7 +187,7 @@
         "version": "4.0.4"
     },
     "sebastian/global-state": {
-        "version": "5.0.4"
+        "version": "5.0.5"
     },
     "sebastian/lines-of-code": {
         "version": "1.0.3"
@@ -229,6 +221,9 @@
         "files": [
             "./config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "swiftmailer/swiftmailer": {
+        "version": "v6.3.0"
     },
     "symfony/asset": {
         "version": "v4.4.37"
@@ -376,7 +371,7 @@
         ]
     },
     "symfony/maker-bundle": {
-        "version": "1.36",
+        "version": "1.37",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
@@ -395,8 +390,8 @@
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "master",
-            "version": "3.7",
-            "ref": "a7bace7dbc5a7ed5608dbe2165e0774c87175fe6"
+            "version": "3.3",
+            "ref": "2120e71a370db3a494b8afcc42d7cfb2cff6f910"
         },
         "files": [
             "./config/packages/dev/monolog.yaml",
@@ -506,6 +501,20 @@
     "symfony/stopwatch": {
         "version": "v4.4.37"
     },
+    "symfony/swiftmailer-bundle": {
+        "version": "3.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "f0b2fccdca2dfd97dc2fd5ad216d5e27c4f895ac"
+        },
+        "files": [
+            "./config/packages/dev/swiftmailer.yaml",
+            "./config/packages/swiftmailer.yaml",
+            "./config/packages/test/swiftmailer.yaml"
+        ]
+    },
     "symfony/translation": {
         "version": "4.4",
         "recipe": {
@@ -590,23 +599,14 @@
     "theseer/tokenizer": {
         "version": "1.2.1"
     },
-    "twig/extensions": {
-        "version": "1.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "a86723ee8d8b2f9437c8ce60a5546a1c267da5ed"
-        },
-        "files": [
-            "./config/packages/twig_extensions.yaml"
-        ]
-    },
     "twig/extra-bundle": {
         "version": "v3.3.8"
     },
     "twig/twig": {
         "version": "v3.3.8"
+    },
+    "vangrg/profanity-bundle": {
+        "version": "v1.1.6"
     },
     "webmozart/assert": {
         "version": "1.10.0"

@@ -133,6 +133,11 @@
       <path value="$PROJECT_DIR$/zvenn/vendor/imagine/imagine" />
       <path value="$PROJECT_DIR$/zvenn/vendor/liip/imagine-bundle" />
       <path value="$PROJECT_DIR$/zvenn/vendor/twig/extensions" />
+      <path value="$PROJECT_DIR$/zvenn/vendor/knplabs/knp-paginator-bundle" />
+      <path value="$PROJECT_DIR$/zvenn/vendor/knplabs/knp-components" />
+      <path value="$PROJECT_DIR$/zvenn/vendor/vangrg/profanity-bundle" />
+      <path value="$PROJECT_DIR$/zvenn/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/zvenn/vendor/symfony/swiftmailer-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
