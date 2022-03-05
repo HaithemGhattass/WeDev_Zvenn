@@ -137,6 +137,11 @@
       <excludeFolder url="file://$MODULE_DIR$/zvenn/vendor/imagine/imagine" />
       <excludeFolder url="file://$MODULE_DIR$/zvenn/vendor/liip/imagine-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/zvenn/vendor/twig/extensions" />
+      <excludeFolder url="file://$MODULE_DIR$/zvenn/vendor/knplabs/knp-paginator-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/zvenn/vendor/knplabs/knp-components" />
+      <excludeFolder url="file://$MODULE_DIR$/zvenn/vendor/vangrg/profanity-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/zvenn/vendor/swiftmailer/swiftmailer" />
+      <excludeFolder url="file://$MODULE_DIR$/zvenn/vendor/symfony/swiftmailer-bundle" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
