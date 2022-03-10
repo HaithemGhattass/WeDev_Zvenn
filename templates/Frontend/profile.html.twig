@@ -1,0 +1,430 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeFrontController!{% endblock %}
+{% block stylesheets %}
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" type="text/css" href="{{ asset('profile/Bootstrap/dist/css/bootstrap.css')}}">
+
+<!-- Main Styles CSS -->
+<link rel="stylesheet" type="text/css" href="{{ asset('profile/css/main.min.css')}}">
+
+
+{% endblock %}
+{% block body %}
+
+
+
+
+<div class="page-has-left-panels page-has-right-panels">
+<!-- ... end Responsive Header-BP -->
+<div class="header-spacer"></div>
+
+
+
+<!-- Top Header-Profile -->
+
+<div class="container">
+    <div class="row">
+        <div class="col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="ui-block">
+                <div class="top-header">
+                    <div class="top-header-thumb">
+
+                    </div>
+
+                    <div class="profile-section">
+                        <div class="row">
+
+
+                        </div>
+
+                        <div class="control-block-button">
+                            <a href="{{ path('updatepass') }}" class="btn btn-control bg-blue">
+                                <svg class="olymp-happy-face-icon"><use xlink:href="#olymp-happy-face-icon"></use></svg>
+                            </a>
+
+                            <a href="#" class="btn btn-control bg-purple">
+                                <svg class="olymp-chat---messages-icon"><use xlink:href="#olymp-chat---messages-icon"></use></svg>
+                            </a>
+
+                            <div class="btn btn-control bg-primary more">
+                                <svg class="olymp-settings-icon"><use xlink:href="#olymp-settings-icon"></use></svg>
+
+                                <ul class="more-dropdown more-with-triangle triangle-bottom-right">
+                                    <li>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#update-header-photo">Update Profile Photo</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#update-header-photo">Update Header Photo</a>
+                                    </li>
+                                    <li>
+                                        <a href="29-YourAccount-AccountSettings.html">Account Settings</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="top-header-author">
+                        <a href="02-ProfilePage.html" class="author-thumb">
+                            <img loading="lazy" src="{{asset('/uploads/' ~ app.user.nomImage ) }}" alt="author" width="124" height="124">
+                        </a>
+                        <div class="author-content">
+                            <a href="02-ProfilePage.html" class="h4 author-name">{{ app.user.nom }} {{ app.user.prenom }}</a>
+                            <div class="country">{{ app.user.email }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ... end Top Header-Profile -->
+
+<div class="container">
+    <div class="row">
+        <div class="col col-xl-12 order-xl-2 col-lg-8 order-lg-2 col-md-12 order-md-1 col-sm-12 col-12">
+
+            <div class="ui-block">
+                <div class="ui-block-title">
+                    <h6 class="title">Votre coordonnées</h6>
+                    <a href="#" class="more"><svg class="olymp-three-dots-icon"><use xlink:href="#olymp-three-dots-icon"></use></svg></a>
+                </div>
+                <div class="ui-block-content">
+                    <div class="row">
+                        <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+
+                            {{ form_start(form,{'attr':{'novalidate': 'novalidate'}}) }}
+                            <!-- W-Personal-Info -->
+
+                            <div class="widget w-personal-info item-block">
+                                {{ form_label(form,"Nom") }}
+                                {{ form_widget(form.nom,{'attr':{
+                                    'placeholder':'Ecrire votre nom ...'
+                                }}) }}
+                                {% if form_errors(form.nom) %}
+                                    <div style=" color: #ba3939;
+  background: #ffe0e0;
+  border: 1px solid #a33a3a;height:25px"  >{{ form_errors(form.nom) }}</div>
+                                {% endif %}
+                                {{ form_label(form,"Prenom") }}
+
+                                {{ form_widget(form.prenom,{'attr':{
+                                    'placeholder':'Ecrire votre prenom ...'
+                                }}) }}
+                                {% if form_errors(form.prenom) %}
+                                    <div style=" color: #ba3939;
+  background: #ffe0e0;
+  border: 1px solid #a33a3a;height:25px"  >{{ form_errors(form.prenom) }}</div>
+                                {% endif %}
+                                {{ form_label(form,"Courrier electronique") }}
+
+                                {% if form_errors(form.email) %}
+                                    <div style=" color: #ba3939;
+  background: #ffe0e0;
+  border: 1px solid #a33a3a;height:25px"  >{{ form_errors(form.email) }}</div>
+                                {% endif %}
+                                {{ form_widget(form.email,{'attr':{
+                                    'placeholder':'Ecrire votre email ...'
+                                }}) }}
+                                {% if app.getuser().isVerified %}
+                                    <p style="color: green">Email verifié</p>
+                                {% else %}
+                                    <a href="{{ path('sendemailverif')}}">Cliquer ici pur réenvoyer le mail de verification </a>
+                                {% endif %}
+
+                            </div>
+                        <!-- ... end W-Personal-Info -->
+
+                        </div>
+                        <div class="col col-lg-6 col-md-6 col-sm-12 col-12">
+
+
+                            <!-- W-Personal-Info -->
+
+                            <div class="widget w-personal-info item-block">
+                                {{ form_label(form,"Adresse") }}
+                                {{ form_widget(form.adresse,{'attr':{
+                                    'placeholder':'Ecrire votre adresse ...'
+                                }}) }}
+                                {% if form_errors(form.adresse) %}
+                                    <div style=" color: #ba3939;
+  background: #ffe0e0;
+  border: 1px solid #a33a3a;height:25px"  >{{ form_errors(form.adresse) }}</div>
+                                {% endif %}
+                                {{ form_label(form,"Numero telephone") }}
+                                {{ form_widget(form.numTel,{'attr':{
+                                    'placeholder':'Ecrire votre telephone'
+                                }}) }}
+                                {% if form_errors(form.numTel) %}
+                                    <div style=" color: #ba3939;
+  background: #ffe0e0;
+  border: 1px solid #a33a3a;height:25px"  >{{ form_errors(form.numTel) }}</div>
+                                {% endif %}
+                                {% if app.getuser().isVerifiedPhone %}
+                                    <p style="color: green">telephone verifié</p>
+                                {% else %}
+                                    <a href="{{ path('SendSms')}}">cliquer pour verifier votre numero</a>
+                                {% endif %}
+                                {{ form_label(form,"Photo de profile") }}
+                                {{ form_widget(form.image) }}
+                            </div>
+
+
+                            <!-- ... end W-Personal-Info -->
+                        </div>
+                        <div class="text-center">
+                            {{ form_widget(form.Modifier) }}
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Window-popup Update Header Photo -->
+
+<div class="modal fade" id="update-header-photo" tabindex="-1" role="dialog" aria-labelledby="update-header-photo" aria-hidden="true">
+    <div class="modal-dialog window-popup update-header-photo" role="document">
+        <div class="modal-content">
+            <a href="#" class="close icon-close" data-bs-dismiss="modal" aria-label="Close">
+                <svg class="olymp-close-icon"><use xlink:href="#olymp-close-icon"></use></svg>
+            </a>
+
+            <div class="modal-header">
+                <h6 class="title">Update Header Photo</h6>
+            </div>
+
+            <div class="modal-body">
+                <a href="#" class="upload-photo-item">
+                    <svg class="olymp-computer-icon"><use xlink:href="#olymp-computer-icon"></use></svg>
+
+                    <h6>Upload Photo</h6>
+                    <span>Browse your computer.</span>
+                </a>
+
+                <a href="#" class="upload-photo-item" data-bs-toggle="modal" data-bs-target="#choose-from-my-photo">
+
+                    <svg class="olymp-photos-icon"><use xlink:href="#olymp-photos-icon"></use></svg>
+
+                    <h6>Choose from My Photos</h6>
+                    <span>Choose from your uploaded photos</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ... end Window-popup Update Header Photo -->
+
+<!-- Window-popup Choose from my Photo -->
+
+<div class="modal fade" id="choose-from-my-photo" tabindex="-1" role="dialog" aria-labelledby="choose-from-my-photo" aria-hidden="true">
+    <div class="modal-dialog window-popup choose-from-my-photo" role="document">
+
+        <div class="modal-content">
+            <a href="#" class="close icon-close" data-bs-dismiss="modal" aria-label="Close">
+                <svg class="olymp-close-icon"><use xlink:href="#olymp-close-icon"></use></svg>
+            </a>
+            <div class="modal-header">
+                <h6 class="title">Choose from My Photos</h6>
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" href="#home" role="tab" aria-expanded="true">
+                            <svg class="olymp-photos-icon"><use xlink:href="#olymp-photos-icon"></use></svg>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" href="#profile" role="tab" aria-expanded="false">
+                            <svg class="olymp-albums-icon"><use xlink:href="#olymp-albums-icon"></use></svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="modal-body">
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane fade active show" id="home" role="tabpanel" aria-expanded="true">
+
+                        <div class="choose-photo-item">
+                            <div class="radio">
+                                <label class="custom-radio">
+                                    <img loading="lazy" src="img/choose-photo1.webp" alt="photo" width="247" height="166">
+                                    <input type="radio" name="optionsRadios">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="choose-photo-item">
+                            <div class="radio">
+                                <label class="custom-radio">
+                                    <img loading="lazy" src="img/choose-photo2.webp" alt="photo" width="247" height="166">
+                                    <input type="radio" name="optionsRadios">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="choose-photo-item">
+                            <div class="radio">
+                                <label class="custom-radio">
+                                    <img loading="lazy" src="img/choose-photo3.webp" alt="photo" width="247" height="166">
+                                    <input type="radio" name="optionsRadios">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="choose-photo-item">
+                            <div class="radio">
+                                <label class="custom-radio">
+                                    <img loading="lazy" src="img/choose-photo4.webp" alt="photo" width="247" height="166">
+                                    <input type="radio" name="optionsRadios">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="choose-photo-item">
+                            <div class="radio">
+                                <label class="custom-radio">
+                                    <img loading="lazy" src="img/choose-photo5.webp" alt="photo" width="247" height="166">
+                                    <input type="radio" name="optionsRadios">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="choose-photo-item">
+                            <div class="radio">
+                                <label class="custom-radio">
+                                    <img loading="lazy" src="img/choose-photo6.webp" alt="photo" width="247" height="166">
+                                    <input type="radio" name="optionsRadios">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="choose-photo-item">
+                            <div class="radio">
+                                <label class="custom-radio">
+                                    <img loading="lazy" src="img/choose-photo7.webp" alt="photo" width="247" height="166">
+                                    <input type="radio" name="optionsRadios">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="choose-photo-item">
+                            <div class="radio">
+                                <label class="custom-radio">
+                                    <img loading="lazy" src="img/choose-photo8.webp" alt="photo" width="247" height="166">
+                                    <input type="radio" name="optionsRadios">
+                                </label>
+                            </div>
+                        </div>
+                        <div class="choose-photo-item">
+                            <div class="radio">
+                                <label class="custom-radio">
+                                    <img loading="lazy" src="img/choose-photo9.webp" alt="photo" width="247" height="166">
+                                    <input type="radio" name="optionsRadios">
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <a href="#" class="btn btn-secondary btn-lg btn--half-width">Cancel</a>
+                        <a href="#" class="btn btn-primary btn-lg btn--half-width">Confirm Photo</a>
+
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-expanded="false">
+
+                        <div class="choose-photo-item">
+                            <figure>
+                                <img loading="lazy" src="img/choose-photo10.webp" alt="photo" width="225" height="180">
+                                <figcaption>
+                                    <a href="#">South America Vacations</a>
+                                    <span>Last Added: 2 hours ago</span>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="choose-photo-item">
+                            <figure>
+                                <img loading="lazy" src="img/choose-photo11.webp" alt="photo" width="225" height="180">
+                                <figcaption>
+                                    <a href="#">Photoshoot Summer 2016</a>
+                                    <span>Last Added: 5 weeks ago</span>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="choose-photo-item">
+                            <figure>
+                                <img loading="lazy" src="img/choose-photo12.webp" alt="photo" width="225" height="180">
+                                <figcaption>
+                                    <a href="#">Amazing Street Food</a>
+                                    <span>Last Added: 6 mins ago</span>
+                                </figcaption>
+                            </figure>
+                        </div>
+
+                        <div class="choose-photo-item">
+                            <figure>
+                                <img loading="lazy" src="img/choose-photo13.webp" alt="photo" width="224" height="179">
+                                <figcaption>
+                                    <a href="#">Graffity & Street Art</a>
+                                    <span>Last Added: 16 hours ago</span>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="choose-photo-item">
+                            <figure>
+                                <img loading="lazy" src="img/choose-photo14.webp" alt="photo" width="225" height="180">
+                                <figcaption>
+                                    <a href="#">Amazing Landscapes</a>
+                                    <span>Last Added: 13 mins ago</span>
+                                </figcaption>
+                            </figure>
+                        </div>
+                        <div class="choose-photo-item">
+                            <figure>
+                                <img loading="lazy" src="img/choose-photo15.webp" alt="photo" width="225" height="180">
+                                <figcaption>
+                                    <a href="#">The Majestic Canyon</a>
+                                    <span>Last Added: 57 mins ago</span>
+                                </figcaption>
+                            </figure>
+                        </div>
+
+
+                        <a href="#" class="btn btn-secondary btn-lg btn--half-width">Cancel</a>
+                        <a href="#" class="btn btn-primary btn-lg disabled btn--half-width">Confirm Photo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    <!--
+
+<script src="{{ asset('profile/js/jQuery/jquery-3.5.1.min.js')}}"></script>
+
+<script src="{{ asset('profile/js/libs/jquery.mousewheel.min.js')}}"></script>
+<script src="{{ asset('profile/js/libs/perfect-scrollbar.min.js')}}"></script>
+<script src="{{ asset('profile/js/libs/imagesloaded.pkgd.min.js')}}"></script>
+<script src="{{ asset('profile/js/libs/material.min.js')}}"></script>
+<script src="{{ asset('profile/js/libs/selectize.min.js')}}"></script>
+<script src="{{ asset('profile/js/libs/isotope.pkgd.min.js')}}"></script>
+<script src="{{ asset('profile/js/libs/ajax-pagination.min.js')}}"></script>
+<script src="{{ asset('profile/js/libs/jquery.magnific-popup.min.js')}}"></script>
+
+<script src="{{ asset('profile/js/main.js')}}"></script>
+<script src="{{ asset('profile/js/libs-init/libs-init.js')}}"></script>
+
+<script src="{{ asset('profile/Bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+-->
+<!-- SVG icons loader -->
+<script src="js/svg-loader.js"></script>
+<!-- /SVG icons loader -->
+
+</div>
+</html>
+{% endblock %}

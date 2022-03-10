@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+{% block stylesheets %}
+
+    <link href= "{{ asset('frontoffice/css/review.css') }}"rel="stylesheet">
+{% endblock %}
+{% block body %}
+
+    <main  class="bg_gray">
+
+        <div style="margin-top: 100px" class="container margin_60_20">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="text-center box_general write_review">
+
+                            <p style="color: red" >        {{  form_errors(resetForm.plainPassword.first)}}</p>
+
+
+                        <h1 class="text-center add_bottom_15 ">Veuillez ecrire votre nouveau mot de passe  </h1>
+                        {{ form_start(resetForm) }}
+                        <div style="margin-bottom: 20px">
+                        {{ form_widget(resetForm.plainPassword.first,{'attr':{
+                            'placeholder':'Ecrire votre Password'
+                        }}) }}
+                        </div>
+                        <div style="margin-bottom: 20px">
+                        {{ form_widget(resetForm.plainPassword.second,{'attr':{
+                            'placeholder':'Repeter votre Password'
+                        }}) }}
+                        </div>
+                        <div class="col-md-12 text-center">
+
+                            <button  class="btn_1" type="submit">Reset mot de passe</button>
+                        </div>
+                        {{ form_end(resetForm) }}
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+    </main>
+
+{% endblock %}

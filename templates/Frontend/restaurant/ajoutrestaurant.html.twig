@@ -1,0 +1,171 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ajouter un restaurant {% endblock %}
+
+{% block stylesheets %}
+    {#{{ encore_entry_link_tags('app') }}#}
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('frontoffice/css/bootstrap_customized.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontoffice/css/style.css') }}" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="css/submit.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+{% endblock %}
+
+ {% block nav %}
+ {% endblock %}
+
+
+
+{% block body %}
+    {{ form_start(form) }}
+    <main>
+        <!-- /hero_single -->
+
+        <!-- /container -->
+
+
+
+        <div class="container margin_60_20" id="submit">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="text-center add_bottom_15">
+                        <h4>Please fill the form below</h4>
+                        <p>Id persius indoctum sed, audiam verear his in, te eum quot comprehensam. Sed impetus vocibus repudiare et.</p>
+                    </div>
+                    <div id="message-register"></div>
+                    <form>
+                        <h6>{{ form_label(form.nomRestaurant,"Nom Restaurant") }}</h6>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+
+
+                                    {{ form_widget(form.nomRestaurant,{'attr':{
+                                        'placeholder':'nom Restaurant','class':'nomRestaurant'
+                                    }}) }}
+
+                                </div>
+                            </div>
+                        </div>
+                        <h6>{{ form_label(form.description,"description") }}</h6>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+
+
+                                    {{ form_widget(form.description,{'attr':{
+                                        'placeholder':'description','class':'description'
+                                    }}) }}
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /row -->
+
+                        <!-- /row -->
+                        <h6>localisation</h6>
+
+                        <!-- /row -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.addresse,{'attr':{
+                                        'placeholder':'addresse','class':'addresse'
+                                    }}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /row -->
+                        <div class="row add_bottom_15">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_widget(form.cite,{'attr':{
+                                        'placeholder':'cite','class':'cite'
+                                    }}) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_widget(form.codePostal,{'attr':{
+                                        'placeholder':'code Postal','class':'codePostal'
+                                    }}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /row -->
+
+
+
+                        <div class="row add_bottom_15">
+
+
+
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <h6>horraire ouverture</h6>
+                                    {{ form_widget(form.heureOuverture)}}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <h6>horraire fermeture</h6>
+                                    {{ form_widget(form.heureFermeture,{'attr':{
+                                        'placeholder':'heureFermeture','class':'heureFermeture'
+                                    }}) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row add_bottom_25">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.imageRestaurant,{'attr':{
+                                        'placeholder':'imageRestaurant','class':'imageRestaurant'
+                                    }}) }}
+
+
+                                </div>
+                                {{ form_widget(form.categorieRestaurant,{'attr':{
+                                    'placeholder':'categorie Restaurant','class':'categorieRestaurant'
+                                }}) }}
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlInput1">Are you a robot ?</label>
+
+
+
+                                            {{ form_row(form.captchaCode) }}
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                {{ form_row(form._token) }}
+                                <div class="form-group text-center">
+                                    <button class="btn_1 gradient">Ajouter</button>
+                                </div>
+                            </div>
+                            <!-- /row -->
+
+                            {{ form(form,{'method':'GET'}) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /container -->
+
+    </main>
+    <!-- /main -->
+    {{ form_end(form) }}
+{% endblock %}
+
+
+

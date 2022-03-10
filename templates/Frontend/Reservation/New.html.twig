@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Zvenn - Quality delivery or takeaway food">
+    <meta name="Zvenn" content="Zvenn">
+    <title>{% block title %}ajouter Reservation{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('frontoffice/css/bootstrap_customized.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontoffice/css/style.css') }}" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="{{ asset('frontoffice/css/detail-page.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('frontoffice/css/custom.css') }}" rel="stylesheet">
+
+    {% block javascripts %}
+        <!-- COMMON SCRIPTS -->
+        <script src="{{"js/common_scripts.min.js" }}"></script>
+        <script src="{{ "js/common_func.js" }}"></script>
+        <script src="{{ "assets/validate.js" }}"></script>
+    {% endblock %}
+</head>
+{{ include('Frontend/nav.html.twig') }}
+
+
+
+{{ form_start(form) }}
+
+<div class="container margin_60_20" id="submit">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-5">
+            <div class="text-center add_bottom_15">
+                <h4>Ajouter Reservation </h4>
+                <p> Veiller remplir tout les champs </p>
+            </div>
+            <div class="form-group">
+
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h6>nb_personne</h6>
+                        {{ form_widget(form.nb_personne,{'attr':{
+                            'placeholder':'nb_personne','class':'nb_personne'
+                        }}) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h6>Description</h6>
+                        {{ form_widget(form.description,{'attr':{
+                            'placeholder':'description','class':'description'
+                        }}) }}
+                    </div>
+                </div>
+
+
+
+                {{ form(form,{'method':'GET'}) }}
+                <div class="form-group text-center">
+                    <button class="btn_1 gradient">Ajouter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+{{ include('Frontend/footer.html.twig') }}

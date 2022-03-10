@@ -1,0 +1,44 @@
+
+
+{% extends 'base.html.twig' %}
+{% block title %}Modifier Votre profil {% endblock %}
+
+{% block stylesheets %}
+
+    <link href= "{{ asset('frontoffice/css/review.css') }}"rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <main  class="bg_gray">
+
+        <div style="margin-top: 100px" class="container margin_60_20">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="text-center box_general write_review">
+                        {% for message in app.flashes('messages') %}
+                            <p style="color: red" >{{ message }}</p>
+                        {% endfor %}
+
+                        <h1 class="text-center add_bottom_15 ">Veuillez ecrire le code </h1>
+                        <form method="post">
+                            <div class="text-left form-group">
+                                <label>Ecrire votre code</label>
+                                <input  name="smscode" type="password"  class="form-control" placeholder="ecrire votre code">
+                            </div>
+
+                            <div class="col-md-12 text-center">
+
+                                <button  class="btn_1" type="submit">Submit</button>
+                            </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+    </main>
+
+
+
+
+{% endblock %}

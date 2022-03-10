@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Password Reset Email Sent{% endblock %}
+
+{% block body %}
+
+    <div class="alert">
+        If an account matching your email exists, then an email was just sent that contains <br> a link that you can use to reset your password.
+        This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+    </div>
+
+    <style>
+        .alert {
+
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 100px;
+            padding: 20px;
+            background-color: #22bb33;
+            color: white;
+        }
+
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closebtn:hover {
+            color: black;
+        }
+    </style>
+
+{% endblock %}

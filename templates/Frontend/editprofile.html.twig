@@ -1,0 +1,96 @@
+
+
+{% extends 'base.html.twig' %}
+{% block title %}Modifier Votre profil {% endblock %}
+
+{% block stylesheets %}
+    {#{{ encore_entry_link_tags('app') }}#}
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('frontoffice/css/bootstrap_customized.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontoffice/css/style.css') }}" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="{{ asset('frontoffice/css/submit.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('frontoffice/css/custom.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <main style="margin-top: 60px" >
+
+        <!-- /hero_single -->
+        <div class="container margin_60_20" id="submit">
+            <div class="row justify-content-center">
+                <div class="col-lg-5">
+                    <div class="text-center add_bottom_15">
+                        <h4>Veuillez remplir ce champs</h4>
+                        <p>Id persius indoctum sed, audiam verear his in, te eum quot comprehensam. Sed impetus vocibus repudiare et.</p>
+                    </div>
+
+
+                    <div id="message-register"></div>
+                    {{ form_start(form,{'attr':{'novalidate': 'novalidate'}}) }}
+                    <div class="form-group">
+
+                        {{ form_label(form,"Nom") }}
+                        {{ form_widget(form.nom,{'attr':{
+                            'placeholder':'Ecrire votre nom ...'
+                        }}) }}
+                        {% if form_errors(form.nom) %}
+                        <div style=" color: #ba3939;
+  background: #ffe0e0;
+  border: 1px solid #a33a3a;height:25px"  >{{ form_errors(form.nom) }}</div>
+                        {% endif %}
+                        {{ form_label(form,"Prenom") }}
+                        {{ form_widget(form.prenom,{'attr':{
+                            'placeholder':'Ecrire votre prenom ...'
+                        }}) }}
+                        {% if form_errors(form.prenom) %}
+                        <div style=" color: #ba3939;
+  background: #ffe0e0;
+  border: 1px solid #a33a3a;height:25px"  >{{ form_errors(form.prenom) }}</div>
+                        {% endif %}
+                        {{ form_label(form,"Courrier electronique") }}
+                        {{ form_widget(form.email,{'attr':{
+                            'placeholder':'Ecrire votre email ...'
+                        }}) }}
+
+                        <div style=" color: #ba3939;
+  background: #ffe0e0;
+  border: 1px solid #a33a3a;height:25px"  >{{ form_errors(form.email) }}</div>
+
+                        {{ form_label(form,"Adresse") }}
+                        {{ form_widget(form.adresse,{'attr':{
+                            'placeholder':'Ecrire votre adresse ...'
+                        }}) }}
+                        {% if form_errors(form.adresse) %}
+                        <div style=" color: #ba3939;
+  background: #ffe0e0;
+  border: 1px solid #a33a3a;height:25px"  >{{ form_errors(form.adresse) }}</div>
+                        {% endif %}
+                        {{ form_label(form,"Numero telephone") }}
+                        {{ form_widget(form.numTel,{'attr':{
+                            'placeholder':'Ecrire votre telephone'
+                        }}) }}
+                        {% if form_errors(form.numTel) %}
+                        <div style=" color: #ba3939;
+  background: #ffe0e0;
+  border: 1px solid #a33a3a;height:25px"  >{{ form_errors(form.numTel) }}</div>
+                        {% endif %}
+
+                    </div>
+                    {{ form_end(form) }}
+
+                </div>
+
+            </div>
+        </div>
+        <!-- /container -->
+
+    </main>
+
+
+{% endblock %}

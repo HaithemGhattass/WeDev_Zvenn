@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="FooYes - Quality delivery or takeaway food">
+    <meta name="author" content="Ansonika">
+    <title>{{ app.user.pseudo }}</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('frontoffice/img/favicon.ico') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('frontoffice/img/apple-touch-icon-57x57-precomposed.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('frontoffice/img/apple-touch-icon-72x72-precomposed.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('frontoffice/img/apple-touch-icon-114x114-precomposed.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('frontoffice/img/apple-touch-icon-144x144-precomposed.png') }}">
+    {#{{ encore_entry_link_tags('app') }}#}
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('frontoffice/css/bootstrap_customized.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontoffice/css/style.css') }}" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="{{ asset('frontoffice/css/detail-page.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('frontoffice/css/custom.css') }}" rel="stylesheet">
+
+</head>
+<body>
+
+{{ include('Frontend/nav2.html.twig') }}
+<!-- /header -->
+
+<main>
+
+
+
+
+        <div class="bg_gray">
+
+            <div class="container margin_detail">
+                <div class="row">
+                    <div class="col-lg-8 list_menu">
+                        <section id="section-1">
+                            <h4>Mes Restaurants</h4>
+                            <div class="table_wrapper">
+                                <table class="table cart-list menu-gallery">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            Restaurant
+                                        </th>
+                                        <th>
+                                            Statut
+                                        </th>
+                                        <th>
+                                            Modifier
+                                        </th>
+                                        <th>
+                                            Supprimer
+                                        </th>
+                                        <th>
+                                            Ajouter Produit
+                                        </th>
+                                        <th>
+                                            Ajouter un évenement
+                                        </th>
+                                        <th>
+                                            contrat
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for r in app.user.restaurants %}
+                                        <tr>
+                                            <td class="d-md-flex align-items-center">
+                                                <figure>
+                                                    <a href="{{asset('/uploads/' ~ r.nomImage ) }}" title="Photo title" data-effect="mfp-zoom-in"><img src="{{asset('/uploads/' ~ r.nomImage ) }}" data-src="{{asset('/uploads/' ~ r.nomImage ) }}" alt="thumb" class="lazy"></a>
+                                                </figure>
+                                                <div class="flex-md-column">
+                                                    <h4>{{ r.nomRestaurant }}</h4>
+                                                    <p>
+                                                        {{ r.addresse }}
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {% if r.status=="not verified" %}
+                                                    <strong> En cours de vérification</strong>
+                                                {% else %}
+                                                    <strong > verifié</strong>
+                                                {% endif %}
+                                            </td>
+                                            <td class="options">
+                                                <div class="dropdown dropdown-options">
+                                                    <a href="{{ path ('update',{'id':r.id}) }}"  aria-expanded="true"><i class="icon_pencil-edit_alt"></i></a>
+
+
+
+                                                </div>
+                                            </td>
+                                            <td class="options" >
+                                                <div class="dropdown dropdown-options">
+                                                    <a href="{{ path ('deleterestaurant',{'id':r.id}) }}"  aria-expanded="true"><i class="icon_minus_alt2"></i></a>
+
+
+
+                                                </div>
+
+                                            </td>
+                                            <td class="options" >
+                                                <div class="dropdown dropdown-options">
+                                                    <a href="{{ path ('ajouterproduits',{'id':r.id}) }}"  aria-expanded="true"><i class="icon_plus_alt2"></i></a>
+
+
+
+                                                </div>
+
+                                            </td>
+                                        <td class="options" >
+                                            <div class="dropdown dropdown-options">
+                                                <a href="{{ path ('add',{'id':r.id}) }}"  aria-expanded="true"><i class="icon_plus_alt2"></i></a>
+
+
+
+                                            </div>
+
+                                        </td>
+                                            {% if r.status=="verified" %}
+                                        <td>
+                                            <strong> contrat validé </strong>
+                                        </td>
+
+                                            {% else %}
+                                                <td>
+                                                    <a href="{{ path('pdf',{'id':r.id}) }}" />contrat </a>
+                                                </td>
+                                        </tr>
+                                                {% endif %}
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <!-- /section -->
+
+                        <section id="section-2">
+                            <h4>Mes Produits</h4>
+                            <div class="table_wrapper">
+                                <table class="table cart-list menu-gallery">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            produit
+                                        </th>
+                                        <th>
+                                            prix
+                                        </th>
+                                        <th>
+                                            Restaurant
+                                        </th>
+                                        <th>
+                                            supprimer
+                                        </th>
+                                        <th>
+                                            modifier
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for p in prod.getProduits %}
+                                         {% if p.restaurant.user.id==app.user.id %}
+
+                                            <tr>
+                                                <td class="d-md-flex align-items-center">
+                                                    <figure>
+                                                        <a href="{{asset('/uploads/' ~ p.nomimageProduit ) }}" title="Photo title" data-effect="mfp-zoom-in"><img src="{{asset('/uploads/' ~ p.nomimageProduit ) }}" data-src="{{asset('/uploads/' ~ p.nomimageProduit ) }}" alt="thumb" class="lazy"></a>
+                                                    </figure>
+                                                    <div class="flex-md-column">
+                                                        <h4>{{ p.nomProduit }}</h4>
+                                                        <p>
+                                                            {{ p.descriptionProduit }}
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <strong>{{ p.prixProduit }} dt</strong>
+                                                </td>
+                                                <td>
+                                                    <strong>{{ p.restaurant.nomRestaurant }} </strong>
+                                                </td>
+                                                <td class="options">
+                                                    <a href="{{ path ('deleteproduit',{'id':p.id}) }}"><i class="icon_minus_alt2"></i></a>
+                                                </td>
+                                                <td class="options">
+                                                    <a href="{{ path ('updateproduit',{'id':p.id}) }}"><i class="icon_plus_alt2"></i></a>
+
+                                                </td>
+
+                                            </tr>
+                                          {% endif %}
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <!-- /section -->
+                        <section id="section-3">
+                            <h4>Mes evenement</h4>
+                            <div class="table_wrapper">
+                                <table class="table cart-list menu-gallery">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            Restaurant
+
+                                        </th>
+                                        <th>
+                                            evenment
+
+                                        </th>
+                                        <th>
+                                            a propos
+                                        </th>
+
+                                        <th>
+                                            date d'evenement
+                                        </th>
+                                        <th>
+                                            time
+                                        </th>
+                                        <th>
+                                            modifier
+                                        </th>
+                                        <th>
+                                            supprimer
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for e in eve.getEvenements%}
+                                        {% if e.restaurant.user.id==app.user.id %}
+
+                                            <tr>
+                                                <td>
+                                                    <strong>{{ e.restaurant.nomRestaurant }}</strong>
+                                                </td>
+                                                <td class="d-md-flex align-items-center">
+                                                    <figure>
+                                                        <a href="{{asset('/uploads/' ~ e.nomimage ) }}" title="Photo title" data-effect="mfp-zoom-in"><img src="{{asset('/uploads/' ~ e.nomimage ) }}" data-src="{{asset('/uploads/' ~ e.nomimage) }}" alt="thumb" class="lazy"></a>
+                                                    </figure>
+                                                    <div class="flex-md-column">
+                                                        <h4>{{ e.titre }}</h4>
+                                                        <p>
+
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <strong> {{ e.description }}</strong>
+                                                </td>
+                                                <td>
+                                                    <strong>{{ e.date|date('d/m/y') }}</strong>
+                                                </td>
+                                                <td>
+                                                    <strong>{{ e.time|date('h:m') }}</strong>
+                                                </td>
+                                                <td class="options">
+                                                    <a href="{{ path ('editE',{'id':e.id}) }}"><i class="icon_plus_alt2"></i></a>
+                                                </td>
+                                                <td class="options">
+                                                    <a href="{{ path ('deleteE',{'id':e.id}) }}"><i class="icon_minus_alt2"></i></a>
+
+                                                </td>
+
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                        <!-- /section -->
+
+
+                    </div>
+                    <!-- /col -->
+
+                    <div class="col-lg-4" id="sidebar_fixed">
+                        <div class="box_order mobile_fixed">
+                            <div class="head">
+                                <h3> {{ app.user.pseudo }}</h3>
+                                <a href="#0" class="close_panel_mobile"><i class="icon_close"></i></a>
+
+                            </div>
+                            <!-- /head -->
+                            <div class="main">
+                                <ul class="clearfix">
+                                    <li> nom<span>{{app.user.nom}}</span></li>
+                                    <li> prenom</a><span>{{app.user.prenom}}</span></li>
+                                    <li>adresse</a><span>{{app.user.adresse}}</span></li>
+                                    {% set som=0 %}
+
+                                    {% for r in rest.getRestaurants %}
+                                        {% if app.user.id==r.user.id %}
+
+                                            {% set som=som+1 %}
+
+
+
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% set som2=0 %}
+
+                                    {% for p in prod.getProduits %}
+                                        {% if app.user.id==p.restaurant.user.id %}
+
+                                            {% set som2=som+1 %}
+
+
+
+                                        {% endif %}
+                                    {% endfor %}
+                                    <li>nombre restaurants:</a><span>{{ som }}</span></li>
+
+                                    <li>nombre produits:</a><span>{{ som2 }}</span></li>
+
+                                    <a class="btn_1 gradient full-width" href="{{ path('addrestaurant') }}">Ajouter restaurant</a>
+
+                                </ul>
+
+
+
+                            </div>
+                        </div>
+                        <!-- /box_order -->
+                        <div class="btn_reserve_fixed"><a href="#0" class="btn_1 gradient full-width">View Basket</a></div>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /bg_gray -->
+
+    {{ include('Frontend/login.html.twig') }}
+
+    </main>
+    <!-- /main -->
+</body>
+</html>
+
+
+
+<script src="{{ asset('frontoffice/js/common_scripts.min.js') }}"></script>
+<script src="{{ asset('frontoffice/js/common_func.js') }}"></script>
+<script src="{{ asset('frontoffice/assets/validate.js') }}"></script>
+
+
+<!-- SPECIFIC SCRIPTS -->
+<script src="{{ asset('frontoffice/js/sticky_sidebar.min.js') }}"></script>
+<script src="{{ asset('frontoffice/js/sticky-kit.min.js') }}"></script>
+<script src="{{ asset('frontoffice/js/specific_detail.js') }}"></script>
