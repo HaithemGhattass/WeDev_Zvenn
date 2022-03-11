@@ -1,0 +1,164 @@
+{% extends 'backend/index.html.twig' %}
+
+{% block title %}Hello RestaurantController!{% endblock %}
+
+
+{% block aside %}
+    <div class="navigation">
+        <h5 class="title">Navigation</h5>
+        <!-- /.title -->
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend') }}"><i class="menu-icon fa fa-home"></i><span>Dashboard</span></a>
+            </li>
+
+        </ul>
+        <!-- /.menu js__accordion -->
+
+        <!-- /.menu js__accordion -->
+        <h5 class="title">Utilisateurs</h5>
+        <!-- /.title -->
+        <ul class="menu js__accordion">
+            <li >
+                <a class="waves-effect" href="{{ path('app_backend_utilisateur') }}"><i class="menu-icon fa fa-users"></i><span>Utilisateurs</span></a>
+            </li>
+
+        </ul>
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_messagerie') }}"><i class="menu-icon fa fa-envelope"></i><span>Messagerie</span></a>
+            </li>
+
+        </ul>
+        <h5 class="title">Restaurants</h5>
+        <!-- /.title -->
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_restaurant') }}"><i class="menu-icon fa fa-institution"></i><span>Restaurants</span></a>
+            </li>
+
+        </ul>
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_produit') }}"><i class="menu-icon fa fa-glass"></i><span>Produits</span></a>
+            </li>
+
+        </ul>
+        <h5 class="title">Commandes</h5>
+        <!-- /.title -->
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_commande') }}"><i class="menu-icon fa fa-shopping-cart"></i><span>Commandes</span></a>
+            </li>
+
+        </ul>
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_coupon') }}"><i class="menu-icon fa fa-ticket"></i><span>Coupon reduction</span></a>
+            </li>
+
+        </ul>
+        <!-- /.menu js__accordion -->
+        <h5 class="title">Reclamations</h5>
+        <!-- /.title -->
+        <ul class="menu js__accordion">
+            <li class="current">
+                <a class="waves-effect" href="{{ path('app_backend_reclamation') }}"><i class="menu-icon fa fa-question-circle-o"></i><span>Reclamations</span></a>
+            </li>
+        </ul>
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_reply') }}"><i class="menu-icon fa fa-mail-reply-all"></i><span>Reply</span></a>
+            </li>
+
+        </ul>
+        <h5 class="title">Evenement</h5>
+        <!-- /.title -->
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_blog') }}"><i class="menu-icon fa fa-newspaper-o"></i><span>Blog</span></a>
+            </li>
+
+        </ul>
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_reservation') }}"><i class="menu-icon fa fa-calendar-check-o"></i><span>Reservations</span></a>
+            </li>
+
+        </ul>
+
+    </div>
+{% endblock %}
+
+
+{% block body %}
+    {{ form_start(form,{'attr': {'novalidate': 'novalidate'}} ) }}
+
+    <div id="wrapper">
+        <div class="main-content">
+            <div class="row small-spacing">
+
+                <!-- /.col-lg-6 col-xs-12 -->
+
+                <div class="">
+                    <div class="box-content card white">
+                        <h4 class="box-title">Horizontal form</h4>
+                        <!-- /.box-title -->
+                        <div class="card-content">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label>Titre de votre reclamation</label>
+                                    {% if form_errors(form.titre) is not null %}
+                                        <div class="error_message">
+                                            {{ form_errors(form.titre) }}
+                                        </div>
+                                    {% endif %}
+                                    <input class="form-control" type="text" aria-readonly="false" autocomplete="off" {{ form_widget(form.titre,{'attr':{'placeholder':'titre'}}) }}
+
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Votre réponse</label>
+                                    {{ form_errors(form.description) }}
+                                    <textarea class="form-control" style="height: 180px;" placeholder="Ecrire votre reponse ici!!" {{ form_widget(form.description,{'attr':{'placeholder':'description','class':'description'}}) }}</textarea>
+
+                                </div>
+                                <div class="clearfix add_bottom_15">
+                                <div class="form-group">
+                                    <div class="">
+                                        <button type="submit" class="btn btn-info btn-sm waves-effect waves-light">Repondre</button>
+                                        <a href="{{ path('app_backend_reclamation') }}" type="submit" class="btn btn-info btn-sm waves-effect waves-light">Annuler</a>
+                                    </div>
+                                    {{ form(form,{'method':'GET'}) }}
+                                </div>
+
+                                </div>
+                                {{ form_end(form) }}
+
+                            </form>
+                        </div>
+                        <!-- /.card-content -->
+                    </div>
+                    <!-- /.box-content -->
+                    <!-- /.box-content card white -->
+                </div>
+                <!-- /.col-lg-6 col-xs-12 -->
+            </div>
+
+        </div>
+        <!-- /.main-content -->
+    </div><!--/#wrapper -->
+{% endblock %}
+
+
+
+{% block javascripts %}
+    <script src="{{ asset('backoffice/plugin/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('backoffice/plugin/datatables/media/js/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{ asset('backoffice/plugin/datatables/extensions/Responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ asset('backoffice/plugin/datatables/extensions/Responsive/js/responsive.bootstrap.min.js')}}"></script>
+    <script src="{{ asset('backoffice/scripts/datatables.demo.min.js')}}"></script>
+
+
+
+{% endblock %}

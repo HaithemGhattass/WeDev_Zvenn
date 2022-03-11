@@ -1,0 +1,16 @@
+<a class="menu_item modal_dialog" href="#modal-dialog">
+
+
+    <h1>Reservation</h1>
+
+    <h3> {{ Reservation.nb_personne }}</h3>
+    <p> {{ Reservation.descriptionp }}</p>
+    <strong>{{ Reservation.date }}</strong>
+
+    <a href="{{ path ('update',{'id':Reservation.id}) }}">Update</a>
+    <a href="{{ path ('delete',{'id':Reservation.id}) }}">Delete</a>
+
+
+</a>
+
+<!-- /row -->

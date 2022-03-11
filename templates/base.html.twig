@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="FooYes - Quality delivery or takeaway food">
+    <meta name="author" content="Ansonika">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- GOOGLE WEB FONT -->
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+    <link href="{{ asset('frontoffice/css/bootstrap_customized.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontoffice/css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+
+    {% block stylesheets %}
+        <link href="{{ asset('frontoffice/css/home.css') }}" rel="stylesheet">
+    {% endblock %}
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('frontoffice/css/custom.css') }}" rel="stylesheet">
+
+
+    </head>
+    <body>
+
+    {% block nav %}
+    {{ include('Frontend/nav.html.twig') }}
+    {% endblock %}
+        {% block body %}
+
+        {% endblock %}
+    <div>
+    {{ include('Frontend/login.html.twig') }}
+    </div>
+    {% block footer %}
+    {{ include('Frontend/footer.html.twig') }}
+    {% endblock %}
+    </body>
+</html>
+<script src="{{ asset('frontoffice/js/common_scripts.min.js') }}"></script>
+<script src="{{ asset('frontoffice/js/common_func.js') }}"></script>
+<script src="{{ asset('frontoffice/assets/validate.js') }}"></script>
+
+
+{% block javascripts %}
+
+{% endblock %}

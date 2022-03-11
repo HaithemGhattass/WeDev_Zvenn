@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="FooYes - Quality delivery or takeaway food">
+    <meta name="author" content="Ansonika">
+    <title>FooYes - Quality delivery or takeaway food</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="/frontoffice/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="/frontoffice/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/frontoffice/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="/frontoffice/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="/frontoffice/img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="/frontoffice/css/bootstrap_customized.min.css" rel="stylesheet">
+    <link href="/frontoffice/css/style.css" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="/frontoffice/css/blog.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="/frontoffice/css/custom.css" rel="stylesheet">
+
+</head>
+
+<body>
+{{ include('Frontend/nav2.html.twig') }}
+
+<!-- /header -->
+
+<main>
+    <div class="page_header blog element_to_stick">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
+                    <h1>Blog and Articles</h1>
+                </div>
+                <div class="col-xl-4 col-lg-5 col-md-5">
+                    <div class="search_bar_list">
+                        <input id="myInput" type="text" class="form-control" placeholder="Dishes, restaurants or cuisines">
+                        <button type="submit"><i class="icon_search"></i></button>
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+    </div>
+    <!-- /page_header -->
+
+    <div class="container margin_60_20">
+        <div class="row">
+            <div class="col-lg-9">
+                <div  class="row">
+                    {% for e in Evenement %}
+                    <div id="events" class="col-md-6">
+                        <article class="blog">
+                            <figure>
+                                <a href="blog-post.html"> <img src="{{asset('/uploads/' ~ e.nomimage ) }}"  >
+                                    <div class="preview"><span>Read more</span></div>
+                                </a>
+                            </figure>
+                            <div class="post_info">
+                                <small>{{ e.restaurant.categorieRestaurant }} - {{ e.date|date('d/m/y')}}</small>
+                                <h2><a href="blog-post.html">{{ e.restaurant.nomRestaurant}}</a></h2>
+                                <p> {{ e.description }}.</p>
+                                    <section>
+                                        <a class="btn_1 mb_5" href="https://twitter.com/intent/tweet?text=http://127.0.0.1:8000/affiche#0"  >Twitter</a>
+                                        <a class="btn_1 mb_5" href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:8000/affiche#0">Facebook</a>
+                                        <a class="btn_1 mb_5" href="https://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=&source=http://127.0.0.1:8000/affiche#0">LinkedIn</a>
+                                        <a class="btn_1 mb_5" href="https://pinterest.com/pin/create/button/?url=&media=&description=http://127.0.0.1:8000/affiche#0">Pinterest</a>
+                                        <a class="btn_1 mb_5" href="http://www.reddit.com/submit?url=YOUR-URL&title=http://127.0.0.1:8000/affiche#0">Reddit</a>
+
+                                    </section>
+                                <ul>
+
+                                    <li>
+
+                                        <div class="thumb"><img src="{{asset('/uploads/' ~ e.restaurant.user.nomImage) }}" alt=""></div>
+                                        {{ e.restaurant.user.nom }}
+                                    </li>
+                                    <li><i class="icon_comment_alt"></i>20</li>
+                                </ul>
+                            </div>
+                        </article>
+                        <a href="{{ path ('Ajou',{'id':e.id}) }}"  aria-expanded="true"><i class="icon_plus_alt2"></i></a>
+
+                        <!-- /article -->
+                    </div>
+                    {% endfor %}
+                    <!-- /col -->
+
+                    <!-- /col -->
+                </div>
+                <!-- /row -->
+
+                <div class="pagination_fg">
+                    <a href="#">&laquo;</a>
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">&raquo;</a>
+                </div>
+
+            </div>
+            <!-- /col -->
+
+            <aside class="col-lg-3">
+                <div class="widget">
+                    <div class="widget-title first">
+                        <h4>Latest Post</h4>
+                    </div>
+                    <ul class="comments-list">
+                        {% for e in Evenement %}
+                        <li>
+                            <div class="alignleft">
+                                <a href="#0"><img src="{{asset('/uploads/' ~ e.nomimage ) }}" alt=""></a>
+                            </div>
+                            <small>{{ e.restaurant.categorieRestaurant }}- {{ e.date|date('d/m/y')}}</small>
+                            <h3><a href="#" title="">Verear qualisque ex minimum...</a></h3>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- /widget -->
+                <div class="widget">
+                    <div class="widget-title">
+                        <h4>Categories</h4>
+                    </div>
+                    {% for e in Evenement %}
+                    <ul class="cats">
+                        <li><a href="#">{{ e.restaurant.categorieRestaurant }}<span>(12)</span></a></li>
+                    </ul>
+                    {% endfor %}
+                </div>
+                <!-- /widget -->
+                <div class="widget">
+                    <div class="widget-title">
+                        <h4>Popular Tags</h4>
+                    </div>
+                    <div class="tags">
+                        <a href="#">Food</a>
+                        <a href="#">Bars</a>
+                        <a href="#">Cooktails</a>
+                        <a href="#">Shops</a>
+                        <a href="#">Best Offers</a>
+                        <a href="#">Transports</a>
+                        <a href="#">Restaurants</a>
+                    </div>
+                </div>
+                <!-- /widget -->
+            </aside>
+            <!-- /aside -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+
+</main>
+<!-- /main -->
+
+<footer>
+    <div class="wave footer"></div>
+    <div class="container margin_60_40 fix_mobile">
+
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <h3 data-target="#collapse_1">Quick Links</h3>
+                <div class="collapse dont-collapse-sm links" id="collapse_1">
+                    <ul>
+                        <li><a href="about.html">About us</a></li>
+                        <li><a href="submit-restaurant.html">Add your restaurant</a></li>
+                        <li><a href="help.html">Help</a></li>
+                        <li><a href="account.html">My account</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="contacts.html">Contacts</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h3 data-target="#collapse_2">Categories</h3>
+                <div class="collapse dont-collapse-sm links" id="collapse_2">
+                    <ul>
+                        <li><a href="grid-listing-filterscol.html">Top Categories</a></li>
+                        <li><a href="grid-listing-filterscol-full-masonry.html">Best Rated</a></li>
+                        <li><a href="grid-listing-filterscol-full-width.html">Best Price</a></li>
+                        <li><a href="grid-listing-filterscol-full-masonry.html">Latest Submissions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h3 data-target="#collapse_3">Contacts</h3>
+                <div class="collapse dont-collapse-sm contacts" id="collapse_3">
+                    <ul>
+                        <li><i class="icon_house_alt"></i>97845 Baker st. 567<br>Los Angeles - US</li>
+                        <li><i class="icon_mobile"></i>+94 423-23-221</li>
+                        <li><i class="icon_mail_alt"></i><a href="#0">info@domain.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h3 data-target="#collapse_4">Keep in touch</h3>
+                <div class="collapse dont-collapse-sm" id="collapse_4">
+                    <div id="newsletter">
+                        <div id="message-newsletter"></div>
+                        <form method="post" action="/frontoffice/assets/newsletter.php" name="newsletter_form" id="newsletter_form">
+                            <div class="form-group">
+                                <input type="email" name="email_newsletter" id="email_newsletter" class="form-control" placeholder="Your email">
+                                <button type="submit" id="submit-newsletter"><i class="arrow_carrot-right"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="follow_us">
+                        <h5>Follow Us</h5>
+                        <ul>
+                            <li><a href="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/twitter_icon.svg" alt="" class="lazy"></a></li>
+                            <li><a href="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/facebook_icon.svg" alt="" class="lazy"></a></li>
+                            <li><a href="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/instagram_icon.svg" alt="" class="lazy"></a></li>
+                            <li><a href="#0"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/youtube_icon.svg" alt="" class="lazy"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /row-->
+        <hr>
+        <div class="row add_bottom_25">
+            <div class="col-lg-6">
+                <ul class="footer-selector clearfix">
+                    <li>
+                        <div class="styled-select lang-selector">
+                            <select>
+                                <option value="English" selected>English</option>
+                                <option value="French">French</option>
+                                <option value="Spanish">Spanish</option>
+                                <option value="Russian">Russian</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="styled-select currency-selector">
+                            <select>
+                                <option value="US Dollars" selected>US Dollars</option>
+                                <option value="Euro">Euro</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/cards_all.svg" alt="" width="230" height="35" class="lazy"></li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <ul class="additional_links">
+                    <li><a href="#0">Terms and conditions</a></li>
+                    <li><a href="#0">Privacy</a></li>
+                    <li><span>© FooYes</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--/footer-->
+
+<div id="toTop"></div><!-- Back to top button -->
+
+<!-- Sign In Modal -->
+<div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
+    <div class="modal_header">
+        <h3>Sign In</h3>
+    </div>
+    <form>
+        <div class="sign-in-wrapper">
+            <a href="#0" class="social_bt facebook">Login with Facebook</a>
+            <a href="#0" class="social_bt google">Login with Google</a>
+            <div class="divider"><span>Or</span></div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" name="email" id="email">
+                <i class="icon_mail_alt"></i>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" name="password" id="password" value="">
+                <i class="icon_lock_alt"></i>
+            </div>
+            <div class="clearfix add_bottom_15">
+                <div class="checkboxes float-left">
+                    <label class="container_check">Remember me
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+                <div class="float-right"><a id="forgot" href="javascript:void(0);">Forgot Password?</a></div>
+            </div>
+            <div class="text-center">
+                <input type="submit" value="Log In" class="btn_1 full-width mb_5">
+                Don’t have an account? <a href="account.html">Sign up</a>
+            </div>
+            <div id="forgot_pw">
+                <div class="form-group">
+                    <label>Please confirm login email below</label>
+                    <input type="email" class="form-control" name="email_forgot" id="email_forgot">
+                    <i class="icon_mail_alt"></i>
+                </div>
+                <p>You will receive an email containing a link allowing you to reset your password to a new preferred one.</p>
+                <div class="text-center"><input type="submit" value="Reset Password" class="btn_1"></div>
+            </div>
+        </div>
+    </form>
+    <!--form -->
+</div>
+<!-- /Sign In Modal -->
+
+<!-- COMMON SCRIPTS -->
+<script src="/frontoffice/js/common_scripts.min.js"></script>
+<script src="/frontoffice/js/common_func.js"></script>
+<script src="/frontoffice/assets/validate.js"></script>
+<script src="/fronoffice/js/sticky_sidebar.min.js'"></script>
+<script src="/frontoffice/js/specific_listing.js'"></script>
+<!-- Map -->
+<script src="/frontoffice/js/main_map_scripts.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#events ").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+</script>
+
+</body>
+</html>

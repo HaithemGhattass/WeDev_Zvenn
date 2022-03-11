@@ -1,0 +1,108 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<header class="header_in clearfix">
+    <div class="container">
+        <div id="logo">
+            <a href="{{ path('app_home_front') }}">
+                <img src="{{ asset('logo.png') }}" width="90" height="40" alt="">
+            </a>
+        </div>
+        {% if app.user %}
+            <ul id="top_menu" class="drop_user">
+
+
+
+
+                <li>
+
+                    <div class="dropdown user clearfix">
+                        <a href="" data-toggle="dropdown">
+                            <figure><img src="{{asset('/uploads/' ~ app.user.nomImage ) }}"  alt=""></figure><span> {{  app.user.pseudo }}</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-menu-content">
+                                <ul>
+                                    <li><a href="{{ path('app_profile') }}"><i class="icon_document"></i>Mon profil</a></li>
+                                    {%if is_granted('ROLE_VENDEUR')%}
+                                        <li><a href="{{ path('app_vendeur') }}"><i class="icon-food_icon_shop"></i>Mes restaurants</a></li>
+                                    {% endif %}
+                                    {%if is_granted('ROLE_ADMIN')%}
+                                        <li><a href="{{ path('app_backend') }}"><i class="icon_heart"></i>Dashboard</a></li>
+                                    {% endif %}
+                                    <li><a href="{{ path('app_logout') }}"><i class="icon_key"></i>Log out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /dropdown -->
+                </li>
+
+                <li>
+                    <div class="dropdown-cart ">
+                        <a style="cursor:pointer" class="cart_b"><strong>{{ read.getMessagesRead(app.user)}}</strong></a>
+                        <div class="dropdown-menu">
+                            <ul>
+                                {% for m in msg.getMessages(app.user) %}
+                                    <li>
+                                        <figure><img src="{{asset('/uploads/' ~ m.sender.nomImage ) }}"  alt="" width="50" height="50" class="lazy"></figure>
+                                        <strong><span>{{ m.sender.pseudo }}</span>{{ m.message }}</strong>
+                                        <a href="#0" class="action"><i class="icon_trash_alt"></i></a>
+                                    </li>
+                                {% endfor %}
+
+
+                            </ul>
+                            <div class="total_drop">
+                                <a href="{{ path('messages') }}" class="btn_1 outline">Voir tous les messages</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /dropdown-cart-->
+                </li>
+                <li>
+
+                        <a href="{{ path('affiche') }}" class="cart_bt"><strong>{{ app.session.get('panier', [])|length }}</strong></a>
+
+
+                    <!-- /dropdown-cart-->
+                </li>
+
+
+            </ul>
+
+        {% else %}<!-- Opacity Mask Menu Mobile -->
+            <ul id="top_menu">
+                <li><a href="{{ path('app_login') }}"  class="login">Sign In</a></li>
+
+
+            </ul>
+        {% endif %}
+        <!-- /top_menu -->
+        <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+        <a href="#0" class="open_close">
+            <i class="icon_menu"></i><span>Menu</span>
+        </a>
+        <nav class="main-menu">
+            <div id="header_menu">
+                <a href="#0" class="open_close">
+                    <i class="icon_close"></i><span>Menu</span>
+                </a>
+                <a href="{{ path('app_home_front') }}"><img src="{{ asset('frontoffice/img/logo.svg') }}" width="162" height="35" alt=""></a>
+            </div>
+            <ul>
+                <li class="submenu">
+                    <a href="{{ path('app_home_front') }}" class="show-submenu">Home</a>
+
+                </li>
+                <li class="submenu">
+                    <a href="{{ path('events') }}" class="show-submenu">Blog</a>
+                </li>
+                <li class="submenu">
+                    <a href="{{ path('app_home_restaurant') }}" class="show-submenu">Restaurants</a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+</header>
+<!-- /header -->

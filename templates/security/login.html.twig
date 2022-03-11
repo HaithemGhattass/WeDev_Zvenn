@@ -1,0 +1,118 @@
+
+
+            <!DOCTYPE html>
+            <html lang="zxx">
+            <head>
+                <!-- Google Tag Manager -->
+                <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                    })(window,document,'script','dataLayer','GTM-TAGCODE');</script>
+                <!-- End Google Tag Manager -->
+                <title>Logdy - Login and Register Form HTML5 Template</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta charset="UTF-8">
+                <!-- External CSS libraries -->
+                <link type="text/css" rel="stylesheet" href="{{ asset('login/css/bootstrap.min.css')}}">
+                <link type="text/css" rel="stylesheet" href="{{ asset('login/fonts/flaticon/font/flaticon.css')}}">
+                <link type="text/css" rel="stylesheet" href="../../public/login/fonts/font-awesome/css/font-awesome.min.css">
+
+                <!-- Favicon icon -->
+                <link rel="shortcut icon" href="{{ asset('/login/img/favicon.ico')}}" type="image/x-icon" >
+
+                <!-- Google fonts -->
+                <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800%7CPoppins:400,500,700,800,900%7CRoboto:100,300,400,400i,500,700">
+                <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+                <!-- Custom Stylesheet -->
+                <link type="text/css" rel="stylesheet" href="{{ asset('login/css/style.css')}}">
+                <link rel="stylesheet" type="text/css" id="style_sheet" href="{{ asset('login/css/skins/default.css')}}'">
+
+            </head>
+            <body id="top">
+            <!-- Google Tag Manager (noscript) -->
+            <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TAGCODE"
+                              height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+            <!-- End Google Tag Manager (noscript) -->
+            <div class="page_loader"></div>
+
+            <!-- Login 8 section start -->
+            <div class="login-8">
+                <div class="container">
+                    <div class="row login-box">
+                        <div class="col-lg-5 bg-img align-self-center">
+                            <div class="title">
+                                <div class="bottom-container">
+                                    Welcome To Zven Delivery
+                                </div>
+                                <div class="top-container">
+                                    Welcome To Zven Delivery
+                                </div>
+                            </div>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+                        </div>
+                        <div class="col-lg-7 form-section">
+                            <div class="form-inne">
+                                <a  href="{{ path('app_home_front') }}">
+                                    <img src="{{ asset('logo.png') }}" width="20%" height="15%" alt="">
+                                </a>
+                                <h3 style="margin-top: 10px">Sign Into Your Account</h3>
+                                {% if error %}
+                                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                {% endif %}
+                                <form method="post">
+                                    <div class="form-group form-box">
+                                        <input class="form-control" type="email" value="{{ last_username }}" placeholder="Email Address" name="email" id="inputEmail" autocomplete="email" autofocus>
+
+
+                                    </div>
+                                    <div class="form-group form-box">
+                                        <input type="password" name="password" id="inputPassword" autocomplete="current-password" class="form-control" >
+
+
+                                    </div>
+                                    <div class="checkbox form-group clearfix">
+                                        <div class="form-check float-start">
+                                            <input class="form-check-input" type="checkbox" id="rememberme">
+                                            <label class="form-check-label" for="rememberme">
+                                                Remember me
+                                            </label>
+                                        </div>
+                                        <a href="{{ path('app_forgot_password_request') }}" class="link-light float-end forgot-password">Forgot your password?</a>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" name="_csrf_token"
+                                               value="{{ csrf_token('authenticate') }}">                                        <button type="submit" class="btn btn-primary btn-lg btn-theme">Login</button>
+                                    </div>
+                                    <div class="extra-login form-group clearfix">
+                                        <span>Or Login With</span>
+                                    </div>
+                                </form>
+                                <div class="clearfix"></div>
+                                <div class="social-list">
+                                    <div class="buttons">
+
+                                        <a href="{{ path('connect_facebook_start') }}" class="facebook-bg">f<i class="fa fa-facebook"></i></a>
+                                        <a href="{{ path('connect_google_start') }}" class="google-bg">g<i class="fa fa-google"></i></a>
+                                        <a href="{{ path('connect_github_start') }}" class="dribbble-bg">Git<i class="fa fa-linkedin"></i></a>
+                                    </div>
+                                </div>
+                                <p>Don't have an account? <a href="{{ path('app_role_registration') }}" class="thembo"> Register here</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ocean">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+            </div>
+            <!-- Login 8 section end -->
+
+            <!-- External JS libraries -->
+            <script src="{{ asset('/login/js/jquery.min.js')}}"></script>
+            <script src="{{ asset('/login/js/popper.min.js')}}"></script>
+            <script src="{{ asset('/login/js/bootstrap.bundle.min.js')}}"></script>
+            <!-- Custom JS Script -->
+

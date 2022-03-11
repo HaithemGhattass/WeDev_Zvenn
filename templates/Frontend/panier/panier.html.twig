@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="FooYes - Quality delivery or takeaway food">
+    <meta name="author" content="Ansonika">
+    <title>Foogra - Discover & Book the best restaurants at the best price</title>
+
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="{{ asset('frontoffice/img/favicon.ico') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="{{ asset('frontoffice/img/apple-touch-icon-57x57-precomposed.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{{ asset('frontoffice/img/apple-touch-icon-72x72-precomposed.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{{ asset('frontoffice/img/apple-touch-icon-114x114-precomposed.png') }}">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{{ asset('frontoffice/img/apple-touch-icon-144x144-precomposed.png') }}">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="{{ asset('frontoffice/css/bootstrap_customized.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontoffice/css/style.css') }}" rel="stylesheet">
+
+
+    <!-- SPECIFIC CSS -->
+    <link href="{{ asset('frontoffice/css/listing.css') }}" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="{{ asset('frontoffice/css/custom.css') }}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header class="header_in clearfix">
+    <div class="container">
+        <div id="logo">
+            <a href="{{ path('home') }}">
+                <img src="{{ asset('frontoffice/img/logo_sticky.svg') }}" width="140" height="35" alt="">
+            </a>
+        </div>
+        <ul id="top_menu">
+            <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
+            <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
+        </ul>
+        <!-- /top_menu -->
+        <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
+        <a href="#0" class="open_close">
+            <i class="icon_menu"></i><span>Menu</span>
+        </a>
+        <nav class="main-menu">
+            <div id="header_menu">
+                <a href="#0" class="open_close">
+                    <i class="icon_close"></i><span>Menu</span>
+                </a>
+                <a href="{{ path('home') }}"><img src="{{ asset('frontoffice/img/logo.svg') }}" width="162" height="35" alt=""></a>
+            </div>
+            <ul>
+                <li class="submenu">
+                    <a href="{{ path('home') }}" class="show-submenu">Home</a>
+
+                </li>
+                <li class="submenu">
+                    <a href="{{ path('produits') }}" class="show-submenu">Produits</a>
+                </li>
+                <li class="submenu">
+                    <a href="{{ path('restaurant') }}" class="show-submenu">Restaurants</a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+</header>
+{%block body%}
+{% set subtotal=0 %}
+<div class="breadcrumbs-area">
+    <div class="container">
+
+        <!-- Breadcrumbs Area Start -->
+        <!-- Cart Area Start -->
+        <div class="shopping-cart-area section-padding">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="wishlist-table-area table-responsive">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th class="product-remove">Remove</th>
+                                    <th class="product-image">Image</th>
+                                    <th class="t-product-name">Product Name</th>
+
+                                    <th class="product-unit-price">Unit Price</th>
+                                    <th class="product-quantity">Quantity</th>
+                                    <th class="product-subtotal">Subtotal</th>
+                                    <th>UPDATE</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+
+                                {% for produitsPanier in produitsPanier %}
+                                <form id="form" action="" method="get">
+                                    <tr>
+                                        <td class="product-image">
+                                            <a href="#">
+                                                <img src="" alt="">
+                                            </a>
+                                        </td>
+                                        <td class="t-product-name">
+                                            <h3>
+                                                <a href="#">{{produitsPanier.nomProduit}}</a>
+                                            </h3>
+                                        </td>
+
+
+
+                                        <td class="product-unit-price">
+                                            <p>{{produitsPanier.prixProduit}} DT</p>
+                                        </td>
+
+
+                                        <td class="">
+                                            <p>{{produitsPanier.prixProduit}} DT {% set subtotal=subtotal+ produitsPanier.prixProduit%} </p>
+                                        </td>
+                                        <td>
+
+
+                                        </td>
+                                    </tr>{% endfor %}                            </tbody>
+                            </table>
+                        </div>
+                        <div class="shopingcart-bottom-area">
+                            <a class="left-shoping-cart" href="#">CONTINUE SHOPPING</a>
+                            <div class="shopingcart-bottom-area pull-right">
+                                <a class="right-shoping-cart" href="#">CLEAR SHOPPING CART</a>
+                                <a class="right-shoping-cart" href="#">UPDATE SHOPPING CART</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Cart Area End -->
+        <!-- Discount Area Start -->
+        <div class="discount-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="discount-main-area">
+                            <div class="discount-top">
+                                <h3>DISCOUNT CODE</h3>
+                                <p>Enter your coupon code if have one</p>
+                            </div>
+                            <div class="discount-middle">
+                                <input type="text" placeholder="">
+                                <a class="" href="#">APPLY COUPON</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <div class="subtotal-main-area">
+                            <div class="subtotal-area">
+                                <h2>SUBTOTAL<span>{{subtotal}} DT</span></h2>
+                            </div>
+                            <div class="subtotal-area">
+                                <h2>TVA<span>10%</span></h2>
+                            </div>
+
+                            <div class="subtotal-area">
+                                <h2>GRAND TOTAL<span>{{subtotal*1.1}}</span></h2>
+                            </div>
+                            <a href="#">CHECKOUT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+{%endblock%}

@@ -1,0 +1,165 @@
+{% extends 'backend/index.html.twig' %}
+{% block title %} Tableau{% endblock %}
+{% block aside %}
+         <li class="nav-item">
+                    <a class="nav-link text-white  " href="{{ path('app_backend') }}">
+                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="material-icons opacity-10">dashboard</i>
+                        </div>
+                        <span class="nav-link-text ms-1">Dashboard</span>
+                    </a>
+                </li>
+
+            <li class="nav-item">
+                <a class="nav-link text-white active bg-gradient-primary" href="{{ path('utilisateurdashboard') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">person</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Profile</span>
+                </a>
+            </li>
+
+{% endblock %}
+    {% block main %}
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                            <h6 class="text-white text-capitalize ps-3">tableau des utilisateur</h6>
+                        </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">nom et prenom</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">email</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">etat</th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">date creation</th>
+                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Role</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for u in user %}
+                                <tr>
+                                    <td>
+
+                                        <div class="d-flex px-2 py-1">
+                                            <div>
+                                            </div>
+                                                 <div class="avatar">
+                            <img class=" avatar__image" src="{{asset('/uploads/' ~ u.nomImage ) }}" />
+                        </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm">{{ u.nom }}</h6>
+                                                <p class="text-xs text-secondary mb-0">{{ u.prenom }}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-xs font-weight-bold mb-0">{{ u.email }}</p>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                          <a href="{{ path ('updateetat',{'id':u.id}) }}" class="text-secondary font-weight-bold text-xs"  >
+
+                                    {% if u.etat=="1" %}
+
+                                        <span class="badge badge-sm bg-gradient-success">verified</span>
+
+                                        {% else %}
+                                        <span class="badge badge-sm bg-gradient-danger">Not verified</span>
+
+                                        {% endif %}
+                                           </a>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">{{ u.datecreation|date('d/m/y h:m:s')}} </span>
+                                    </td>
+                                    <td class="align-middle">
+                                      {% set break = false %}
+                                    {% for unrole in u.roles %}
+{% if break == false %}
+
+                                         {% if unrole == 'ROLE_ADMIN'%}
+  {% set break = true %}
+                            <a href="{{ path ('updaterole',{'id':u.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                   <span class="badge badge-sm bg-gradient-success">MAKE AS USER</span
+                                        </a>
+
+                                        {% else %}
+                                       <a href="{{ path ('updaterole',{'id':u.id}) }}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                           <span class="badge badge-sm bg-gradient-success">MAKE AS ADMIN</span>
+
+                                        </a>
+
+
+{% endif %}
+
+{% endif %}
+{% endfor %}
+
+                                    </td>
+                                       </td>
+                                    <td class="align-middle text-center">
+                                        <a href="{{ path ('deleteuser',{'id':u.id}) }}" class="text-secondary text-xs font-weight-bold"><p style="color: red">x</p></a>
+
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% endblock %}
+
+
+{% block javascripts %}
+<script src="{{ asset('backoffice/assets/js/core/popper.min.js') }}"></script>
+<script src="{{ asset('backoffice/assets/js/core/bootstrap.min.js') }}"></script>
+<script src="{{ asset('backoffice/assets/js/plugins/perfect-scrollbar.min.js') }}"></script>>
+<script src="{{ asset('backoffice/assets/js/plugins/smooth-scrollbar.min.js') }}"></script>
+<script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+</script>
+<!-- Github buttons -->
+<script async defer src="{{ absolute_url('https://buttons.github.io/buttons.js') }}"></script>
+<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="{{ asset('backoffice/assets/js/material-dashboard.min.js?v=3.0.0') }}"></script>
+        <style>.avatar {
+                /* Rounded border */
+                border-radius: 50%;
+                height: 34px;
+                width: 34px;
+                margin-right: 10px;
+            }
+
+            .avatar__image {
+                /* Rounded border */
+                border-radius: 50%;
+
+                /* Take full size */
+                height: 100%;
+                width: 100%;
+            }
+            </style>
+{% endblock %}

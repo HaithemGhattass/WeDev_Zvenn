@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="dist/css/social-sharing.css">
+
+
+
+<body>
+<div class="container"   >
+    <div class="card">
+
+
+        <div class="face face1">
+            <div class="content">
+                <img src="{{asset('/uploads/' ~ e.nomimage ) }}"  >
+
+
+                <h3>{{ e.Titre }}</h3>
+            </div>
+        </div>
+        <div class="face face2">
+            <div class="content">
+                <p>{{ e.description }}</p>
+                <a href="#">subscribe</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<section>
+    <h2 id="social-buttons">Share</h2>
+    <p>
+        <a class="btn_1 mb_5" href="https://twitter.com/intent/tweet?text=http://127.0.0.1:8000/affiche#0"  >Twitter</a>
+        <a class="btn_1 mb_5" href="https://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:8000/affiche#0">Facebook</a>
+        <a class="btn_1 mb_5" href="https://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=&source=http://127.0.0.1:8000/affiche#0">LinkedIn</a>
+        <a class="btn_1 mb_5" href="https://pinterest.com/pin/create/button/?url=&media=&description=http://127.0.0.1:8000/affiche#0">Pinterest</a>
+        <a class="btn_1 mb_5" href="http://www.reddit.com/submit?url=YOUR-URL&title=http://127.0.0.1:8000/affiche#0">Reddit</></a>
+
+        <button class="like__btn">
+            <span id="icon"><i class="far fa-thumbs-up"></i></span>
+            <span id="count">0</span> Like
+        </button>
+
+
+    </p>
+</section>
+
+
+<!-- /row -->
+

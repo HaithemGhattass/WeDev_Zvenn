@@ -1,0 +1,181 @@
+{% extends 'backend/index.html.twig' %}
+
+{% block title %}Hello RestaurantController!{% endblock %}
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('backoffice/plugin/datatables/media/css/dataTables.bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('backoffice/plugin/datatables/extensions/Responsive/css/responsive.bootstrap.min.css')}}'">
+    {% endblock %}
+{% block aside %}
+    <div class="navigation">
+        <h5 class="title">Navigation</h5>
+        <!-- /.title -->
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend') }}"><i class="menu-icon fa fa-home"></i><span>Dashboard</span></a>
+            </li>
+
+        </ul>
+        <!-- /.menu js__accordion -->
+
+        <!-- /.menu js__accordion -->
+        <h5 class="title">Utilisateurs</h5>
+        <!-- /.title -->
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_utilisateur') }}"><i class="menu-icon fa fa-users"></i><span>Utilisateurs</span></a>
+            </li>
+
+        </ul>
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_messagerie') }}"><i class="menu-icon fa fa-envelope"></i><span>Messagerie</span></a>
+            </li>
+
+        </ul>
+        <h5 class="title">Restaurants</h5>
+        <!-- /.title -->
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_restaurant') }}"><i class="menu-icon fa fa-institution"></i><span>Restaurants</span></a>
+            </li>
+
+        </ul>
+        <ul class="menu js__accordion">
+            <li class="current">
+                <a class="waves-effect" href="{{ path('app_backend_produit') }}"><i class="menu-icon fa fa-glass"></i><span>Produits</span></a>
+            </li>
+
+        </ul>
+        <h5 class="title">Commandes</h5>
+        <!-- /.title -->
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_commande') }}"><i class="menu-icon fa fa-shopping-cart"></i><span>Commandes</span></a>
+            </li>
+
+        </ul>
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_coupon') }}"><i class="menu-icon fa fa-ticket"></i><span>Coupon reduction</span></a>
+            </li>
+
+        </ul>
+        <!-- /.menu js__accordion -->
+        <h5 class="title">Reclamations</h5>
+        <!-- /.title -->
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_reclamation') }}"><i class="menu-icon fa fa-question-circle-o"></i><span>Reclamations</span></a>
+            </li>
+        </ul>
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_reply') }}"><i class="menu-icon fa fa-mail-reply-all"></i><span>Reply</span></a>
+            </li>
+
+        </ul>
+        <h5 class="title">Evenement</h5>
+        <!-- /.title -->
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_blog') }}"><i class="menu-icon fa fa-newspaper-o"></i><span>Blog</span></a>
+            </li>
+
+        </ul>
+        <ul class="menu js__accordion">
+            <li>
+                <a class="waves-effect" href="{{ path('app_backend_reservation') }}"><i class="menu-icon fa fa-calendar-check-o"></i><span>Reservations</span></a>
+            </li>
+
+        </ul>
+
+    </div>
+{% endblock %}
+{% block body %}
+    <div id="wrapper">
+        <div class="main-content">
+            <div class="row small-spacing">
+                <div class="col-xs-12">
+                    <div class="box-content">
+                        <h4 class="box-title">Default</h4>
+                        <!-- /.box-title -->
+                        <div class="dropdown js__drop_down">
+                            <a href="#" class="dropdown-icon glyphicon glyphicon-option-vertical js__drop_down_button"></a>
+                            <ul class="sub-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else there</a></li>
+                                <li class="split"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                            <!-- /.sub-menu -->
+                        </div>
+                        <!-- /.dropdown js__dropdown -->
+                        <table id="example" class="table table-striped table-bordered display" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>Nom produit</th>
+                                <th>nom gerant</th>
+                                <th>nom Restaurant</th>
+                                <th>Prix Produit</th>
+                                <th>date d'ajout</th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Nom produit</th>
+                                <th>nom gerant</th>
+                                <th>nom Restaurant</th>
+                                <th>Prix Produit</th>
+                                <th>date d'ajout</th>
+
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            {% for p in prod.getProduits %}
+                            <tr>
+                                <td>{{ p.nomProduit }}</td>
+                                <td>{{p.restaurant.user.nom}}</td>
+                                <td>{{p.restaurant.nomRestaurant}}</td>
+                                <td>{{ p.prixProduit }} dt</td>
+                                <td>{{ p.createdAt|date('d/m/y h:m:s')}}</td>
+
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.box-content -->
+                </div>
+                <!-- /.col-xs-12 -->
+
+                <!-- /.col-xs-12 -->
+
+
+                <!-- /.col-xs-12 -->
+            </div>
+            <!-- /.row small-spacing -->
+            <footer class="footer">
+                <ul class="list-inline">
+                    <li>2022 © Zven Delivery.</li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </footer>
+        </div>
+        <!-- /.main-content -->
+    </div><!--/#wrapper -->
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('backoffice/plugin/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{ asset('backoffice/plugin/datatables/media/js/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{ asset('backoffice/plugin/datatables/extensions/Responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{ asset('backoffice/plugin/datatables/extensions/Responsive/js/responsive.bootstrap.min.js')}}"></script>
+    <script src="{{ asset('backoffice/scripts/datatables.demo.min.js')}}"></script>
+
+
+
+{% endblock %}

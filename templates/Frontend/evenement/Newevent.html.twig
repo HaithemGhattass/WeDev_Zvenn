@@ -1,0 +1,109 @@
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Zvenn - Quality delivery or takeaway food">
+    <meta name="Zvenn" content="Zvenn">
+    <title>{% block title %}ajouter event{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block stylesheets %}
+
+        <!-- GOOGLE WEB FONT -->
+        <link href="{{ asset("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap") }}" rel="stylesheet">
+        <!-- BASE CSS -->
+        <link href="{{ asset("/frontoffice/css/bootstrap_customized.css/bootstrap_customized.min.css") }}" rel="stylesheet">
+        <link href="{{ asset("/frontoffice/css/style.css") }}" rel="stylesheet">
+
+        <!-- SPECIFIC CSS -->
+        <link href="{{asset("/frontoffice/css/detail-page.css") }}" rel="stylesheet">
+
+        <!-- YOUR CUSTOM CSS -->
+        <link href="{{asset("/frontoffice/css/custom.css")  }}" rel="stylesheet">
+
+    {% endblock %}
+
+    {% block javascripts %}
+        <!-- COMMON SCRIPTS -->
+        <script src="{{"/frontoffice/js/common_scripts.min.js" }}"></script>
+        <script src="{{ "/frontoffice/js/common_func.js" }}"></script>
+        <script src="{{ "/frontoffice/assets/validate.js" }}"></script>
+    {% endblock %}
+</head>
+{{ include('Frontend/nav2.html.twig') }}
+
+
+{{ form_start(form) }}
+
+<div class="container margin_60_20" id="submit">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-5">
+            <div class="text-center add_bottom_15">
+                <h4>Ajouter event</h4>
+                <p> Veiller remplir tout les champs </p>
+                    <div class="col-md-6">
+
+                        <div class="form-group">
+                            <h6>Titre</h6>
+                            {{ form_widget(form.titre,{'attr':{
+                                    'placeholder':'titre','class':'titre'
+                            }}) }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <h6>Description</h6>
+                            {{ form_widget(form.description,{'attr':{
+                                'placeholder':'description','class':'description'
+                            }}) }}
+                        </div>
+                    </div>
+                </div>
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <h6>Date</h6>
+                    {{ form_widget(form.date,{'attr':{
+                        'placeholder':'date','class':'date'
+                    }}) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <h6>Image</h6>
+                    {{ form_widget(form.image,{'attr':{
+                        'placeholder':'image','class':'image'
+                    }}) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <h6>Time</h6>
+                    {{ form_widget(form.time,{'attr':{
+                        'placeholder':'time','class':'time'
+                    }}) }}
+                </div>
+            </div>
+
+
+
+
+
+                {{ form(form,{'method':'GET'}) }}
+                <div class="form-group text-center">
+                    <button class="btn_1 gradient">Ajouter</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{{ form_end(form) }}
+

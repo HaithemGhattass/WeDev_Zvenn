@@ -1,0 +1,35 @@
+<h4>{{ app.user.email }}</h4>
+
+{% for r in restaurant %}
+    <tbody>
+<tr>
+
+    <td class="d-md-flex align-items-center">
+        <figure>
+
+        </figure>
+
+        <div class="flex-md-column">
+            <h4>{{ r.nomRestaurant }}</h4>
+            {{ r.user.email }}
+            {% if r.status=='not verified' %}
+            {{ "en cours de verification" }}
+            {%  endif %}
+            <p>
+                {{ r.description }}
+            </p>
+        </div>
+    </td>
+    <td>
+        <strong> ~ dt</strong>
+    </td>
+    <td>
+
+    </td>
+    <td class="options">
+        <a href="#0"><i class="icon_plus_alt2"></i></a>
+    </td>
+
+</tr>
+
+{% endfor %}
