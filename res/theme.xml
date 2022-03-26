@@ -57,8 +57,8 @@
             <entry key="Calendar.Thursday" value="Thu" />
             <entry key="ok" value="OK" />
             <entry key="Calendar.Saturday" value="Sat" />
-            <entry key="select" value="Select" />
             <entry key="Calendar.Friday" value="Fri" />
+            <entry key="select" value="Select" />
             <entry key="edit" value="Edit" />
             <entry key="Calendar.Monday" value="Mon" />
             <entry key="cancel" value="Cancel" />
@@ -198,6 +198,13 @@
         <val key="CenterWhite.sel#margin" value="1.0,1.0,1.0,1.0" />
         <val key="CenterWhite.sel#padUnit" value="2,2,2,2" />
         <val key="CenterWhite.sel#padding" value="1.0,1.0,3.0,3.0" />
+        <val key="ComboBoxItem.align" value="4" />
+        <val key="ComboBoxItem.bgColor" value="333333" />
+        <gradient key="ComboBoxItem.bgGradient" color1="14342874" color2="14342874" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="ComboBoxItem.bgType" value="6" />
+        <val key="ComboBoxItem.fgColor" value="333333" />
+        <val key="ComboBoxItem.margin" value="0.0,0.0,0.0,0.0" />
+        <val key="ComboBoxItem.padding" value="0.0,0.0,0.0,0.0" />
         <val key="DarkRect.bgColor" value="262f38" />
         <border key="DarkRect.border" type="round" roundBorderColor="2502456" opacity="255" strokeColor="0" strokeOpacity="255" strokeThickness="0.0" strokeMM="false" shadowSpread="10" shadowOpacity="0" shadowX="0.5" shadowY="0.5" shadowBlur="10.0" shadowMM="false" rectangle="true" />
         <val key="DarkRect.fgColor" value="262f38" />

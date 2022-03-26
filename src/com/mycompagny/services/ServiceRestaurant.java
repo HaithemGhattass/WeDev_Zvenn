@@ -213,7 +213,7 @@ public class ServiceRestaurant {
               String addresse = obj.get("addresse").toString();
               String cite = obj.get("cite").toString();
               float codePostal = Float.parseFloat(obj.get("codePostal").toString());
-
+              String user = obj.get("user").toString();
               String nom = obj.get("nomRestaurant").toString();
               String description = obj.get("description").toString();
               String categorieRestaurant = obj.get("categorieRestaurant").toString();
@@ -221,8 +221,8 @@ public class ServiceRestaurant {
               String imagerestaurant = obj.get("imageRestaurant").toString();
               String nomImage = obj.get("nomImage").toString();
               String status = obj.get("status").toString();
-
-             // re.setIdUser((int)idUser);
+                re.setUser(user);
+              //re.setIdUser((int)user);
               re.setStatus(status);
               re.setNomImage(nomImage);
               re.setImageRestaurant(imagerestaurant);
@@ -332,6 +332,7 @@ public class ServiceRestaurant {
                         Produits re = new Produits();
                         float id = Float.parseFloat(obj.get("id").toString());
                         String nom = obj.get("nomProduit").toString();
+                        String nomImage= obj.get("nomimageProduit").toString();
                       String descriptionProduit = obj.get("DescriptionProduit").toString();
                         // String date =  obj.get("date").toString();
                         float prix = Float.parseFloat(obj.get("prixProduit").toString());
@@ -339,6 +340,7 @@ public class ServiceRestaurant {
                         re.setPrix((int)prix);
                         re.setNom(nom);
                         re.setDescriptionProduit(descriptionProduit);
+                        re.setNomImage(nomImage);
                         //re.setDescription(foodqulaite);
 
                         //date

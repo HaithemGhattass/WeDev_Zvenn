@@ -29,6 +29,7 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.*;
 import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.Style;
+import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.mycompagny.entities.Restaurant;
 import com.mycompagny.services.ServiceRestaurant;
@@ -71,14 +72,78 @@ public class TrendingForm extends BaseForm {
 
         installSidemenu(resourceObjectInstance);
 
+      //  Form hi = new Form("Toolbar", new BoxLayout(BoxLayout.Y_AXIS));
+        Button gui_Button_12 = new Button();
+        gui_Button_12.setText("search");
+        gui_Button_12.setUIID("Label");
+        gui_Button_12.setName("Button_12");
+        FontImage.setMaterialIcon(gui_Button_12, FontImage.MATERIAL_SEARCH);
+        TextField searchField = new TextField("", "Toolbar Search"); // <1>
+        searchField.getHintLabel().setUIID("Title");
+        searchField.setUIID("Title");
+        searchField.getAllStyles().setAlignment(Component.LEFT);
+       // hi.getToolbar().setTitleComponent(searchField);
+        FontImage searchIcon = FontImage.createMaterial(FontImage.MATERIAL_SEARCH, UIManager.getInstance().getComponentStyle("Restaurants"));
+        ArrayList<Restaurant> list1;
+        list1 = ServiceRestaurant.getInstance().affichageRestaurant();
+        //hi.add(gui_Button_12);
+       /* searchField.addDataChangeListener((i1, i2) -> { // <2>
+            String t = searchField.getText();
+
+            if(t.length() < 1) {
+                for(Component cmp : hi.getContentPane()) {
+                    cmp.setHidden(false);
+                    cmp.setVisible(true);
+                }
+            } else {
+                t = t.toLowerCase();
+                for(Component cmp : hi.getContentPane()) {
+                    String val = null;
+                    //hi.add(gui_Button_12);
+                    if(cmp instanceof Label) {
+                        val = ((Label)cmp).getText();
+                    } else {
+                        if(cmp instanceof TextArea) {
+                            val = ((TextArea)cmp).getText();
+                        } else {
+                            val = (String)cmp.getPropertyValue("text");
+                        }
+                    }
+                    boolean show = val != null && val.toLowerCase().indexOf(t) > -1;
+                    cmp.setHidden(!show); // <3>
+                    cmp.setVisible(show);
+                    //hi.add(gui_Button_12);
+                }
+            }
+            hi.getContentPane().animateLayout(250);
+            //  hi.add(gui_Button_12);
+        });*/
+        /*hi.getToolbar().addCommandToRightBar("", searchIcon, (e) -> {
+            searchField.startEditingAsync(); // <4>
+            //    hi.add(gui_Button_12);
+        });*/
+
+       /* for(Restaurant rec : list1){
+            Label b = new Label(rec.getNom());
+            hi.add(b);
+            b.addPointerPressedListener(e -> {
+
+                if (rec.getNom() == b.getText())
+                {
+                    new  ListRForm(rec.getId(),resourceObjectInstance).show();
+                }
+            });
+        }*/
 
 
 
-
-
+//SEARCH MINE
         getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_SEARCH, e -> {
             new MapForm();
         });
+        /*getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_SEARCH, e -> {
+             hi.show();
+        });*/
 
 
         if (SessionManager.isActif()==false){
@@ -107,11 +172,11 @@ public class TrendingForm extends BaseForm {
                 Dialog.show("error",e.getMessage(),"ok",null);
             }
 
-            String url= Statics.URL_REP_IMAGES + SessionManager.getNomImage();
+            String url= Statics.URL_REP_IMAGES + SessionManager.getNomImage() ;
+            String url2="C:/wamp64/www/WeDev_Zvenn/public/images/"+SessionManager.getNomImage();
 
 
             URLImage background = URLImage.createToStorage(placeholder1,url,url,URLImage.RESIZE_SCALE);
-
             imgv1.setImage(background);
 
             Label label1 = new Label(background);
@@ -137,7 +202,9 @@ public class TrendingForm extends BaseForm {
 
 
 
-            getToolbar().addCommandToRightBar("",maskedImage , e -> {
+            getToolbar().addCommandToRightBar("",maskedImage.scaledHeight(100) , e -> {
+                new ModifierProfilForm().show();
+
             });
         }
 
@@ -164,7 +231,7 @@ public class TrendingForm extends BaseForm {
             gui_separator1.setShowEvenIfBlank(true);
             gui_Label_1_1_1.setShowEvenIfBlank(true);
 //a changer tansech!!!!
-           // EncodedImage placeholder =EncodedImage.createFromImage(Image.createImage((Math.round(Display.getInstance().getDisplayWidth())), (Math.round(Display.getInstance().getDisplayWidth()))/3, 0xffff0000), true);
+            EncodedImage placeholder =EncodedImage.createFromImage(Image.createImage((Math.round(Display.getInstance().getDisplayWidth())), (Math.round(Display.getInstance().getDisplayWidth()))/3, 0xffff0000), true);
             try {
                 imgv = new ImageViewer(Image.createImage("/load.png"));
 
@@ -177,17 +244,17 @@ public class TrendingForm extends BaseForm {
             } catch (IOException e) {
                 Dialog.show("error",e.getMessage(),"ok",null);
             }
-          //  URLImage background = URLImage.createToStorage(placeholder, "C:/wamp64/www/WeDev_Zvenn/public/images/"+rec.getNomImage() ,
-                 //   Statics.URL_REP_IMAGES+rec.getNomImage());
-            String url= Statics.URL_REP_IMAGES + rec.getNomImage();
+            URLImage background = URLImage.createToStorage(placeholder, "C:/wamp64/www/WeDev_Zvenn/public/uploads/"+rec.getNomImage() ,
+                    Statics.URL_REP_IMAGES+rec.getNomImage());
+          //  String url= Statics.URL_REP_IMAGES + rec.getNomImage();
 
-           // background.fetch();
-            URLImage background = URLImage.createToStorage(placeholder,url,url,URLImage.RESIZE_SCALE);
+            background.fetch();
+          //  URLImage background = URLImage.createToStorage(placeholder,url,url,URLImage.RESIZE_SCALE);
 
-           // ScaleImageLabel sl = new ScaleImageLabel(background);
-            imgv.setImage(background);
-           // sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
-            gui_imageContainer1.add(BorderLayout.CENTER, imgv);
+            ScaleImageLabel sl = new ScaleImageLabel(background);
+           // imgv.setImage(background);
+            sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+            gui_imageContainer1.add(BorderLayout.CENTER, sl);
             //sl = new ScaleImageLabel(resourceObjectInstance.getImage("bridge.jpg"));
            // sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
            // gui_imageContainer2.add(BorderLayout.CENTER, sl);
@@ -206,44 +273,45 @@ public class TrendingForm extends BaseForm {
             gui_Text_Area_1.setColumns(100);
             gui_Text_Area_1.setGrowByContent(false);
             gui_Text_Area_1.setEditable(false);
-            addComponent(gui_Container_1);
-            gui_Container_1.setName("Container_1");
-            gui_Container_1.addComponent(BorderLayout.CENTER, gui_Multi_Button_1);
-            gui_Container_1.addComponent(BorderLayout.EAST, gui_LA);
-            gui_Multi_Button_1.setUIID("Label");
-            gui_Multi_Button_1.setName("Multi_Button_1");
-            gui_Multi_Button_1.setPropertyValue("line1", "" + rec.getNom());
-            gui_Multi_Button_1.setPropertyValue("line2", "" + rec.getCategorieRestaurant());
-            gui_Multi_Button_1.setPropertyValue("uiid1", "Label");
-            gui_Multi_Button_1.setPropertyValue("uiid2", "RedLabel");
-            gui_LA.setUIID("Label");
-            gui_LA.setName("xxx");
-            gui_LA.setPropertyValue("line1", "" + rec.getGouvernorat());
-            gui_LA.setPropertyValue("line2", "" + rec.getAddresse());
-            gui_LA.setPropertyValue("uiid1", "SlightlySmallerFontLabel");
-            gui_LA.setPropertyValue("uiid2", "RedLabelRight");
-            addComponent(gui_imageContainer1);
-            gui_imageContainer1.setName("imageContainer1");
-            gui_imageContainer1.addComponent(BorderLayout.SOUTH, gui_Container_2);
-            gui_Container_2.setName("Container_2");
-            gui_Container_2.addComponent(BorderLayout.CENTER, gui_Text_Area_1);
-            gui_Container_2.addComponent(BorderLayout.EAST, gui_Button_1);
-            gui_Text_Area_1.setText("" + rec.getDescription());
-            gui_Text_Area_1.setUIID("SlightlySmallerFontLabelLeft");
-            gui_Text_Area_1.setName("Text_Area_1");
-            gui_Button_1.setText("");
-            gui_Button_1.setUIID("Label");
-            gui_Button_1.setName("Button_1");
-            FontImage.setMaterialIcon(gui_Button_1, "".charAt(0));
+            if (rec.getStatus().equals("verified")) {
+                addComponent(gui_Container_1);
+                gui_Container_1.setName("Container_1");
+                gui_Container_1.addComponent(BorderLayout.CENTER, gui_Multi_Button_1);
+                gui_Container_1.addComponent(BorderLayout.EAST, gui_LA);
+                gui_Multi_Button_1.setUIID("Label");
+                gui_Multi_Button_1.setName("Multi_Button_1");
+                gui_Multi_Button_1.setPropertyValue("line1", "" + rec.getNom());
+                gui_Multi_Button_1.setPropertyValue("line2", "" + rec.getCategorieRestaurant());
+                gui_Multi_Button_1.setPropertyValue("uiid1", "Label");
+                gui_Multi_Button_1.setPropertyValue("uiid2", "RedLabel");
+                gui_LA.setUIID("Label");
+                gui_LA.setName("xxx");
+                gui_LA.setPropertyValue("line1", "" + rec.getGouvernorat());
+                gui_LA.setPropertyValue("line2", "" + rec.getAddresse());
+                gui_LA.setPropertyValue("uiid1", "SlightlySmallerFontLabel");
+                gui_LA.setPropertyValue("uiid2", "RedLabelRight");
+                addComponent(gui_imageContainer1);
+                gui_imageContainer1.setName("imageContainer1");
+                gui_imageContainer1.addComponent(BorderLayout.SOUTH, gui_Container_2);
+                gui_Container_2.setName("Container_2");
+                gui_Container_2.addComponent(BorderLayout.CENTER, gui_Text_Area_1);
+                gui_Container_2.addComponent(BorderLayout.EAST, gui_Button_1);
+                gui_Text_Area_1.setText("" + rec.getDescription());
+                gui_Text_Area_1.setUIID("SlightlySmallerFontLabelLeft");
+                gui_Text_Area_1.setName("Text_Area_1");
+                gui_Button_1.setText("");
+                gui_Button_1.setUIID("Label");
+                gui_Button_1.setName("Button_1");
+                FontImage.setMaterialIcon(gui_Button_1, "".charAt(0));
 
 
-            gui_Button_1.addPointerPressedListener(l -> {
-                //ServiceRestaurant.getInstance().affichageReclamations(rec.getId());
-                //ArrayList<Reclamation>  list = ServiceRestaurant.getInstance().affichageReclamations(2);
-                new ListRForm(rec.getId(), resourceObjectInstance).show();
+                gui_Button_1.addPointerPressedListener(l -> {
+                    //ServiceRestaurant.getInstance().affichageReclamations(rec.getId());
+                    //ArrayList<Reclamation>  list = ServiceRestaurant.getInstance().affichageReclamations(2);
+                    new ListRForm(rec.getId(), resourceObjectInstance).show();
 
-            });
-
+                });
+            }
 
 
         }

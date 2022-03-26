@@ -41,6 +41,7 @@ import java.util.Vector;
  *
  * @author Shai Almog
  */
+/*
 public class signin extends BaseForm {
 
     public signin(Resources res) {
@@ -66,6 +67,8 @@ public class signin extends BaseForm {
         vectorRole.add("Responsable");
 
         ComboBox<String> roles = new ComboBox<>(vectorRole);
+        ComboBox<String> sexe = new ComboBox<>("homme","femme");
+
 
 
         username.setSingleLineTextArea(false);
@@ -84,7 +87,8 @@ public class signin extends BaseForm {
                 new FloatingHint(email),
                 new FloatingHint(password),
                 new FloatingHint(confirmPassword),
-                roles//sinon y7otich role fi form ta3 signup
+                roles,
+                sexe
         );
         content.setScrollableY(true);
         add(content);
@@ -95,9 +99,10 @@ public class signin extends BaseForm {
         next.requestFocus();
         next.addActionListener((e) -> {
 
-            ServiceUtilisateur.getInstance().signup(username, password, email, confirmPassword, roles, res);
+            ServiceUtilisateur.getInstance().signup(username, password, email, confirmPassword, roles,sexe, res);
             Dialog.show("Success", "account is saved", "OK", null);
             new login(res).show();
         });
     }
 }
+*/

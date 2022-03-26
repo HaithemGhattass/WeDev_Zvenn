@@ -24,8 +24,11 @@ import com.codename1.ui.geom.Dimension;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
+import com.mycompagny.entities.Restaurant;
+import com.mycompagny.services.ServiceRestaurant;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 /**
  *
@@ -45,45 +48,76 @@ public class MapForm {
             ex.printStackTrace();
         }
 
-        Button btnMoveCamera = new Button("Mon Pays");
+        Button btnMoveCamera = new Button("Restaurants");
         btnMoveCamera.addActionListener(e->{
-            cnt.zoom(new Coord(36.8189700, 10.1657900),10);
+            cnt.zoom(new Coord(36.8189700, 10.1657900),11);
         });
         Style s = new Style();
         s.setFgColor(0xff0000);
         s.setBgTransparency(0);
-        FontImage markerImg = FontImage.createMaterial(FontImage.MATERIAL_PLACE, s, Display.getInstance().convertToPixels(1));
+        FontImage markerImg = FontImage.createMaterial(FontImage.MATERIAL_PLACE, s, Math.round(Display.getInstance().convertToPixels(1)/2));
 
 
+        cnt.addMarker(EncodedImage.createFromImage(markerImg, false),
+                new Coord(36.725890, 9.187340),
+                "beja"+cnt.getCameraPosition().toString(),
+                "",
+                new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                String beja = "beja";
+                    new restaurantMAP(Resources.getGlobalResources(),beja).show();
+
+            }
+        });
         cnt.addMarker(EncodedImage.createFromImage(markerImg, false),
                 new Coord(36.8189700, 10.1657900),
                 "ariana"+cnt.getCameraPosition().toString(),
                 "",
                 new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                String beja = "ariana";
-                    new restaurantMAP(Resources.getGlobalResources(),beja).show();
+                    public void actionPerformed(ActionEvent evt) {
+                        String ariana = "ariana";
+                        new restaurantMAP(Resources.getGlobalResources(),ariana).show();
 
+                    }
+                });
+        ArrayList<Restaurant> list = ServiceRestaurant.getInstance().affichageRestaurant();
+        String tunis = "tunis";
+        int somme=0;
+        for (Restaurant rec : list) {
+            if (rec.getGouvernorat().equals(tunis)&&rec.getStatus().equals("verified")) {
+                somme = somme + 1;
             }
+        }
+            cnt.addMarker(EncodedImage.createFromImage(markerImg, false),
+                    new Coord(36.800070, 10.187060),
+                    "tunis" + "\n en "+tunis+" il y a \n"+somme+" restaurant partenaires avec zvenn",
+                    "",
+                    new ActionListener() {
+                        public void actionPerformed(ActionEvent evt) {
+                            new restaurantMAP(Resources.getGlobalResources(), tunis).show();
+
+                        }
+                    });
+
+
+        cnt.addLongPressListener(e->{
+            cnt.zoom(new Coord(cnt.getCoordAtPosition(e.getX(), e.getY())), (int) (cnt.getZoom()-1));
+
+
+
+            ConnectionRequest r = new ConnectionRequest();
+            r.setPost(false);
+            r.setUrl("https://maps.google.com/maps/api/geocode/json?latlng="+cnt.getCameraPosition().getLatitude()+","+cnt.getCameraPosition().getLongitude()+"&oe=utf8&sensor=false");
+            NetworkManager.getInstance().addToQueueAndWait(r);
+
         });
-
-
         cnt.addTapListener(e->{
 
 
-            cnt.clearMapLayers();
-            cnt.addMarker(
-                    EncodedImage.createFromImage(markerImg, false),
-                    cnt.getCoordAtPosition(e.getX(), e.getY()),
-                    ""+cnt.getCameraPosition().toString(),
-                    "",
+            cnt.zoom(new Coord(cnt.getCoordAtPosition(e.getX(), e.getY())), (int) (cnt.getZoom()+1));
 
-                    e3->{
 
-                       new TrendingForm().show();
 
-                    }
-            );
             ConnectionRequest r = new ConnectionRequest();
             r.setPost(false);
             r.setUrl("https://maps.google.com/maps/api/geocode/json?latlng="+cnt.getCameraPosition().getLatitude()+","+cnt.getCameraPosition().getLongitude()+"&oe=utf8&sensor=false");
@@ -112,13 +146,14 @@ public class MapForm {
 
 
         });
+
+
         Container root = new Container();
         f.setLayout(new BorderLayout());
         f.addComponent(BorderLayout.CENTER, cnt);
         f.addComponent(BorderLayout.SOUTH, btnMoveCamera);
         f.show();
         //f.getToolbar().addCommandToRightBar("back", null, (ev)->{ new AjoutReclamationForm(f).show()});
-
 
     }
 

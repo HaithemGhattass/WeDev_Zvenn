@@ -1,18 +1,22 @@
 package com.mycompagny.services;
 
-import com.codename1.io.CharArrayReader;
-import com.codename1.io.ConnectionRequest;
-import com.codename1.io.JSONParser;
-import com.codename1.io.NetworkManager;
+import com.cloudinary.codename1.api.Response;
+import com.codename1.io.*;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.TextField;
+import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
+import com.mycompagny.entities.Restaurant;
 import com.mycompagny.entities.User;
 import com.mycompagny.gui.SessionManager;
+import com.mycompagny.gui.SignInForm;
 import com.mycompagny.gui.TrendingForm;
 import com.mycompagny.utils.Statics;
 // import com.mycompany.gui.SessionManager;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 import java.util.Vector;
 
@@ -46,36 +50,36 @@ public class ServiceUtilisateur {
     }
 
     //Signup
-    public void signup(TextField username,TextField password,TextField email,TextField confirmPassword, ComboBox<String> roles , Resources res ) {
+    public void signup(TextField username, TextField password, TextField email, TextField confirmPassword, Picker roles , Picker sexe, TextField nom, TextField prenom, TextField numtel, Picker dateNaissance,TextField adresse, Resources res ) {
 
 
 
         String url = Statics.BASE_URL+"registerUsermobile?pseudo="+username.getText().toString()+"&email="+email.getText().toString()+
-                "&password="+password.getText().toString()+"&nom=haithem&prenom=ghattas&adresse=hr&numTel=92565848&dateNaissanceMon%20Mar%2021%2019:50:24%20WAT%202022";
+                "&password="+password.getText().toString()+"&nom="+nom.getText()+"&prenom="+prenom.getText()+"&adresse="+adresse.getText()+"&numTel="+numtel.getText()+"&dateNaissance="+dateNaissance.getDate()+"&sexe="+sexe.getSelectedString().toString()+"&roles="+roles.getSelectedString();
 
         req.setUrl(url);
 
-        //Control saisi
-        if(username.getText().equals(" ") && password.getText().equals(" ") && email.getText().equals(" ")) {
+            req.addResponseListener((e) -> {
 
-            Dialog.show("Erreur","Veuillez remplir les champs","OK",null);
+                        //njib data ly7atithom fi form
+                        byte[] data = (byte[]) e.getMetaData();//lazm awl 7aja n7athrhom ke meta data ya3ni na5o id ta3 kol textField
+                        String responseData = new String(data);//ba3dika na5o content
+                Dialog.show("success", responseData, "ok", null);
 
-        }
+                    }
+            );
+            if (username.getText().equals(" ") && password.getText().equals(" ") && email.getText().equals(" ") ) {
 
-        //hethi wa9t tsir execution ta3 url
-        req.addResponseListener((e)-> {
+                Dialog.show("Erreur", "Veuillez remplir les champs", "OK", null);
 
-                    //njib data ly7atithom fi form
-                    byte[]data = (byte[]) e.getMetaData();//lazm awl 7aja n7athrhom ke meta data ya3ni na5o id ta3 kol textField
-                    String responseData = new String(data);//ba3dika na5o content
+            }
 
-                    System.out.println("data ===>"+responseData);
-                }
-        );
+            //hethi wa9t tsir execution ta3 url
 
 
-        //ba3d execution ta3 requete ely heya url nestanaw response ta3 server.
-        NetworkManager.getInstance().addToQueueAndWait(req);
+            //ba3d execution ta3 requete ely heya url nestanaw response ta3 server.
+            NetworkManager.getInstance().addToQueueAndWait(req);
+            new SignInForm(Resources.getGlobalResources()).show();
 
 
 
@@ -117,6 +121,12 @@ public class ServiceUtilisateur {
                     SessionManager.setUserName(user.get("pseudo").toString());
                     SessionManager.setEmail(user.get("email").toString());
                     SessionManager.setNomImage(user.get("nomImage").toString());
+                    SessionManager.setNom(user.get("nom").toString());
+                    SessionManager.setPrenom(user.get("prenom").toString());
+                    SessionManager.setDateNaissance(user.get("dateNaissance").toString());
+                    SessionManager.setNumtel(user.get("numTel").toString());
+                    SessionManager.setAdresse(user.get("adresse").toString());
+                    SessionManager.setRole((ArrayList) user.get("roles"));
 
                     SessionManager.setActif(true);
 
@@ -184,5 +194,34 @@ public class ServiceUtilisateur {
         NetworkManager.getInstance().addToQueueAndWait(req);
         return json;
     }
+
+    public boolean modifierprofil(TextField username, TextField password , TextField nom, TextField prenom, TextField numtel,TextField adresse, Resources res){
+
+        String url = Statics.BASE_URL + "editUserapi?id="+SessionManager.getId()+"&pseudo="+username.getText().toString()+
+                "&password="+password.getText().toString()+"&nom="+nom.getText()+"&prenom="+prenom.getText()+"&adresse="+adresse.getText()+"&numTel="+numtel.getText();
+
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>(){
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOk = req.getResponseCode() == 200 ;// code response http 200
+                req.removeResponseListener(this);
+
+            }
+
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+
+        SessionManager.setPassowrd(password.getText().toString());
+        SessionManager.setUserName(username.getText().toString());
+//        SessionManager.setNomImage(user.get("nomImage").toString());
+        SessionManager.setNom(nom.getText().toString());
+        SessionManager.setPrenom(prenom.getText().toString());
+        SessionManager.setNumtel(numtel.getText().toString());
+        SessionManager.setAdresse(adresse.getText().toString());
+        return resultOk;
+
+    }
+
 
 }

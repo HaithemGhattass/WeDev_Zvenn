@@ -53,7 +53,11 @@ public class MyApplication {
             current.show();
             return;
         }
-        new TrendingForm(theme).show();
+        //new TrendingForm(theme).show();
+        //new AjouterCouponForm().show();
+        //new ListeCouponsForm(theme).show();
+        //new AjouterCommandeForm(theme).show();
+        new SignInForm(theme).show();
     }
 
     public void stop() {

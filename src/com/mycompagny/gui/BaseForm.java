@@ -87,7 +87,7 @@ if (SessionManager.isActif()) {
     getToolbar().addComponentToSideMenu(new Label("Long Beach, CA", "SideCommandSmall"));
 }else {
     getToolbar().addCommandToSideMenu("SignIn", AjoutRestaurantImage, e -> new SignInForm(res).show());
-    getToolbar().addCommandToSideMenu("SignUp", AjoutRestaurantImage, e -> new signin(res).show());
+    //getToolbar().addCommandToSideMenu("SignUp", AjoutRestaurantImage, e -> new signin(res).show());
 
 }
     }

@@ -20,7 +20,9 @@ package com.mycompagny.gui;
 
 //import com.codename1.progress.ArcProgress;
 //import com.codename1.progress.CircleProgress;
+import com.codename1.components.ImageViewer;
 import com.codename1.components.MultiButton;
+import com.codename1.components.ScaleImageLabel;
 import com.codename1.ui.*;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.events.DataChangedListener;
@@ -39,7 +41,9 @@ import com.codename1.ui.util.Resources;
 import com.mycompagny.entities.Produits;
 import com.mycompagny.entities.Reclamation;
 import com.mycompagny.services.ServiceRestaurant;
+import com.mycompagny.utils.Statics;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -50,7 +54,11 @@ import java.util.Date;
  * @author Shai Almog
  */
 public class ListRForm extends BaseForm {
-
+    EncodedImage placeholder ;
+    ImageViewer imgv ;
+    EncodedImage placeholder1 ;
+    ImageViewer imgv1 ;
+    Image imgs;
     public ListRForm() {
     }
 
@@ -95,6 +103,8 @@ public class ListRForm extends BaseForm {
                 )
         );
         for (Produits rec : listP) {
+
+
             Container gui_Container_1_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.BorderLayout());
             Container gui_Container_2_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.FlowLayout());
             Label gui_Label_1_1 = new com.codename1.ui.Label();
@@ -114,7 +124,7 @@ public class ListRForm extends BaseForm {
             gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.EAST, gui_Container_2_1);
             gui_Container_2_1.setName("Container_2_1");
             gui_Container_2_1.addComponent(gui_Label_1_1);
-            gui_Label_1_1.setText("" + rec.getPrix());
+            gui_Label_1_1.setText("" + rec.getPrix()+" dt");
             gui_Label_1_1.setUIID("SmallFontLabel");
             gui_Label_1_1.setName("Label_1_1");
             gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.WEST, gui_Container_4_1);
@@ -123,7 +133,51 @@ public class ListRForm extends BaseForm {
             gui_Container_4_1.addComponent(gui_Label_4_1);
             gui_Label_4_1.setUIID("Padding2");
             gui_Label_4_1.setName("Label_4_1");
-            gui_Label_4_1.setIcon(res.getImage("label_round-selected.png"));
+
+            try {
+                imgv1 = new ImageViewer(Image.createImage("/load.png"));
+
+            } catch (IOException exception) {
+                Dialog.show("error",exception.getMessage(),"ok",null);
+            }
+            try {
+                placeholder1 = EncodedImage.create("/load.png");
+
+            } catch (IOException exception) {
+                Dialog.show("error",exception.getMessage(),"ok",null);
+            }
+
+            String url= Statics.URL_REP_IMAGES + rec.getNomImage() +".jpg";
+            String url2="C:/wamp64/www/WeDev_Zvenn/public/images/"+SessionManager.getNomImage();
+            //EncodedImage placeholder1 =EncodedImage.createFromImage(Image.createImage((Math.round(Display.getInstance().getDisplayWidth()))/10, (Math.round(Display.getInstance().getDisplayWidth()))/10, 0xffff0000), true);
+
+
+            URLImage background = URLImage.createToStorage(placeholder1,url,url,URLImage.RESIZE_SCALE);
+            imgv1.setImage(background);
+
+            Label label1 = new Label(background);
+
+            int w = background.getWidth();
+            int h = background.getHeight();
+
+            Image maskImage = Image.createImage(w, h);
+            Graphics g = maskImage.getGraphics();
+            g.setAntiAliased(true);
+            g.setColor(0x000000);
+            g.fillRect(0, 0, w, h);
+            g.setColor(0xffffff);
+            g.fillArc(0, 0, w, h, 0, 360);
+            Label label2 = new Label(maskImage);
+
+            Object mask = maskImage.createMask();
+            //  maskImage.scaledWidth(1000);
+            Image maskedImage = background;
+            Label label3 = new Label(maskedImage);
+            // Image sl = Image.createImage(background);
+            // imgv.setImage(background);
+            gui_Label_4_1.setIcon(maskedImage);
+
+            // gui_Label_4_1.setIcon(res.getImage("label_round-selected.png"));
             gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.CENTER, gui_Container_3_1);
             gui_Container_3_1.setName("Container_3_1");
             gui_Container_3_1.addComponent(gui_Label_3_1);
@@ -180,6 +234,9 @@ public class ListRForm extends BaseForm {
                     gui_Container_4_1.addComponent(gui_Label_4_1);
                     gui_Label_4_1.setUIID("Padding2");
                     gui_Label_4_1.setName("Label_4_1");
+
+
+
                     gui_Label_4_1.setIcon(res.getImage("label_round-selected.png"));
                     gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.CENTER, gui_Container_3_1);
                     gui_Container_3_1.setName("Container_3_1");
@@ -208,6 +265,8 @@ public class ListRForm extends BaseForm {
                 FontImage.setMaterialIcon(toggle, FontImage.MATERIAL_SHOPPING_CART);
 
                 for (Produits rec : listP) {
+
+
                     Container gui_Container_1_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.BorderLayout());
                     Container gui_Container_2_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.FlowLayout());
                     Label gui_Label_1_1 = new com.codename1.ui.Label();
@@ -226,17 +285,58 @@ public class ListRForm extends BaseForm {
                     gui_Container_1_1.setName("Container_1_1");
                     gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.EAST, gui_Container_2_1);
                     gui_Container_2_1.setName("Container_2_1");
-                    gui_Container_2_1.addComponent(gui_Label_1_1);
-                    gui_Label_1_1.setText("" + rec.getPrix());
-                    gui_Label_1_1.setUIID("SmallFontLabel");
-                    gui_Label_1_1.setName("Label_1_1");
+
                     gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.WEST, gui_Container_4_1);
                     gui_Container_4_1.setName("Container_4_1");
                     ((com.codename1.ui.layouts.FlowLayout) gui_Container_4_1.getLayout()).setAlign(com.codename1.ui.Component.CENTER);
                     gui_Container_4_1.addComponent(gui_Label_4_1);
                     gui_Label_4_1.setUIID("Padding2");
                     gui_Label_4_1.setName("Label_4_1");
-                    gui_Label_4_1.setIcon(res.getImage("label_round-selected.png"));
+
+                    try {
+                        imgv1 = new ImageViewer(Image.createImage("/load.png"));
+
+                    } catch (IOException exception) {
+                        Dialog.show("error",exception.getMessage(),"ok",null);
+                    }
+                    try {
+                        placeholder1 = EncodedImage.create("/load.png");
+
+                    } catch (IOException exception) {
+                        Dialog.show("error",exception.getMessage(),"ok",null);
+                    }
+
+                    String url= Statics.URL_REP_IMAGES + rec.getNomImage() +".jpg";
+                    String url2="C:/wamp64/www/WeDev_Zvenn/public/images/"+SessionManager.getNomImage();
+                    //EncodedImage placeholder1 =EncodedImage.createFromImage(Image.createImage((Math.round(Display.getInstance().getDisplayWidth()))/10, (Math.round(Display.getInstance().getDisplayWidth()))/10, 0xffff0000), true);
+
+
+                    URLImage background = URLImage.createToStorage(placeholder1,url,url,URLImage.RESIZE_SCALE);
+                    imgv1.setImage(background);
+
+                    Label label1 = new Label(background);
+
+                    int w = background.getWidth();
+                    int h = background.getHeight();
+
+                    Image maskImage = Image.createImage(w, h);
+                    Graphics g = maskImage.getGraphics();
+                    g.setAntiAliased(true);
+                    g.setColor(0x000000);
+                    g.fillRect(0, 0, w, h);
+                    g.setColor(0xffffff);
+                    g.fillArc(0, 0, w, h, 0, 360);
+                    Label label2 = new Label(maskImage);
+
+                    Object mask = maskImage.createMask();
+                    //  maskImage.scaledWidth(1000);
+                    Image maskedImage = background;
+                    Label label3 = new Label(maskedImage);
+                  // Image sl = Image.createImage(background);
+                    // imgv.setImage(background);
+                    gui_Label_4_1.setIcon(maskedImage);
+
+                   // gui_Label_4_1.setIcon(res.getImage("label_round-selected.png"));
                     gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.CENTER, gui_Container_3_1);
                     gui_Container_3_1.setName("Container_3_1");
                     gui_Container_3_1.addComponent(gui_Label_3_1);
@@ -244,7 +344,11 @@ public class ListRForm extends BaseForm {
                     gui_Container_3_1.addComponent(gui_Text_Area_1_1);
                     gui_Label_3_1.setText(""+ rec.getNom());
                     gui_Label_3_1.setName("Label_3_1");
-                    gui_Label_2_1.setText("" + rec.getDescriptionProduit());
+                    gui_Label_2_1.setText("" + rec.getPrix()+" dt");
+                    gui_Container_3_1.addComponent(gui_Label_1_1);
+                    gui_Label_1_1.setText("" + rec.getDescriptionProduit());
+                  //  gui_Label_1_1.setUIID("Blacklabel");
+                    gui_Label_1_1.setName("Label_1_1");
                     gui_Label_2_1.setUIID("RedLabel");
                     gui_Label_2_1.setName("Label_2_1");
                     //gui_Text_Area_1_1.setText("" + rec.getDescriptionProduit());

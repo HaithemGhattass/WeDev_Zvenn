@@ -21,13 +21,14 @@ public class Restaurant {
     private String nomImage;
     private String status;
     private int idUser;
-
+    private String user;
     public Restaurant(){
 
     }
 
 
-    public Restaurant(int id, String nom, String description, String addresse, String cite, String heureOuverture, String categorieRestaurant, String heureFermeture, String gouvernorat, int codePostal, String createdAt, String imageRestaurant, String nomImage, String status) {
+    public Restaurant(int id,String user, String nom, String description, String addresse, String cite, String heureOuverture, String categorieRestaurant, String heureFermeture, String gouvernorat, int codePostal, String createdAt, String imageRestaurant, String nomImage, String status) {
+        this.user = user;
         this.id = id;
         this.nom = nom;
         this.description = description;
@@ -61,6 +62,14 @@ public class Restaurant {
         this.idUser= idUser;
 
 
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public int getIdUser() {

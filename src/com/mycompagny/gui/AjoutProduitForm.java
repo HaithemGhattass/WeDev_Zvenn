@@ -1,6 +1,9 @@
 package com.mycompagny.gui;
 
+import com.codename1.capture.Capture;
 import com.codename1.components.InfiniteProgress;
+import com.codename1.io.MultipartRequest;
+import com.codename1.io.NetworkManager;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.messaging.Message;
 import com.codename1.ui.*;
@@ -11,8 +14,11 @@ import com.codename1.ui.validation.NumericConstraint;
 import com.codename1.ui.validation.Validator;
 import com.mycompagny.entities.Produits;
 import com.mycompagny.services.ServiceProduits;
+import com.mycompagny.utils.Statics;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.UUID;
 
 public class AjoutProduitForm extends BaseForm {
     public AjoutProduitForm() {
@@ -49,6 +55,8 @@ public class AjoutProduitForm extends BaseForm {
                     ).toString(),
                             String.valueOf(gui_description.getText()).toString(),
                             Integer.parseInt(gui_prix.getText()),
+                            UUID.randomUUID().toString(),
+                            String.valueOf(gui_nom_Produit.getText()).toString(),
 
 
                             format.format(new Date())
@@ -103,6 +111,7 @@ public class AjoutProduitForm extends BaseForm {
 
 
     Validator val = new Validator();
+    Button btnUpload = new Button("Upload");
 
     //TextModeLayout tl = new TextModeLayout(3, 2);
     //Form f = new Form("Pixel Perfect", tl);
@@ -167,6 +176,8 @@ public class AjoutProduitForm extends BaseForm {
         gui_Component_Group_1.addComponent(gui_nom_Produit);
         gui_Component_Group_1.addComponent( gui_description);
         gui_Component_Group_1.addComponent(gui_prix);
+        gui_Component_Group_1.addComponent(btnUpload);
+
 
 
 
@@ -196,6 +207,30 @@ public class AjoutProduitForm extends BaseForm {
         gui_Container_1.setName("Container_1");
 
 
+        btnUpload.addActionListener((evt) -> {
+            if (!"".equals(gui_nom_Produit.getText())) {
+                MultipartRequest cr = new MultipartRequest();
+                String filePath = Capture.capturePhoto(Display.getInstance().getDisplayWidth(), -1);
+
+                cr.setUrl(Statics.URL_UPLOAD);
+                cr.setPost(true);
+                String mime = "image/jpeg";
+                try {
+                    cr.addData("file", filePath, mime);
+                } catch (IOException ex) {
+                    Dialog.show("Error", ex.getMessage(), "OK", null);
+                }
+                cr.setFilename("file", gui_nom_Produit.getText() + ".jpg");//any unique name you want
+
+                InfiniteProgress prog = new InfiniteProgress();
+                Dialog dlg = prog.showInifiniteBlocking();
+                cr.setDisposeOnCompletion(dlg);
+                NetworkManager.getInstance().addToQueueAndWait(cr);
+                Dialog.show("Success", "Image uploaded", "OK", null);
+            } else {
+                Dialog.show("Error", "Invalid image name", "Ok", null);
+            }
+        });
 
 
     }// </editor-fold>

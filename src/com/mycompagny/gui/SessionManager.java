@@ -8,6 +8,9 @@ package com.mycompagny.gui;
 import com.codename1.io.Preferences;
 import com.mycompagny.entities.User;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  *
  * @author Lenovo
@@ -30,9 +33,59 @@ public class SessionManager {
     private static String email;
     private static String passowrd ;
     private static String photo;
-    private static String nomImage ;
+    private static String nomImage,prenom,adresse,numtel,nom ;
+    private static String dateNaissance;
     private static User user ;
+    private static ArrayList role;
 
+
+    public static ArrayList getRole() {
+        return role;
+    }
+
+    public static void setRole(ArrayList role) {
+        SessionManager.role = role;
+    }
+
+    public static String getNom() {
+        return nom;
+    }
+
+    public static void setNom(String nom) {
+        SessionManager.nom = nom;
+    }
+
+    public static String getAdresse() {
+        return adresse;
+    }
+
+    public static void setAdresse(String adresse) {
+        SessionManager.adresse = adresse;
+    }
+
+    public static String getNumtel() {
+        return numtel;
+    }
+
+    public static void setNumtel(String numtel) {
+        SessionManager.numtel = numtel;
+    }
+
+    public static String getPrenom() {
+        return prenom;
+    }
+
+    public static void setPrenom(String prenom) {
+        SessionManager.prenom = prenom;
+    }
+
+    public static String getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public static void setDateNaissance(String dateNaissance) {
+        SessionManager.dateNaissance = dateNaissance;
+    }
 
     public static User getUser() {
         return user;

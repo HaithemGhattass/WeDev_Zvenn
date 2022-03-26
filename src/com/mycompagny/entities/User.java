@@ -3,14 +3,14 @@ package com.mycompagny.entities;
 public class User {
 
     private int id;
-    private String nom,prenom,adresse,numTel,email,dateCreation,pseudo,dateNaissance,password;
+    private String nom,prenom,adresse,numTel,email,dateCreation,pseudo,dateNaissance,password,sexe;
 
     public User(){
 
     }
 
 
-    public User(int id, String nom, String prenom, String adresse, String numTel, String email, String dateCreation,String pseudo,String dateNaissance,String password ) {
+    public User(int id, String nom, String prenom, String adresse, String numTel, String email, String dateCreation,String pseudo,String dateNaissance,String password,String sexe ) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -21,10 +21,11 @@ public class User {
         this.pseudo = pseudo;
         this.dateNaissance = dateNaissance;
         this.password = password;
+        this.sexe = sexe;
 
 
     }
-    public User( String nom, String prenom, String adresse, String numTel, String email, String dateCreation,String pseudo,String dateNaissance,String password ) {
+    public User( String nom, String prenom, String adresse, String numTel, String email, String dateCreation,String pseudo,String dateNaissance,String password,String sexe ) {
         this.nom = nom;
         this.prenom = prenom;
         this.adresse =adresse;
@@ -34,8 +35,18 @@ public class User {
         this.pseudo = pseudo;
         this.dateNaissance = dateNaissance;
         this.password = password;
+        this.sexe = sexe;
 
 
+
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
     }
 
     public String getPassword() {

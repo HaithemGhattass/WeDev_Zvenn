@@ -80,7 +80,7 @@ public class ServiceProduits {
         ConnectionRequest con = new ConnectionRequest();
         String Url = Statics.BASE_URL+"ajoutproduitapi/" + idR + "?nomProduit=" +P.getNom()
                 + "&DescriptionProduit=" + P.getDescriptionProduit()
-                + "&prixProduit=" + P.getPrix();
+                + "&prixProduit=" + P.getPrix()+"&image="+P.getImageProduit()+"&nomimageProduit="+P.getNomImage();
 
         con.setUrl(Url);
         con.setPost(false);

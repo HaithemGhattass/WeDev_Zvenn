@@ -18,6 +18,7 @@
  */
 package com.mycompagny.gui;
 
+import com.codename1.messaging.Message;
 import com.codename1.ui.*;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.events.DataChangedListener;
@@ -110,12 +111,13 @@ public class StatsForm extends BaseForm {
         //Restaurant rec = new Restaurant();
         for(int iter = 0 ; iter < rows.length ; iter++) {
             rows[iter] = new Object[] {
-                    list.get(iter).getId(),list.get(iter).getNom(), list.get(iter).getDescription(), list.get(iter).getStatus(), list.get(iter).getAddresse(), list.get(iter).getGouvernorat()/*,list.get(iter).getIdUser()*/
+                    list.get(iter).getId(),list.get(iter).getNom(), list.get(iter).getDescription(), list.get(iter).getStatus(), list.get(iter).getAddresse(), list.get(iter).getGouvernorat(),     list.get(iter).getUser().substring( list.get(iter).getUser().lastIndexOf("email=")+6, list.get(iter).getUser().lastIndexOf("prenom")-2)
+
 
             };
         }
 
-        TableModel model = new DefaultTableModel(new String[]{"id","nom Restaurant", "description", "status", "addresse", "gouvernorat"/*,"vendeur"*/}, rows);
+        TableModel model = new DefaultTableModel(new String[]{"id","nom Restaurant", "description", "status", "addresse", "gouvernorat","vendeur mail"}, rows);
 
 
         Table table = new Table(model){
@@ -134,6 +136,20 @@ public class StatsForm extends BaseForm {
                         getModel().setValueAt(rows, column, p.getSelectedString());
 
                         ServiceRestaurant.getInstance().modificationStatus((Integer) getModel().getValueAt(getSelectedRow(),0),p.getSelectedString());
+                        String valeure="";
+                        String titre="";
+                        if (p.getSelectedString().equals("verified")){
+                            valeure="devenue partenaire avec zvenn";
+                            titre="partenariat effectué";
+                        }else {
+                            valeure="n'est plus partenaire avec zvenn";
+                            titre="partenariat supprimé";
+                        }
+                        Message m = new Message("Votre restaurant " + getModel().getValueAt(getSelectedRow(),1) + " est " + valeure  +"\"");
+                        String textAttachmentUri = "zvenn";
+                        m.getAttachments().put(textAttachmentUri, "text/plain");
+                        Display.getInstance().sendMessage(new String[]{(String) getModel().getValueAt(getSelectedRow(),6)}, titre, m);
+
                         new StatsForm(res).show();
                     });
                  //   p.addActionListener((e) -> list.get(rows).setStatus("verified"));

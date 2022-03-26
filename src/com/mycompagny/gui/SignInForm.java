@@ -68,6 +68,13 @@ public class SignInForm extends com.codename1.ui.Form {
 
 
         });
+        gui_Button_1.addActionListener(e ->
+        {
+            new SignUpForm(Resources.getGlobalResources()).show();
+
+
+        });
+
     }
 
     class EventCallbackClass implements com.codename1.ui.events.ActionListener, com.codename1.ui.events.DataChangedListener {

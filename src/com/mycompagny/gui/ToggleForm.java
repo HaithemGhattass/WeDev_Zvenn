@@ -18,6 +18,7 @@
  */
 package com.mycompagny.gui;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.components.InfiniteProgress;
 import com.codename1.components.MultiButton;
 import com.codename1.components.ScaleImageLabel;
@@ -30,6 +31,7 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.mycompagny.entities.Restaurant;
 import com.mycompagny.services.ServiceRestaurant;
+import com.mycompagny.utils.Statics;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,7 +46,7 @@ public class ToggleForm extends BaseForm {
 
     public ToggleForm(Resources resourceObjectInstance)  {
 
-
+        ImageViewer imgv ;
 
 
 
@@ -95,12 +97,35 @@ public class ToggleForm extends BaseForm {
             gui_separator1.setShowEvenIfBlank(true);
             gui_Label_1_1_1.setShowEvenIfBlank(true);
 
-            ScaleImageLabel sl = new ScaleImageLabel(resourceObjectInstance.getImage("skate-park.jpg"));
+            EncodedImage placeholder =EncodedImage.createFromImage(Image.createImage((Math.round(Display.getInstance().getDisplayWidth())), (Math.round(Display.getInstance().getDisplayWidth()))/3, 0xffff0000), true);
+            try {
+                imgv = new ImageViewer(Image.createImage("/load.png"));
+
+            } catch (IOException e) {
+                Dialog.show("error",e.getMessage(),"ok",null);
+            }
+            try {
+                placeholder = EncodedImage.create("/load.png");
+
+            } catch (IOException e) {
+                Dialog.show("error",e.getMessage(),"ok",null);
+            }
+            URLImage background = URLImage.createToStorage(placeholder, "C:/wamp64/www/WeDev_Zvenn/public/images/"+rec.getNomImage() ,
+                    Statics.URL_REP_IMAGES+rec.getNomImage());
+            //  String url= Statics.URL_REP_IMAGES + rec.getNomImage();
+
+            background.fetch();
+            //  URLImage background = URLImage.createToStorage(placeholder,url,url,URLImage.RESIZE_SCALE);
+
+            ScaleImageLabel sl = new ScaleImageLabel(background);
+            // imgv.setImage(background);
             sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
             gui_imageContainer1.add(BorderLayout.CENTER, sl);
-            sl = new ScaleImageLabel(resourceObjectInstance.getImage("bridge.jpg"));
-            sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
-            gui_imageContainer2.add(BorderLayout.CENTER, sl);
+            //sl = new ScaleImageLabel(resourceObjectInstance.getImage("bridge.jpg"));
+            // sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+            // gui_imageContainer2.add(BorderLayout.CENTER, sl);
+
+
 
             FontImage.setMaterialIcon(gui_LA, FontImage.MATERIAL_LOCATION_ON);
             gui_LA.setIconPosition(BorderLayout.EAST);
