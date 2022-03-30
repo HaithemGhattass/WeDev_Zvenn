@@ -83,6 +83,7 @@ public class ToggleForm extends BaseForm {
             Button gui_Button_1 = new Button();
             Button gui_delete = new Button();
             Button gui_edit = new Button();
+            Button gui_add_event = new Button();
 
             Label gui_separator1 = new Label();
             //  private com.codename1.ui.Container gui_null_1_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.BorderLayout());
@@ -166,6 +167,7 @@ public class ToggleForm extends BaseForm {
             gui_Container_2.addComponent(BorderLayout.EAST, gui_Button_1);
             gui_Container_3.addComponent(BorderLayout.EAST,gui_delete);
             gui_Container_3.addComponent(BorderLayout.WEST,gui_edit);
+            gui_Container_3.addComponent(BorderLayout.CENTER,gui_add_event);
             gui_Text_Area_1.setText("" + rec.getDescription());
             gui_Text_Area_1.setUIID("SlightlySmallerFontLabelLeft");
             gui_Text_Area_1.setName("Text_Area_1");
@@ -177,10 +179,12 @@ public class ToggleForm extends BaseForm {
             gui_delete.setName("Button_1");
             gui_edit.setText("");
             gui_edit.setUIID("Label");
+            gui_add_event.setUIID("Label");
             gui_edit.setName("Button_1");
             FontImage.setMaterialIcon(gui_Button_1, "".charAt(0));
             FontImage.setMaterialIcon(gui_delete, FontImage.MATERIAL_DELETE);
             FontImage.setMaterialIcon(gui_edit, FontImage.MATERIAL_EDIT);
+            FontImage.setMaterialIcon(gui_add_event, FontImage.MATERIAL_EVENT);
 
 
 
@@ -190,6 +194,13 @@ public class ToggleForm extends BaseForm {
                 new AjoutProduitForm(rec.getId(), resourceObjectInstance).show();
 
             });
+            gui_add_event.addPointerPressedListener(l -> {
+                //ServiceRestaurant.getInstance().affichageReclamations(rec.getId());
+                //ArrayList<Reclamation>  list = ServiceRestaurant.getInstance().affichageReclamations(2);
+                new AddEvennementForm(rec.getId(),resourceObjectInstance).show();
+
+            });
+
             gui_edit.addPointerPressedListener(l -> {
                 //ServiceRestaurant.getInstance().affichageReclamations(rec.getId());
                 //ArrayList<Reclamation>  list = ServiceRestaurant.getInstance().affichageReclamations(2);

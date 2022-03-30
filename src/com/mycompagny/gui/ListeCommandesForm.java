@@ -1,13 +1,12 @@
 package com.mycompagny.gui;
 
-import com.codename1.components.InfiniteProgress;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
+import com.codename1.messaging.Message;
 import com.codename1.ui.*;
 import com.codename1.ui.Button;
 import com.codename1.ui.Component;
 import com.codename1.ui.Container;
-import com.codename1.ui.Dialog;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.layouts.*;
@@ -44,7 +43,75 @@ public class ListeCommandesForm extends BaseForm{
         ArrayList<Commande> list = ServiceCommande.getInsance().AffichageCommandes();
         for(Commande cmd:list){
 
-            addButton(cmd,res);
+
+            Label adresseTxt = new Label("Adresse : "+cmd.getAdresseLivraison(),"NewsTopLine2");
+            Label totalTxt = new Label("Total : "+cmd.getTotalCommande(),"NewsTopLine2");
+            Label modeTxt = new Label("Mode Livraison : "+cmd.getModeLivraison(),"NewsTopLine2");
+            Label renseignementTxt = new Label("Renseignement : ","NewsTopLine2");
+            String v="";
+           if (cmd.getStatus() == true) {
+                v="Délivrée";
+
+            }else {v="En cours de traitement";}
+                Label statusTxt = new Label(""+v);
+
+            statusTxt.setUIID("NewsTopLine2");
+
+            createLineSeparator();
+
+            /*if(cmd.getStatus()!= 0 ){
+
+                statusTxt.setText(" traitement");
+            }
+            if(cmd.getStatus()== 0 ){
+
+                statusTxt.setText(" delivree");
+                //statusTxt.setText("Délivrée");
+            }*/
+            //staus button
+            Label status = new Label();
+            status.setUIID("NewsTopLine");
+            Style statusStyle= new Style(status.getUnselectedStyle());
+            statusStyle.setFgColor(0xf7ad02);
+            FontImage statusImg=FontImage.createMaterial(FontImage.MATERIAL_MODE_EDIT, statusStyle);
+            status.setIcon(statusImg);
+            status.setTextPosition(LEFT);
+
+            status.addPointerPressedListener(l->{
+                int id=cmd.getId();
+                cmd.getStatus();
+                cmd.setStatus(true);
+                if(ServiceCommande.getInsance().setStatus(id, String.valueOf(cmd))){
+                    new ListeCommandesForm(res).show();
+                }
+
+            });
+
+            //mail button
+            Label mail = new Label();
+            mail.setUIID("NewsTopLine");
+            Style mailStyle= new Style(mail.getUnselectedStyle());
+            mailStyle.setFgColor(0xf21f1f);
+            FontImage mailImg=FontImage.createMaterial(FontImage.MATERIAL_MAIL, mailStyle);
+            mail.setIcon(mailImg);
+            mail.setTextPosition(LEFT);
+
+            mail.addPointerPressedListener(l->{
+                Message m = new Message("VOTRE COMMANDE DE MONTANT"+" "+cmd.getTotalCommande()+" "+" EST MAINTENANT DÉLIVRÉE !"+"\nÀ LA PROCHAINE.\nZVENDEN \"");
+                String textAttachmentUri = "zvenn";
+                m.getAttachments().put(textAttachmentUri, "text/plain");
+                //Display.getInstance().sendMessage(new String[]{/*mail l user a faire*/ SessionManager.getEmail()}, "FELICITATION !", m);
+                Display.getInstance().sendMessage(new String[]{/*mail l user a faire*/ "yassmin.mouaddeb@esprit.tn"}, "FELICITATION !", m);
+            });
+
+            add(BoxLayout.encloseY(
+                    BoxLayout.encloseX(adresseTxt),
+                    BoxLayout.encloseX(totalTxt),
+                    BoxLayout.encloseX(statusTxt,status,mail)
+            ));
+
+
+
 
         }
     }
@@ -93,69 +160,6 @@ public class ListeCommandesForm extends BaseForm{
         l.getParent().repaint();
     }
 
-    private void addButton(Commande cmd, Resources res) {
-
-        Label adresseTxt = new Label("Adresse : "+cmd.getAdresseLivraison(),"NewsTopLine2");
-        Label totalTxt = new Label("Total : "+cmd.getTotalCommande(),"NewsTopLine2");
-        Label modeTxt = new Label("Mode Livraison : "+cmd.getModeLivraison(),"NewsTopLine2");
-        Label renseignementTxt = new Label("Renseignement : "+cmd.getRenseignement(),"NewsTopLine2");
-        Label statusTxt = new Label("Status : "+cmd.getStatus(),"NewsTopLine2" );
-
-        createLineSeparator();
-
-        if(cmd.getStatus()== 0 ){
-            statusTxt.setText("En cours de traitement");
-        }
-        else{
-            statusTxt.setText("Délivrée");
-        }
-        //delete button
-        Label delete = new Label();
-        delete.setUIID("NewsTopLine");
-        Style deleteStyle= new Style(delete.getUnselectedStyle());
-        deleteStyle.setFgColor(0xf21f1f);
-        FontImage deleteImg=FontImage.createMaterial(FontImage.MATERIAL_DELETE, deleteStyle);
-        delete.setIcon(deleteImg);
-        delete.setTextPosition(RIGHT);
-
-        delete.addPointerPressedListener(l->{
-            Dialog dialog = new Dialog("Suppression");
-            if(dialog.show("SUPPRESSION","VOULEZ-VOUS SUPPRIMER CETTE COMMANDE ?","ANNULER","OK")){
-                dialog.dispose();
-            }else{
-                dialog.dispose();
-                if(ServiceCommande.getInsance().deleteCommande(cmd.getId())){
-                    new ListeCommandesForm(res).show();
-                }
-
-            }
-
-        });
-
-        //update button
-        Label update = new Label();
-        update.setUIID("NewsTopLine");
-        Style updateStyle= new Style(update.getUnselectedStyle());
-        updateStyle.setFgColor(0xf7ad02);
-        FontImage updateImg=FontImage.createMaterial(FontImage.MATERIAL_MODE_EDIT, updateStyle);
-        update.setIcon(updateImg);
-        update.setTextPosition(LEFT);
-
-        update.addPointerPressedListener(l->{
-            new ModifierCommandeForm(res, cmd).show();
-
-        });
-
-        add(BoxLayout.encloseY(
-                BoxLayout.encloseX(adresseTxt),
-                BoxLayout.encloseX(totalTxt),
-                BoxLayout.encloseX(statusTxt,delete,update)
-        ));
-
-
-
-
-    }
 
 
     private void initGuiBuilderComponents(com.codename1.ui.util.Resources resourceObjectInstance) {

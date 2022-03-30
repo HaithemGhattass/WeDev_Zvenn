@@ -18,17 +18,22 @@
  */
 package com.mycompagny.gui;
 
+import com.codename1.capture.Capture;
+import com.codename1.components.ImageViewer;
+import com.codename1.components.InfiniteProgress;
 import com.codename1.io.ConnectionRequest;
+import com.codename1.io.MultipartRequest;
 import com.codename1.io.NetworkManager;
-import com.codename1.ui.ComboBox;
-import com.codename1.ui.Display;
-import com.codename1.ui.FontImage;
-import com.codename1.ui.TextField;
+import com.codename1.ui.*;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
 import com.codename1.ui.validation.*;
+import com.mycompagny.entities.User;
 import com.mycompagny.services.ServiceUtilisateur;
+import com.mycompagny.utils.Statics;
 
+import java.io.IOException;
+import java.util.UUID;
 import java.util.Vector;
 
 /**
@@ -37,6 +42,10 @@ import java.util.Vector;
  * @author Shai Almog
  */
 public class ModifierProfilForm extends com.codename1.ui.Form {
+    EncodedImage placeholder ;
+    ImageViewer imgv ;
+    EncodedImage placeholder1 ;
+    ImageViewer imgv1 ;
     private ConnectionRequest req;
 
     public ModifierProfilForm() {
@@ -171,6 +180,46 @@ public class ModifierProfilForm extends com.codename1.ui.Form {
         validator.addConstraint(password,  new LengthConstraint(7, "inssert"));
 
 
+        try {
+            imgv1 = new ImageViewer(Image.createImage("/load.png"));
+
+        } catch (IOException e) {
+            Dialog.show("error",e.getMessage(),"ok",null);
+        }
+        try {
+            placeholder1 = EncodedImage.create("/load.png");
+
+        } catch (IOException e) {
+            Dialog.show("error",e.getMessage(),"ok",null);
+        }
+
+        String url= Statics.URL_REP_IMAGES + SessionManager.getNomImage() ;
+        String url2="C:/wamp64/www/WeDev_Zvenn/public/images/"+SessionManager.getNomImage();
+
+
+        URLImage background = URLImage.createToStorage(placeholder1,url,url,URLImage.RESIZE_SCALE);
+        imgv1.setImage(background);
+
+        Label label1 = new Label(background);
+
+        int w = background.getWidth();
+        int h = background.getHeight();
+
+
+        Image maskImage = Image.createImage(w, h);
+        Graphics g = maskImage.getGraphics();
+        g.setAntiAliased(true);
+        g.setColor(0x000000);
+        g.fillRect(0, 0, w, h);
+        g.setColor(0xffffff);
+        g.fillArc(0, 0, w, h, 0, 360);
+        Label label2 = new Label(maskImage);
+
+        Object mask = maskImage.createMask();
+        //  maskImage.scaledWidth(1000);
+        Image maskedImage = background.applyMask(mask);
+        Label label3 = new Label(maskedImage);
+
 
 
         /*gui_Text_Field_2.setText("TextField");
@@ -181,7 +230,40 @@ public class ModifierProfilForm extends com.codename1.ui.Form {
         gui_Container_1.addComponent(gui_Button_3);
         gui_Label_1.setUIID("CenterLabel");
         gui_Label_1.setName("Label_1");
-        gui_Label_1.setIcon(resourceObjectInstance.getImage("profile_image.png"));
+        gui_Label_1.setIcon(maskedImage.scaledHeight(100));
+        gui_Label_1.addPointerPressedListener(e -> {
+            if (!"".equals(username.getText())) {
+                MultipartRequest cr = new MultipartRequest();
+                String filePath = Capture.capturePhoto(Display.getInstance().getDisplayWidth(), -1);
+
+                cr.setUrl(Statics.URL_UPLOAD);
+                cr.setPost(true);
+                String mime = "image/jpeg";
+                try {
+                    cr.addData("file", filePath, mime);
+                } catch (IOException ex) {
+                    Dialog.show("Error", ex.getMessage(), "OK", null);
+                }
+                String random = UUID.randomUUID().toString();
+                cr.setFilename("file", random+ ".jpg");//any unique name you want
+
+                InfiniteProgress prog = new InfiniteProgress();
+                Dialog dlg = prog.showInifiniteBlocking();
+                cr.setDisposeOnCompletion(dlg);
+                NetworkManager.getInstance().addToQueueAndWait(cr);
+                ServiceUtilisateur.getInstance().modifierImage(random,resourceObjectInstance);
+                Dialog.show("Success", "Image uploaded", "OK", null);
+
+                SessionManager.setNomImage(random + ".jpg");
+
+                gui_Label_1.setIcon(maskedImage.scaledHeight(100));
+
+
+            } else {
+                Dialog.show("Error", "Invalid image name", "Ok", null);
+            }
+
+        });
         gui_Component_Group_1.setName("Component_Group_1");
         gui_Button_2.setText("Modifier");
         gui_Button_2.setName("Button_2");

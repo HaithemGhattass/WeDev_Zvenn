@@ -18,6 +18,12 @@
  */
 package com.mycompagny.gui;
 
+import com.codename1.charts.ChartComponent;
+import com.codename1.charts.models.CategorySeries;
+import com.codename1.charts.renderers.DefaultRenderer;
+import com.codename1.charts.renderers.SimpleSeriesRenderer;
+import com.codename1.charts.views.PieChart;
+import com.codename1.components.SpanLabel;
 import com.codename1.messaging.Message;
 import com.codename1.ui.*;
 import com.codename1.ui.events.ActionListener;
@@ -35,7 +41,9 @@ import com.codename1.ui.table.Table;
 import com.codename1.ui.table.TableLayout;
 import com.codename1.ui.table.TableModel;
 import com.codename1.ui.util.Resources;
+import com.mycompagny.entities.Reclamation;
 import com.mycompagny.entities.Restaurant;
+import com.mycompagny.services.ServiceReclamation;
 import com.mycompagny.services.ServiceRestaurant;
 
 import java.util.ArrayList;
@@ -48,8 +56,9 @@ import java.util.UUID;
  *
  * @author Shai Almog
  */
-public class StatsForm extends BaseForm {
-    public StatsForm(Resources res) {
+public class reclamationDashboardForm extends BaseForm {
+    public reclamationDashboardForm(Resources res) {
+
         setLayout(new BorderLayout());
         setUIID("StatsForm");
         installSidemenu(res);
@@ -97,27 +106,30 @@ public class StatsForm extends BaseForm {
         toggle.addActionListener(al);
         placeholder.addActionListener(al);
 
-        add(BorderLayout.NORTH, createTopGrid(res));
+        add(BorderLayout.NORTH, circleContent(res));
         add(BorderLayout.SOUTH, createBottomList(res));
-        add(BorderLayout.CENTER, circleContent(res));
+        add(BorderLayout.CENTER, piechart(res));
+
+
+
     }
 
     Container circleContent(Resources res) {
-        ArrayList<Restaurant> list = ServiceRestaurant.getInstance().affichageRestaurant();
+        ArrayList<Reclamation> list = ServiceReclamation.getInstance().affichageReclamation();
         Object[][] rows = new Object[list.size()][];
-        for (Restaurant rec : list){
+        for (Reclamation rec : list){
 
         }
         //Restaurant rec = new Restaurant();
         for(int iter = 0 ; iter < rows.length ; iter++) {
             rows[iter] = new Object[] {
-                    list.get(iter).getId(),list.get(iter).getNom(), list.get(iter).getDescription(), list.get(iter).getStatus(), list.get(iter).getAddresse(), list.get(iter).getGouvernorat(),     list.get(iter).getUser().substring( list.get(iter).getUser().lastIndexOf("email=")+6, list.get(iter).getUser().lastIndexOf("prenom")-2)
+                    list.get(iter).getId(), list.get(iter).getTitre(), list.get(iter).getDescription(), list.get(iter).getEtat(),     list.get(iter).getUser().substring( list.get(iter).getUser().lastIndexOf("email=")+6, list.get(iter).getUser().lastIndexOf("prenom")-2)
 
 
             };
         }
 
-        TableModel model = new DefaultTableModel(new String[]{"id","nom Restaurant", "description", "status", "addresse", "gouvernorat","vendeur mail"}, rows);
+        TableModel model = new DefaultTableModel(new String[]{"id","Titre", "description", "etat", "email"}, rows);
 
 
         Table table = new Table(model){
@@ -125,34 +137,44 @@ public class StatsForm extends BaseForm {
             @Override
             protected Component createCell(Object value, int rows, int column, boolean editable) {
                 Component cell;
+
+
+
+
+
+
+
+
+                //app
+
                 if(column == 3) {
                     Picker p = new Picker();
                     p.setType(Display.PICKER_TYPE_STRINGS);
-                    p.setStrings("verified", "not verified");
+                    p.setStrings("traite", "non traite");
                     p.setSelectedString((String)value);
                     p.setUIID("TableCell");
                     p.addActionListener((e) ->
                     {
                         getModel().setValueAt(rows, column, p.getSelectedString());
 
-                        ServiceRestaurant.getInstance().modificationStatus((Integer) getModel().getValueAt(getSelectedRow(),0),p.getSelectedString());
+                        ServiceReclamation.getInstance().modifierstatus((Integer) getModel().getValueAt(getSelectedRow(),0),p.getSelectedString());
                         String valeure="";
                         String titre="";
-                        if (p.getSelectedString().equals("verified")){
-                            valeure="devenue partenaire avec zvenn";
-                            titre="partenariat effectué";
-                        }else {
-                            valeure="n'est plus partenaire avec zvenn";
-                            titre="partenariat supprimé";
-                        }
-                        Message m = new Message("Votre restaurant " + getModel().getValueAt(getSelectedRow(),1) + " est " + valeure  +"\"");
-                        String textAttachmentUri = "zvenn";
-                        m.getAttachments().put(textAttachmentUri, "text/plain");
-                        Display.getInstance().sendMessage(new String[]{(String) getModel().getValueAt(getSelectedRow(),6)}, titre, m);
+                        if (p.getSelectedString().equals("traite")) {
+                            valeure = " traite";
+                            titre = "votre reclamation est traité";
 
-                        new StatsForm(res).show();
+                            Message m = new Message("Votre reclamation " + getModel().getValueAt(getSelectedRow(), 1) + " est " + valeure + "\"");
+                            String textAttachmentUri = "zvenn";
+                            m.getAttachments().put(textAttachmentUri, "text/plain");
+                            Display.getInstance().sendMessage(new String[]{(String) getModel().getValueAt(getSelectedRow(), 4)}, titre, m);
+
+                          new reclamationDashboardForm(res).show();
+                        }else {
+                            new reclamationDashboardForm(res).show();
+                        }
                     });
-                 //   p.addActionListener((e) -> list.get(rows).setStatus("verified"));
+                    //   p.addActionListener((e) -> list.get(rows).setStatus("verified"));
 
 
 
@@ -166,7 +188,9 @@ public class StatsForm extends BaseForm {
                     cell.getAllStyles().setBgColor(0xeeeeee);
                     cell.getAllStyles().setBgTransparency(255);
                 }
+
                 return cell;
+
             }
 
             @Override
@@ -181,7 +205,7 @@ public class StatsForm extends BaseForm {
         refreshTheme();
 
 
-table.setScrollableX(true);
+        table.setScrollableX(true);
         return table;
 
     }
@@ -209,10 +233,10 @@ table.setScrollableX(true);
     }
 
     Container createTopGrid(Resources res) {
-       int s = 0;
-       int v=0;
-       int x=0;
-       String status="verified";
+        int s = 0;
+        int v=0;
+        int x=0;
+        String status="verified";
         String status2="not verified";
 
         ArrayList<Restaurant> list = ServiceRestaurant.getInstance().affichageRestaurant();
@@ -221,7 +245,7 @@ table.setScrollableX(true);
             if (rec.getStatus().equals(status)) {
                 v=v+1;
             }
-           else if (rec.getStatus().equals(status2)){
+            else if (rec.getStatus().equals(status2)){
                 x=x+1;
             }
 
@@ -257,30 +281,30 @@ table.setScrollableX(true);
 
 
     Component createBottomList(Resources res) {
-        Label reclamation = new Label("reclamation");
+        Label reclamation = new Label("button");
         reclamation.addPointerPressedListener(e -> {
-          new reclamationDashboardForm(res).show();
+            new reclamationDashboardForm(res).show();
 
 
         });
-        Label resturant = new Label("restaurant");
+        Label resturant = new Label("button");
         resturant.addPointerPressedListener(e -> {
             new StatsForm(res).show();
 
 
         });
-        Label btn3 = new Label("user");
+        Label btn3 = new Label("button");
        /* btn.addPointerPressedListener(e -> {
             new TrendingForm(res).show();
 
 
         });*/
-        Label btn4 = new Label("commande");
-        btn4.addPointerPressedListener(e -> {
-            new commandeDashboardForm(res).show();
+        Label btn4 = new Label("button");
+      /*  btn.addPointerPressedListener(e -> {
+            new TrendingForm(res).show();
 
 
-        });
+        });*/
         Label btn5 = new Label("button");
        /* btn.addPointerPressedListener(e -> {
             new TrendingForm(res).show();
@@ -289,16 +313,83 @@ table.setScrollableX(true);
         });*/
         setScrollableX(true);
 
-        return GridLayout.encloseIn(4,
+        return GridLayout.encloseIn(3,
                 gridElement2(res, "", resturant, true),
                 gridElement2(res, "", reclamation, true),
-                gridElement2(res, "", btn3, true),
-                gridElement2(res, "", btn4, true)
+                gridElement2(res, "", btn3, true)
+
+        );
 
 
-              );
+    }
+    public DefaultRenderer buildCatRendrer(int []colors) {
 
+        DefaultRenderer renderer = new DefaultRenderer();
+        renderer.setLabelsTextSize(15);
+        renderer.setLegendTextSize(15);
+        renderer.setMargins(new int[] {20, 30, 15, 0});
 
+        for(int color : colors) {
+            SimpleSeriesRenderer simpleSeriesRenderer = new SimpleSeriesRenderer();
+
+            simpleSeriesRenderer.setColor(color);
+            renderer.addSeriesRenderer(simpleSeriesRenderer);
+        }
+        return renderer;
+    }
+
+    Component piechart(Resources res) {
+        //chna3ml stat feedback par rapport l reclamation
+        ArrayList<Reclamation> list = ServiceReclamation.getInstance().affichageReclamation();
+        double nbr_feedback = 0;
+        double nbr_reclamation = 0;
+        for (Reclamation rec : list){
+            if(rec.getEtat().equals("traite")){
+                nbr_feedback = nbr_feedback + 1;
+            }else{
+                nbr_reclamation = nbr_reclamation + 1 ;
+            }
+
+        }
+        double total = nbr_feedback + nbr_reclamation;
+
+        //values
+        double prcntFeed = (nbr_feedback *100)/total;
+
+        double prcntRec = (nbr_reclamation * 100)/total;
+
+        //colors set:
+        int[]colors = new int[]{0xf4b342, 0x52b29a};
+
+        DefaultRenderer renderer = buildCatRendrer(colors);
+        renderer.setLabelsColor(0x000000); // black color for labels.
+
+        renderer.setZoomButtonsVisible(true);//zoom
+        renderer.setLabelsTextSize(40);
+        renderer.setZoomEnabled(true);
+        renderer.setChartTitleTextSize(20);
+        renderer.setDisplayValues(true);
+        renderer.setShowLabels(true);
+        SimpleSeriesRenderer r = renderer.getSeriesRendererAt(0);
+        r.setHighlighted(true);
+
+        //CREATe the chart ...
+        PieChart chart = new PieChart(buildDataset("title",Math.round(prcntFeed),Math.round(prcntRec)), renderer);
+
+        // n7oto chart fi component
+        ChartComponent c  = new ChartComponent(chart);
+
+        return c;
+    }
+
+    private CategorySeries buildDataset(String title, double prcntFeed, double prcntRec) {
+
+        CategorySeries series = new CategorySeries(title);
+
+        series.add("non traité",prcntRec);
+        series.add("traité",prcntFeed);
+
+        return series;
     }
 
     @Override

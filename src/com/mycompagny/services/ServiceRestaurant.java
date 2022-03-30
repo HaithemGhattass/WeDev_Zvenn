@@ -11,6 +11,7 @@ package com.mycompagny.services;
  import com.mycompagny.entities.Produits;
  import com.mycompagny.entities.Reclamation;
  import com.mycompagny.entities.Restaurant;
+ import com.mycompagny.entities.User;
  import com.mycompagny.gui.SessionManager;
  import com.mycompagny.utils.Statics;
 
@@ -277,7 +278,13 @@ public class ServiceRestaurant {
                   String description = obj.get("description").toString();
                   // String date =  obj.get("date").toString();
                   String etat = obj.get("etat").toString();
+                  String nomimage = obj.get("nomimage").toString();
+                 String user = obj.get("User").toString();
 
+                  re.setUser(user);
+
+
+                  re.setNomimage(nomimage);
                   re.setId((int) id);
                   re.setTitre(titre);
                   re.setDescription(description);

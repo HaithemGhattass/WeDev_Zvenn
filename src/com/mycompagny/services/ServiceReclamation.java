@@ -8,6 +8,7 @@ package com.mycompagny.services;
 import com.codename1.io.*;
 import com.codename1.ui.events.ActionListener;
 import com.mycompagny.entities.Reclamation;
+import com.mycompagny.gui.SessionManager;
 import com.mycompagny.utils.Statics;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.Map;
  * @author mtar
  */
 public class ServiceReclamation {
-public ArrayList<Reclamation> reclamation;
+    public ArrayList<Reclamation> reclamation;
     public static boolean resultOK=true;
     private ConnectionRequest req;
     public static ServiceReclamation instance = null;
@@ -35,10 +36,10 @@ public ArrayList<Reclamation> reclamation;
     public ServiceReclamation() {
         req = new ConnectionRequest();
     }
-     
-    public void ajoutReclamation(Reclamation reclamation) {
 
-        String url = Statics.BASE_URL +"addReclamation?titre="+ reclamation.getTitre() + "&description=" + reclamation.getDescription()+"&foodqulaite="+reclamation.getFoodqulaite()+"&service="+reclamation.getService()+"&price="+reclamation.getPrice();
+    public void ajoutReclamation(Reclamation reclamation,int id) {
+
+        String url = Statics.BASE_URL +"addReclamationn/"+id+"?titre="+ reclamation.getTitre() + "&description=" + reclamation.getDescription()+"&foodqulaite="+reclamation.getFoodqulaite()+"&service="+reclamation.getService()+"&price="+reclamation.getPrice()+"&image="+reclamation.getImage()+"&nomimage="+reclamation.getNomimage()+"&user="+ SessionManager.getId();
         req.setUrl(url);
         req.addResponseListener((e) -> {
             String str = new String(req.getResponseData());
@@ -48,11 +49,11 @@ public ArrayList<Reclamation> reclamation;
         NetworkManager.getInstance().addToQueueAndWait(req);
     }
 
-   public ArrayList<Reclamation>affichageReclamation() {
+    public ArrayList<Reclamation>affichageReclamation() {
         ArrayList<Reclamation> result = new ArrayList <> ();
-        
-         
-        String url =Statics.BASE_URL+"displayReclamations";
+
+
+        String url =Statics.BASE_URL+"displayReclamationn";
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -60,79 +61,108 @@ public ArrayList<Reclamation> reclamation;
                 JSONParser jsonp;
                 jsonp = new JSONParser();
                 try {
-                Map<String,Object>mapReclamation= jsonp.parseJSON(new CharArrayReader(new String(req.getResponseData()).toCharArray()));
-                      List<Map<String,Object>> listOfMaps = (List<Map<String,Object>>) mapReclamation.get("root");
-          for(Map<String, Object> obj : listOfMaps) {
-              Reclamation re = new Reclamation();
-              float id = Float.parseFloat(obj.get("id").toString());
-              String titre = obj.get("titre").toString();
-              String description = obj.get("description").toString();
-             // String date =  obj.get("date").toString();
-              String etat= obj.get("etat").toString();
-              re.setId((int)id);
-              re.setTitre(titre);
-              re.setDescription(description);
-              //re.setDescription(foodqulaite);
-              re.setEtat(etat);
-              
-              //date
-              // String DateConverter = obj.get("date").toString().substring(obj.get("date").toString().indexOf("timestamp") + 10 , obj.get("date").toString().lastIndexOf("}") );
-             // Date currentTime = new Date(Double.valueOf(DateConverter).longValue() * 1000);
-             
-             // SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-              // String dateString = formatter.format(currentTime);
- 
+                    Map<String,Object>mapReclamation= jsonp.parseJSON(new CharArrayReader(new String(req.getResponseData()).toCharArray()));
+                    List<Map<String,Object>> listOfMaps = (List<Map<String,Object>>) mapReclamation.get("root");
+                    for(Map<String, Object> obj : listOfMaps) {
+                        Reclamation re = new Reclamation();
 
-               re.setDate("02/10/2021");
-              result.add(re);
-              
-              
-          }
+                            float id = Float.parseFloat(obj.get("id").toString());
+                            String titre = obj.get("titre").toString();
+                            String description = obj.get("description").toString();
+                            // String date =  obj.get("date").toString();
+                            String etat = obj.get("etat").toString();
+                            String nomimage = obj.get("nomimage").toString();
+                            String user = obj.get("User").toString();
+
+                            re.setUser(user);
+
+
+                            re.setNomimage(nomimage);
+                            re.setId((int) id);
+                            re.setTitre(titre);
+                            re.setDescription(description);
+                            //re.setDescription(foodqulaite);
+                            re.setEtat(etat);
+
+
+                            //date
+                            // String DateConverter = obj.get("date").toString().substring(obj.get("date").toString().indexOf("timestamp") + 10 , obj.get("date").toString().lastIndexOf("}") );
+                            // Date currentTime = new Date(Double.valueOf(DateConverter).longValue() * 1000);
+
+                            // SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                            // String dateString = formatter.format(currentTime);
+
+
+                            re.setDate("02/10/2021");
+                            result.add(re);
+
+
+
+
+
+                    }
                 }catch(Exception ex){
-                ex.printStackTrace();
+                    ex.printStackTrace();
+                }
             }
-        }
-        
-       
+
+
         });
-         
+
         NetworkManager.getInstance().addToQueueAndWait(req);
         return result;
     }
-   public boolean deleteReclamation(int id)
-   {
-       String url = Statics.BASE_URL +"deleteReclamation/"+id;
+    public boolean deleteReclamation(int id)
+    {
+        String url = Statics.BASE_URL +"deleteReclamation/"+id;
         req.setUrl(url);
         req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 req.removeResponseCodeListener(this);
-        }
-         
+            }
+
         });
 
         NetworkManager.getInstance().addToQueueAndWait(req);
-    return resultOK;
+        return resultOK;
     }
-   public boolean modifierReclamation(Reclamation reclamation)
-   {
+    public boolean modifierstatus(int id,String status){
+
+        String url = Statics.BASE_URL + "etatrecapi?id="+id+"&etat="+status;
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener <NetworkEvent>(){
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOK = req.getResponseCode() == 200 ;// code response http 200
+                req.removeResponseListener(this);
+
+            }
+
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+        return resultOK;
+
+    }
+
+    public boolean modifierReclamation(Reclamation reclamation)
+    {
         String url = Statics.BASE_URL +"updateReclamation?id="+reclamation.getId()+"&titre="+ reclamation.getTitre() + "&description=" + reclamation.getDescription();
         req.setUrl(url);
-      req.addResponseListener(new ActionListener<NetworkEvent>() {
+        req.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
                 resultOK= req.getResponseCode()==200;
                 req.removeResponseCodeListener(this);
-        }
-         
+            }
+
         });
         NetworkManager.getInstance().addToQueueAndWait(req);
-    return resultOK;
-   }
+        return resultOK;
+    }
 
 
-
-   }
+}
      
     
 

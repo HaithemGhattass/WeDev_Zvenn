@@ -35,7 +35,9 @@ import com.codename1.ui.table.Table;
 import com.codename1.ui.table.TableLayout;
 import com.codename1.ui.table.TableModel;
 import com.codename1.ui.util.Resources;
+import com.mycompagny.entities.Commande;
 import com.mycompagny.entities.Restaurant;
+import com.mycompagny.services.ServiceCommande;
 import com.mycompagny.services.ServiceRestaurant;
 
 import java.util.ArrayList;
@@ -48,8 +50,8 @@ import java.util.UUID;
  *
  * @author Shai Almog
  */
-public class StatsForm extends BaseForm {
-    public StatsForm(Resources res) {
+public class commandeDashboardForm extends BaseForm {
+    public commandeDashboardForm(Resources res) {
         setLayout(new BorderLayout());
         setUIID("StatsForm");
         installSidemenu(res);
@@ -103,21 +105,37 @@ public class StatsForm extends BaseForm {
     }
 
     Container circleContent(Resources res) {
-        ArrayList<Restaurant> list = ServiceRestaurant.getInstance().affichageRestaurant();
+        ArrayList<Commande> list = ServiceCommande.getInsance().AffichageCommandes();
         Object[][] rows = new Object[list.size()][];
-        for (Restaurant rec : list){
+        for (Commande rec : list){
 
         }
         //Restaurant rec = new Restaurant();
         for(int iter = 0 ; iter < rows.length ; iter++) {
+            String s="";
+
+            if(list.get(iter).getStatus())
+            { s ="délivré";}
+            else {s="en cours de traitement";}
+
             rows[iter] = new Object[] {
-                    list.get(iter).getId(),list.get(iter).getNom(), list.get(iter).getDescription(), list.get(iter).getStatus(), list.get(iter).getAddresse(), list.get(iter).getGouvernorat(),     list.get(iter).getUser().substring( list.get(iter).getUser().lastIndexOf("email=")+6, list.get(iter).getUser().lastIndexOf("prenom")-2)
+                    list.get(iter).getId(),
+                    list.get(iter).getAdresseLivraison(),
+                    list.get(iter).getModeLivraison(),
+                    list.get(iter).getTotalCommande(),
+
+                    s
+                    ,
+                    list.get(iter).getUser().substring( list.get(iter).getUser().lastIndexOf("email=")+6, list.get(iter).getUser().lastIndexOf("prenom")-2)
+
+
 
 
             };
+
         }
 
-        TableModel model = new DefaultTableModel(new String[]{"id","nom Restaurant", "description", "status", "addresse", "gouvernorat","vendeur mail"}, rows);
+        TableModel model = new DefaultTableModel(new String[]{"id","adresse livraison", "mode livraison", "total", "status","client email",}, rows);
 
 
         Table table = new Table(model){
@@ -125,34 +143,28 @@ public class StatsForm extends BaseForm {
             @Override
             protected Component createCell(Object value, int rows, int column, boolean editable) {
                 Component cell;
-                if(column == 3) {
+                if(column == 4 ) {
                     Picker p = new Picker();
+                    p.setText("delivré");
                     p.setType(Display.PICKER_TYPE_STRINGS);
-                    p.setStrings("verified", "not verified");
+                    p.setStrings("Délivrée");
                     p.setSelectedString((String)value);
                     p.setUIID("TableCell");
                     p.addActionListener((e) ->
                     {
                         getModel().setValueAt(rows, column, p.getSelectedString());
+                        ServiceCommande.getInsance().setStatus((Integer) getModel().getValueAt(getSelectedRow(),0),"x");
 
-                        ServiceRestaurant.getInstance().modificationStatus((Integer) getModel().getValueAt(getSelectedRow(),0),p.getSelectedString());
-                        String valeure="";
-                        String titre="";
-                        if (p.getSelectedString().equals("verified")){
-                            valeure="devenue partenaire avec zvenn";
-                            titre="partenariat effectué";
-                        }else {
-                            valeure="n'est plus partenaire avec zvenn";
-                            titre="partenariat supprimé";
-                        }
-                        Message m = new Message("Votre restaurant " + getModel().getValueAt(getSelectedRow(),1) + " est " + valeure  +"\"");
+
+
+                        Message m = new Message("Votre commande est de total " + getModel().getValueAt(getSelectedRow(),3) + " est délivrée " );
                         String textAttachmentUri = "zvenn";
                         m.getAttachments().put(textAttachmentUri, "text/plain");
-                        Display.getInstance().sendMessage(new String[]{(String) getModel().getValueAt(getSelectedRow(),6)}, titre, m);
+                        Display.getInstance().sendMessage(new String[]{(String) getModel().getValueAt(getSelectedRow(),5)}, "commende délivrée", m);
 
-                        new StatsForm(res).show();
+                        new commandeDashboardForm(res).show();
                     });
-                 //   p.addActionListener((e) -> list.get(rows).setStatus("verified"));
+                    //   p.addActionListener((e) -> list.get(rows).setStatus("verified"));
 
 
 
@@ -181,7 +193,7 @@ public class StatsForm extends BaseForm {
         refreshTheme();
 
 
-table.setScrollableX(true);
+        table.setScrollableX(true);
         return table;
 
     }
@@ -209,19 +221,19 @@ table.setScrollableX(true);
     }
 
     Container createTopGrid(Resources res) {
-       int s = 0;
-       int v=0;
-       int x=0;
-       String status="verified";
-        String status2="not verified";
+        int s = 0;
+        int v=0;
+        int x=0;
+        String status="Délivrée";
+        String status2="en cours de traitament";
 
-        ArrayList<Restaurant> list = ServiceRestaurant.getInstance().affichageRestaurant();
-        for (Restaurant rec : list) {
+        ArrayList<Commande> list = ServiceCommande.getInsance().AffichageCommandes();
+        for (Commande rec : list) {
             s=s+1;
-            if (rec.getStatus().equals(status)) {
+            if (rec.getStatus()) {
                 v=v+1;
             }
-           else if (rec.getStatus().equals(status2)){
+            else {
                 x=x+1;
             }
 
@@ -229,9 +241,9 @@ table.setScrollableX(true);
 
         }
         return GridLayout.encloseIn(3,
-                gridElement(res, String.valueOf(s), "Restaurants", false),
-                gridElement(res, String.valueOf(v), "Restaurants verifié", false),
-                gridElement(res, String.valueOf(x), "Restaurants non verifié", true));
+                gridElement(res, String.valueOf(s), "Commande", false),
+                gridElement(res, String.valueOf(v), "Commande delivré", false),
+                gridElement(res, String.valueOf(x), "Commmande en cours de traitement", true));
     }
     Container gridElement2(Resources res, String nb, Label labeL, boolean last) {
         Container c = BorderLayout.centerAbsolute(
@@ -259,7 +271,7 @@ table.setScrollableX(true);
     Component createBottomList(Resources res) {
         Label reclamation = new Label("reclamation");
         reclamation.addPointerPressedListener(e -> {
-          new reclamationDashboardForm(res).show();
+            new reclamationDashboardForm(res).show();
 
 
         });
@@ -296,7 +308,7 @@ table.setScrollableX(true);
                 gridElement2(res, "", btn4, true)
 
 
-              );
+        );
 
 
     }

@@ -20,9 +20,8 @@ package com.mycompagny.gui;
 
 //import com.codename1.progress.ArcProgress;
 //import com.codename1.progress.CircleProgress;
-import com.codename1.components.ImageViewer;
-import com.codename1.components.MultiButton;
-import com.codename1.components.ScaleImageLabel;
+import com.codename1.components.*;
+import com.codename1.io.Preferences;
 import com.codename1.ui.*;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.events.DataChangedListener;
@@ -40,11 +39,15 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.util.Resources;
 import com.mycompagny.entities.Produits;
 import com.mycompagny.entities.Reclamation;
+import com.mycompagny.entities.Reply;
+import com.mycompagny.services.ServiceReclamation;
+import com.mycompagny.services.ServiceReply;
 import com.mycompagny.services.ServiceRestaurant;
 import com.mycompagny.utils.Statics;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -59,6 +62,8 @@ public class ListRForm extends BaseForm {
     EncodedImage placeholder1 ;
     ImageViewer imgv1 ;
     Image imgs;
+    public static Preferences pref ;
+    float total=0;
     public ListRForm() {
     }
 
@@ -77,6 +82,8 @@ public class ListRForm extends BaseForm {
 
         getToolbar().addCommandToRightBar("", res.getImage("toolbar-profile-pic.png"), e -> {
         });
+        setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+
 
         Button toggle = new Button("");
         toggle.setUIID("CenterWhite");
@@ -102,6 +109,22 @@ public class ListRForm extends BaseForm {
                         LayeredLayout.encloseIn(labelGrid, buttonGrid)
                 )
         );
+        FloatingActionButton fab = FloatingActionButton.createFAB(FontImage.MATERIAL_ADD);
+        RoundBorder rb = (RoundBorder) fab.getUnselectedStyle().getBorder();
+        rb.uiid(true);
+        fab.bindFabToContainer(getContentPane());
+        fab.addActionListener(e -> {
+            if (buttonGrid.getComponentAt(1) == toggle) {
+
+                new AjouterReclamationForm(id,res).show();
+
+
+
+
+                }
+
+
+        });
         for (Produits rec : listP) {
 
 
@@ -114,6 +137,10 @@ public class ListRForm extends BaseForm {
             Label gui_Label_3_1 = new com.codename1.ui.Label();
             Label gui_Label_2_1 = new com.codename1.ui.Label();
             TextArea gui_Text_Area_1_1 = new com.codename1.ui.TextArea();
+            Button shop = new Button(FontImage.MATERIAL_SHOPPING_CART);
+            shop.setUIID("Label");
+
+
 
             gui_Text_Area_1_1.setRows(2);
             gui_Text_Area_1_1.setColumns(100);
@@ -124,6 +151,7 @@ public class ListRForm extends BaseForm {
             gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.EAST, gui_Container_2_1);
             gui_Container_2_1.setName("Container_2_1");
             gui_Container_2_1.addComponent(gui_Label_1_1);
+
             gui_Label_1_1.setText("" + rec.getPrix()+" dt");
             gui_Label_1_1.setUIID("SmallFontLabel");
             gui_Label_1_1.setName("Label_1_1");
@@ -181,11 +209,15 @@ public class ListRForm extends BaseForm {
             gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.CENTER, gui_Container_3_1);
             gui_Container_3_1.setName("Container_3_1");
             gui_Container_3_1.addComponent(gui_Label_3_1);
+            gui_Container_3_1.addComponent(shop);
+
             gui_Container_3_1.addComponent(gui_Label_2_1);
             gui_Container_3_1.addComponent(gui_Text_Area_1_1);
             gui_Label_3_1.setText(""+ rec.getNom());
+
             gui_Label_3_1.setName("Label_3_1");
             gui_Label_2_1.setText("" + rec.getDescriptionProduit());
+
             gui_Label_2_1.setUIID("RedLabel");
             gui_Label_2_1.setName("Label_2_1");
             //gui_Text_Area_1_1.setText("" + rec.getDescriptionProduit());
@@ -194,10 +226,37 @@ public class ListRForm extends BaseForm {
             gui_Container_2_1.setName("Container_2_1");
             gui_Container_4_1.setName("Container_4_1");
             refreshTheme();
+            shop.addActionListener(e -> {
+              //  rec.getPrix();
+
+
+               //   SessionManager.setPrix(rec.getPrix());
+
+
+                total+=rec.getPrix();
+
+                SessionManager.ajouter(rec.getNom());
+               //SessionManager.setNom(rec.getNom());
+                SessionManager.setPrix(total);
+                for(String prods : SessionManager.getAr()) {
+                    System.out.println(prods);
+                }
+
+                System.out.println(total);
+             //   System.out.println(rec.getNom());
+
+
+
+
+
+
+
+            });
 
         }
         ActionListener al = e -> {
             if (buttonGrid.getComponentAt(0) == toggle) {
+
                 removeAll();
                 toggle.remove();
                 buttonGrid.add(toggle);
@@ -205,57 +264,260 @@ public class ListRForm extends BaseForm {
                 FontImage.setMaterialIcon(toggle, FontImage.MATERIAL_MAIL);
                 refreshTheme();
 
-               for (Reclamation rec : list) {
-                    Container gui_Container_1_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.BorderLayout());
-                    Container gui_Container_2_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.FlowLayout());
-                    Label gui_Label_1_1 = new com.codename1.ui.Label();
-                    Container gui_Container_4_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.FlowLayout());
-                    Label gui_Label_4_1 = new com.codename1.ui.Label();
-                    Container gui_Container_3_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.BoxLayout(com.codename1.ui.layouts.BoxLayout.Y_AXIS));
-                    Label gui_Label_3_1 = new com.codename1.ui.Label();
-                    Label gui_Label_2_1 = new com.codename1.ui.Label();
-                    TextArea gui_Text_Area_1_1 = new com.codename1.ui.TextArea();
 
-                    gui_Text_Area_1_1.setRows(2);
-                    gui_Text_Area_1_1.setColumns(100);
-                    gui_Text_Area_1_1.setEditable(false);
+                for (Reclamation rec : list) {
 
-                    addComponent(gui_Container_1_1);
-                    gui_Container_1_1.setName("Container_1_1");
-                    gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.EAST, gui_Container_2_1);
-                    gui_Container_2_1.setName("Container_2_1");
-                    gui_Container_2_1.addComponent(gui_Label_1_1);
-                    gui_Label_1_1.setText("" + rec.getDate());
-                    gui_Label_1_1.setUIID("SmallFontLabel");
-                    gui_Label_1_1.setName("Label_1_1");
-                    gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.WEST, gui_Container_4_1);
-                    gui_Container_4_1.setName("Container_4_1");
-                    ((com.codename1.ui.layouts.FlowLayout) gui_Container_4_1.getLayout()).setAlign(com.codename1.ui.Component.CENTER);
-                    gui_Container_4_1.addComponent(gui_Label_4_1);
-                    gui_Label_4_1.setUIID("Padding2");
-                    gui_Label_4_1.setName("Label_4_1");
+                    Container gui_Container_1 = new Container(new BorderLayout());
+                    MultiButton gui_Multi_Button_1 = new MultiButton();
+                    MultiButton gui_LA = new MultiButton();
+                    Container gui_imageContainer1 = new Container(new BorderLayout());
+                    Container gui_Container_2 = new Container(new BorderLayout());
+                    TextArea gui_Text_Area_1 = new TextArea();
+                    Button gui_Button_1 = new Button();
+                    Label gui_separator1 = new Label();
+                    //  private com.codename1.ui.Container gui_null_1_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.BorderLayout());
+                    // private com.codename1.components.MultiButton gui_null_1_1_1 = new com.codename1.components.MultiButton();
+                    MultiButton gui_newYork = new MultiButton();
+                    Container gui_imageContainer2 = new Container(new BorderLayout());
+                    Container gui_Container_3 = new Container(new BorderLayout());
+                    TextArea gui_Text_Area_2 = new TextArea();
+                    Button gui_Button_2 = new Button();
+                    Label gui_Label_1_1_1 = new Label();
+                    Label gui_Label_1 = new Label("");
+                    Label gui_Label_2 = new Label("");
+                    Label gui_Label_3 = new Label();
+
+                    gui_separator1.setShowEvenIfBlank(true);
+                    gui_Label_1_1_1.setShowEvenIfBlank(true);
+
+                    EncodedImage placeholderr = EncodedImage.createFromImage(Image.createImage((Math.round(Display.getInstance().getDisplayWidth())), (Math.round(Display.getInstance().getDisplayWidth())) / 3, 0xffff0000), true);
+
+                    URLImage background = URLImage.createToStorage(placeholderr, Statics.URL_REP_IMAGES + rec.getNomimage(),
+                            Statics.URL_REP_IMAGES + rec.getNomimage());
+                    ;
+                    background.fetch();
+
+                    ScaleImageLabel sl = new ScaleImageLabel(background);
+                    // sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+                    gui_imageContainer1.add(BorderLayout.CENTER, sl);
+                    sl = new ScaleImageLabel(res.getImage("bridge.jpg"));
+                    sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
+                    gui_imageContainer2.add(BorderLayout.CENTER, sl);
+
+                    FontImage.setMaterialIcon(gui_LA, FontImage.MATERIAL_LOCATION_ON);
+                    gui_LA.setIconPosition(BorderLayout.EAST);
+
+                    FontImage.setMaterialIcon(gui_newYork, FontImage.MATERIAL_LOCATION_ON);
+                    gui_newYork.setIconPosition(BorderLayout.EAST);
+
+                    gui_Text_Area_2.setRows(2);
+                    gui_Text_Area_2.setColumns(100);
+                    gui_Text_Area_2.setGrowByContent(false);
+                    gui_Text_Area_2.setEditable(false);
+                    gui_Text_Area_1.setRows(2);
+                    gui_Text_Area_1.setColumns(100);
+                    gui_Text_Area_1.setGrowByContent(false);
+                    gui_Text_Area_1.setEditable(false);
+                    addComponent(gui_Container_1);
+                    gui_Container_1.setName("Container_1");
+                    gui_Container_1.addComponent(BorderLayout.CENTER, gui_Multi_Button_1);
+                    gui_Container_1.addComponent(BorderLayout.EAST, gui_LA);
+                    gui_Multi_Button_1.setUIID("Label");
+                    gui_Multi_Button_1.setName("Multi_Button_1");
+                    gui_Multi_Button_1.setPropertyValue("line1", "" + rec.getTitre());
+                    gui_Multi_Button_1.setPropertyValue("line2", "" + rec.getDescription());
+                    gui_Multi_Button_1.setPropertyValue("uiid1", "Label");
+                    gui_Multi_Button_1.setPropertyValue("uiid2", "RedLabel");
+                    gui_LA.setUIID("Label");
+                    gui_LA.setName("xxx");
 
 
 
-                    gui_Label_4_1.setIcon(res.getImage("label_round-selected.png"));
-                    gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.CENTER, gui_Container_3_1);
-                    gui_Container_3_1.setName("Container_3_1");
-                    gui_Container_3_1.addComponent(gui_Label_3_1);
-                    gui_Container_3_1.addComponent(gui_Label_2_1);
-                    gui_Container_3_1.addComponent(gui_Text_Area_1_1);
-                    gui_Label_3_1.setText("esm el user");
-                    gui_Label_3_1.setName("Label_3_1");
-                    gui_Label_2_1.setText("" + rec.getTitre());
-                    gui_Label_2_1.setUIID("RedLabel");
-                    gui_Label_2_1.setName("Label_2_1");
-                    gui_Text_Area_1_1.setText("" + rec.getDescription());
-                    gui_Text_Area_1_1.setUIID("SmallFontLabel");
-                    gui_Text_Area_1_1.setName("Text_Area_1_1");
-                    gui_Container_2_1.setName("Container_2_1");
-                    gui_Container_4_1.setName("Container_4_1");
-                    refreshTheme();
+                    try {
+                        imgv1 = new ImageViewer(Image.createImage("/load.png"));
+
+                    } catch (IOException exception) {
+                        Dialog.show("error",exception.getMessage(),"ok",null);
+                    }
+                    try {
+                        placeholder1 = EncodedImage.create("/load.png");
+
+                    } catch (IOException exception) {
+                        Dialog.show("error",exception.getMessage(),"ok",null);
+                    }
+                    String NomImage = rec.getUser().substring(rec.getUser().lastIndexOf("nomImage=")+9, rec.getUser().lastIndexOf("dateCreation")-2);
+                    String url= Statics.URL_REP_IMAGES + NomImage ;
+                    String url2="C:/wamp64/www/WeDev_Zvenn/public/uploads/"+NomImage;
+
+
+                    URLImage background2 = URLImage.createToStorage(placeholder1,url,url,URLImage.RESIZE_SCALE);
+                    imgv1.setImage(background2);
+
+                    Label label1 = new Label(background2);
+
+                    int w = background2.getWidth();
+                    int h = background2.getHeight();
+
+                    Image maskImage = Image.createImage(w, h);
+                    Graphics g = maskImage.getGraphics();
+                    g.setAntiAliased(true);
+                    g.setColor(0x000000);
+                    g.fillRect(0, 0, w, h);
+                    g.setColor(0xffffff);
+                    g.fillArc(0, 0, w, h, 0, 360);
+
+                    Object mask = maskImage.createMask();
+                    // maskImage.scaledWidth(1000);
+                    Image maskedImage = background2.applyMask(mask);
+
+                    gui_LA.setIcon(maskedImage.scaled(100,100));
+                    String pseudo = rec.getUser().substring(rec.getUser().lastIndexOf("pseudo=")+7, rec.getUser().lastIndexOf("nomImage")-2);
+                    String idUser = rec.getUser().substring(rec.getUser().lastIndexOf("id=")+3, rec.getUser().lastIndexOf("email")-4);
+
+                    gui_LA.setPropertyValue("line1", ""+pseudo );
+                    gui_LA.setPropertyValue("line2", "" + rec.getEtat());
+                    gui_LA.setPropertyValue("uiid1", "SlightlySmallerFontLabel");
+                    gui_LA.setPropertyValue("uiid2", "RedLabelRight");
+                    addComponent(gui_imageContainer1);
+                    gui_imageContainer1.setName("imageContainer1");
+                    gui_imageContainer1.addComponent(BorderLayout.SOUTH, gui_Container_2);
+                    gui_Container_2.setName("Container_2");
+
+                    String actifuser = String.valueOf(SessionManager.getId());
+                    if(actifuser.equals(idUser) && SessionManager.isActif()) {
+                        gui_Container_2.addComponent(BorderLayout.CENTER, gui_Label_1);
+                        gui_Container_2.addComponent(BorderLayout.WEST, gui_Label_2);
+                    }
+                        gui_Container_2.addComponent(BorderLayout.EAST, gui_Button_1);
+
+                    Style supprStyle=new Style(gui_Button_1.getUnselectedStyle());
+                    supprStyle.setFgColor(0xf21f1f);
+                    FontImage supprimerImage= FontImage.createMaterial(FontImage.MATERIAL_DELETE,supprStyle);
+                    gui_Label_1.setIcon(supprimerImage);
+                    gui_Label_1.setTextPosition(Component.LEFT);
+                    Style updateStyle=new Style(gui_Label_2.getUnselectedStyle());
+                    updateStyle.setFgColor(0xf7ad02);
+                    FontImage updateImage= FontImage.createMaterial(FontImage.MATERIAL_MODE_EDIT, updateStyle);
+                    gui_Label_2.setIcon(updateImage);
+                    gui_Label_2.setTextPosition(LEFT);
+                    gui_Label_2.setIcon(updateImage);
+                    gui_Button_1.setText("");
+                    gui_Button_1.setUIID("Label");
+                    gui_Button_1.setName("Button_1");
+                    FontImage.setMaterialIcon(gui_Button_1, "".charAt(0));
+                    ShareButton bt =new ShareButton();
+                    add(bt);
+
+                    gui_Button_1.addPointerPressedListener(l -> {
+                        if(SessionManager.isActif()) {
+                            new AjoutReplyForm(rec.getId(), res).show();
+                        }else
+                            new SignInForm(res).show();
+
+
+                    });
+                    gui_Label_1.addPointerPressedListener(l -> {
+
+                        Dialog dig =new Dialog("suppression");
+                        if(Dialog.show("suppression","voulez-vous supprimer cette reclamation?", "Annuler","Ok"))
+                        {
+                            dig.dispose();
+
+                        }
+                        else
+                        {
+                            dig.dispose();
+                            if(ServiceReclamation.getInstance().deleteReclamation(rec.getId()))
+                            {    Dialog.show("succès!!!", "", new Command("OK"));
+                                new ListRForm(id,res).show();
+
+                            }
+
+                        }
+
+                    });
+
+
+                    gui_Label_2.addPointerPressedListener(ee -> {
+
+                        new ModifierReclamationForm(res,rec).show();
+
+                    });
+                    ArrayList<Reply> listR = ServiceReply.getInstance().affichageReply(rec.getId());
+                    for (Reply rep : listR) {
+
+                        Container gui_Container_1_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.BorderLayout());
+                        Container gui_Container_2_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.FlowLayout());
+                        Label gui_Label_1_1 = new com.codename1.ui.Label();
+                        Container gui_Container_4_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.FlowLayout());
+                        Label gui_Label_4_1 = new com.codename1.ui.Label();
+                        Container gui_Container_3_1 = new com.codename1.ui.Container(new com.codename1.ui.layouts.BoxLayout(com.codename1.ui.layouts.BoxLayout.Y_AXIS));
+                        Label gui_Label_3_1 = new com.codename1.ui.Label();
+                        Label gui_Label_2_1 = new com.codename1.ui.Label();
+                        TextArea gui_Text_Area_1_1 = new com.codename1.ui.TextArea();
+                        gui_Text_Area_1_1.setRows(2);
+                        gui_Text_Area_1_1.setColumns(100);
+                        gui_Text_Area_1_1.setEditable(false);
+                        addComponent(gui_Container_1_1);
+                        gui_Container_1_1.setName("Container_1_1");
+                        gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.EAST, gui_Container_2_1);
+                        gui_Container_2_1.setName("Container_2_1");
+                        gui_Container_2_1.addComponent(gui_Label_1_1);
+                        Style suppStyle=new Style(gui_Label_1_1.getUnselectedStyle());
+                        supprStyle.setFgColor(0xf21f1f);
+                        FontImage suppImage= FontImage.createMaterial(FontImage.MATERIAL_DELETE,suppStyle);
+                        gui_Label_1_1.setIcon(suppImage);
+
+                        gui_Label_1_1.setUIID("SmallFontLabel");
+                        gui_Label_1_1.setName("Label_1_1");
+                        gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.WEST, gui_Container_4_1);
+                        gui_Container_4_1.setName("Container_4_1");
+                        ((com.codename1.ui.layouts.FlowLayout) gui_Container_4_1.getLayout()).setAlign(com.codename1.ui.Component.CENTER);
+                        gui_Container_4_1.addComponent(gui_Label_4_1);
+                        gui_Label_4_1.setUIID("Padding2");
+                        gui_Label_4_1.setName("Label_4_1");
+                        gui_Label_4_1.setIcon(res.getImage("toolbar-profile-pic.png"));
+                        gui_Container_1_1.addComponent(com.codename1.ui.layouts.BorderLayout.CENTER, gui_Container_3_1);
+                        gui_Container_3_1.setName("Container_3_1");
+                        gui_Container_3_1.addComponent(gui_Label_3_1);
+                        gui_Container_3_1.addComponent(gui_Label_2_1);
+                        gui_Container_3_1.addComponent(gui_Text_Area_1_1);
+                        gui_Label_3_1.setText("" + rep.getTitre());
+                        gui_Label_3_1.setName("Label_3_1");
+                        gui_Label_2_1.setText("" + rep.getDescription());
+                        gui_Label_2_1.setUIID("RedLabel");
+                        gui_Label_2_1.setName("Label_2_1");
+
+                        gui_Text_Area_1_1.setUIID("SmallFontLabel");
+                        gui_Text_Area_1_1.setName("Text_Area_1_1");
+                        gui_Container_2_1.setName("Container_2_1");
+                        gui_Container_4_1.setName("Container_4_1");
+                        gui_Label_1_1.addPointerPressedListener(l -> {
+
+                            Dialog dig =new Dialog("suppression");
+                            if(Dialog.show("suppression","voulez-vous supprimer cette reclamation?", "Annuler","Ok"))
+                            {
+                                dig.dispose();
+                            }
+                            else
+                            {
+                                dig.dispose();
+                                if(ServiceReply.getInstance().deleteR(rep.getId()))
+                                {    Dialog.show("succès!!!", "", new Command("OK"));
+                                    new ListRForm(id,res).show();
+                                    buttonGrid.getComponentAt(1) ;
+
+                                }
+
+                            }
+
+                        });
+
+
+                    }
 
                 }
+
 
             } else {
                 removeAll();
@@ -356,7 +618,7 @@ public class ListRForm extends BaseForm {
                     gui_Text_Area_1_1.setName("Text_Area_1_1");
                     gui_Container_2_1.setName("Container_2_1");
                     gui_Container_4_1.setName("Container_4_1");
-                    refreshTheme();
+                  //  refreshTheme();
 
                 }
                 getToolbar().addSearchCommand(ee -> {

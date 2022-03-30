@@ -6,9 +6,11 @@
 package com.mycompagny.gui;
 
 import com.codename1.io.Preferences;
+import com.mycompagny.entities.Produits;
 import com.mycompagny.entities.User;
 
-import java.util.ArrayList;
+import java.util.*;
+import java.util.Arrays;
 import java.util.Date;
 
 /**
@@ -37,7 +39,46 @@ public class SessionManager {
     private static String dateNaissance;
     private static User user ;
     private static ArrayList role;
+    private static float prix;
+    private static String nomProduits;
+    // private static String nomprod[];
+    private static ArrayList<String> ar = new ArrayList<String>();
 
+    public static float getPrix() {
+        return prix;
+    }
+
+    public static ArrayList<String> getAr() {
+        return ar;
+    }
+
+    public static void ajouter(String nom) {
+        SessionManager.ar.add(nom);
+    }
+    /*public static String[] getNomprod() {
+        return nomprod;
+    }
+
+    public static void setNomprod(String nomprod) {
+        int n = nomprod.length();
+       SessionManager.nomprod[n]=nomprod;
+    }
+
+    public static float getPrix() {
+        return prix;
+    }*/
+
+    public static void setPrix(float prix) {
+        SessionManager.prix = prix;
+    }
+
+    public static String getNomProduits() {
+        return nomProduits;
+    }
+
+    public static void setNomProduits(String nomProduits) {
+        SessionManager.nomProduits = nomProduits;
+    }
 
     public static ArrayList getRole() {
         return role;
@@ -158,9 +199,6 @@ public class SessionManager {
     public static void setPhoto(String photo) {
         pref.set("photo",photo);
     }
-
-
-
 
 
 

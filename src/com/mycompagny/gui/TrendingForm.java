@@ -141,6 +141,9 @@ public class TrendingForm extends BaseForm {
         getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_SEARCH, e -> {
             new MapForm();
         });
+        getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_SHOPPING_CART, e -> {
+            new ListeCommandesById(resourceObjectInstance).show();
+        });
         /*getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_SEARCH, e -> {
              hi.show();
         });*/
@@ -172,6 +175,7 @@ public class TrendingForm extends BaseForm {
                 Dialog.show("error",e.getMessage(),"ok",null);
             }
 
+
             String url= Statics.URL_REP_IMAGES + SessionManager.getNomImage() ;
             String url2="C:/wamp64/www/WeDev_Zvenn/public/images/"+SessionManager.getNomImage();
 
@@ -183,6 +187,7 @@ public class TrendingForm extends BaseForm {
 
             int w = background.getWidth();
             int h = background.getHeight();
+
 
             Image maskImage = Image.createImage(w, h);
             Graphics g = maskImage.getGraphics();

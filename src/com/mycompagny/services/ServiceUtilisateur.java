@@ -223,5 +223,28 @@ public class ServiceUtilisateur {
 
     }
 
+    public boolean modifierImage( String random ,Resources res){
+
+        String url = Statics.BASE_URL + "editimage?id="+SessionManager.getId()+"&image="+random +".jpg";
+
+        req.setUrl(url);
+        req.addResponseListener(new ActionListener<NetworkEvent>(){
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                resultOk = req.getResponseCode() == 200 ;// code response http 200
+                req.removeResponseListener(this);
+
+            }
+
+        });
+        NetworkManager.getInstance().addToQueueAndWait(req);
+
+
+
+        return resultOk;
+
+    }
+
+
 
 }

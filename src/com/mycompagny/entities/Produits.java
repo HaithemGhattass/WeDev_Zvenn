@@ -1,7 +1,8 @@
 package com.mycompagny.entities;
 
 public class Produits {
-    private int id,prix;
+    private int id;
+    private float prix;
     private String nom;
     private String descriptionProduit;
     private String createdAt;
@@ -11,7 +12,7 @@ public class Produits {
 
     public Produits() {
     }
-    public Produits(int id, String nom, String descriptionProduit, int prix, String nomImage, String createdAt ) {
+    public Produits(int id, String nom, String descriptionProduit, float prix, String nomImage, String createdAt ) {
         this.id = id;
         this.nom = nom;
         this.descriptionProduit = descriptionProduit;
@@ -20,7 +21,7 @@ public class Produits {
        // this.imageProduit = imageProduit;
         this.nomImage = nomImage;
     }
-    public Produits( String nom, String descriptionProduit, int prix,String imageProduit, String nomImage, String createdAt ) {
+    public Produits( String nom, String descriptionProduit, float prix,String imageProduit, String nomImage, String createdAt ) {
         this.nom = nom;
         this.descriptionProduit = descriptionProduit;
         this.createdAt = createdAt;
@@ -28,6 +29,11 @@ public class Produits {
         this.imageProduit = imageProduit;
         this.nomImage = nomImage;
 
+    }
+
+    public Produits(float prix, String nom) {
+        this.prix = prix;
+        this.nom = nom;
     }
 
     public String getImageProduit() {
@@ -54,7 +60,7 @@ public class Produits {
         this.id = id;
     }
 
-    public int getPrix() {
+    public float getPrix() {
         return prix;
     }
 

@@ -5,8 +5,6 @@
  */
 package com.mycompagny.entities;
 
-import java.util.Date;
-
 /**
  *
  * @author mtar
@@ -14,10 +12,13 @@ import java.util.Date;
 public class Reclamation {
     private int id,foodqulaite,price,service;
     private String titre,description,etat;
-    private String date;
+    private String date,image,nomimage;
     private int idres;
+    String user;
+    private int idUser;
 
-    public Reclamation(int foodqulaite, int price, int service, String titre, String description, String etat, String date, int idres) {
+
+    public Reclamation(String user,int idUser,int foodqulaite, int price, int service, String titre, String description, String etat, String date, int idres) {
         this.foodqulaite = foodqulaite;
         this.price = price;
         this.service = service;
@@ -26,6 +27,24 @@ public class Reclamation {
         this.etat = etat;
         this.date = date;
         this.idres = idres;
+        this.user = user;
+        this.idUser=idUser;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public int getIdres() {
@@ -48,7 +67,7 @@ public class Reclamation {
         this.date = date;
     }
 
-    public Reclamation(String titre, String description, int foodqulaite, int price, int service, String etat, String date) {
+    public Reclamation(String titre, String description, String etat, String date, String image, String nomimage) {
         this.titre = titre;
         this.description = description;
         this.foodqulaite = foodqulaite;
@@ -56,6 +75,8 @@ public class Reclamation {
         this.service = service;
         this.etat = etat;
         this.date = date;
+        this.image=image;
+        this.nomimage=nomimage;
     }
 
     public int getFoodqulaite() {
@@ -124,7 +145,21 @@ public class Reclamation {
     }
 
 
+    public String getImage() {
+        return image;
+    }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getNomimage() {
+        return nomimage;
+    }
+
+    public void setNomimage(String nomimage) {
+        this.nomimage = nomimage;
+    }
 
 
 

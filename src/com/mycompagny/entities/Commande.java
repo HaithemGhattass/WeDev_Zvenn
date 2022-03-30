@@ -8,14 +8,14 @@ public class Commande {
     private Float totalCommande;
     private String modeLivraison;
     private String renseignement;
-    private int status;
+    private boolean status;
     private int iduser;
     private String user;
 
     public Commande() {
     }
 
-    public Commande(String adresseLivraison, Float totalCommande, String modeLivraison, String renseignement, int status) {
+    public Commande(String adresseLivraison, Float totalCommande, String modeLivraison, String renseignement, boolean status) {
         this.adresseLivraison = adresseLivraison;
         this.totalCommande = totalCommande;
         this.modeLivraison = modeLivraison;
@@ -23,7 +23,7 @@ public class Commande {
         this.status = status;
     }
 
-    public Commande(int id, String user,String adresseLivraison, Float totalCommande, String modeLivraison, String renseignement, int status) {
+    public Commande(int id, String user,String adresseLivraison, Float totalCommande, String modeLivraison, String renseignement, boolean status) {
         this.id = id;
         this.user = user;
         this.adresseLivraison = adresseLivraison;
@@ -33,7 +33,7 @@ public class Commande {
         this.status = status;
     }
 
-    public Commande(String adresseLivraison, Float totalCommande, String modeLivraison, String renseignement, int status, int iduser) {
+    public Commande(String adresseLivraison, Float totalCommande, String modeLivraison, String renseignement, boolean status, int iduser) {
         this.adresseLivraison = adresseLivraison;
         this.totalCommande = totalCommande;
         this.modeLivraison = modeLivraison;
@@ -82,11 +82,11 @@ public class Commande {
         this.renseignement = renseignement;
     }
 
-    public int getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

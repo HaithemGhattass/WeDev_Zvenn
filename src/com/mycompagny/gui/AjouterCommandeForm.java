@@ -22,6 +22,8 @@ import com.codename1.ui.util.Resources;
 import com.mycompagny.entities.Commande;
 import com.mycompagny.services.ServiceCommande;
 
+import java.util.Vector;
+
 
 public class AjouterCommandeForm extends BaseForm{
 
@@ -53,9 +55,12 @@ public class AjouterCommandeForm extends BaseForm{
         totalCommande.setUIID("TextFieldBlack");
         addStringValue("Total de votre commande",totalCommande);
 
-        TextField modeLivraison = new TextField("","Mode de Livraison");
-        modeLivraison.setUIID("TextFieldBlack");
-        addStringValue("Mode de Livraison",modeLivraison);
+        Vector<String> vectormodeLiv;
+        vectormodeLiv = new Vector();
+        vectormodeLiv.add("Livraison à domicile");
+        vectormodeLiv.add("Retrait en restaurant");
+        ComboBox<String>modeLivraison = new ComboBox<>(vectormodeLiv);
+        addStringValue("Mode Livraison",modeLivraison);
 
         TextField renseignement = new TextField("","Renseignement");
         renseignement.setUIID("TextFieldBlack");
@@ -65,7 +70,7 @@ public class AjouterCommandeForm extends BaseForm{
         addStringValue("", b);
         b.addActionListener((e)->{
             try{
-                if(adresseLivraison.getText()==""||  totalCommande.getText()==""||modeLivraison.getText()==""||renseignement.getText()==""){
+                if(adresseLivraison.getText()==""||  totalCommande.getText()==""||renseignement.getText()==""){
                     Dialog.show("Veuillez vérifier vos données","", "Annuler", "ok");
                 }else{
                     //Loading après l'insertion de données
@@ -74,9 +79,9 @@ public class AjouterCommandeForm extends BaseForm{
 
                     Commande cmd = new Commande(String.valueOf(adresseLivraison.getText()).toString(),
                             Float.parseFloat(totalCommande.getText()),
-                            String.valueOf(modeLivraison.getText().toString()),
+                           modeLivraison.getSelectedItem().toString(),
                             String.valueOf(renseignement.getText().toString()),
-                            0,
+                            true,
                             SessionManager.getId());
                     System.out.println("Data="+cmd);
 
@@ -84,7 +89,7 @@ public class AjouterCommandeForm extends BaseForm{
                     ServiceCommande.getInsance().AjouterCommande(cmd);
                     iDialog.dispose();//pour arreter le loading
 
-                    //new ListCommandesForm(res).show();
+                    new ListeCommandesById(res).show();
                     refreshTheme();
                 }
             }

@@ -49,7 +49,8 @@ public class BaseForm extends Form {
         if(isCurrentAjoutRestaurant()) AjoutRestaurantImage = selection;
         Image mesRestaurantImage = null;
         if(isCurrentmeRestaurant()) mesRestaurantImage = selection;
-
+        Image ListeEvent = null;
+        if(isCurrentmeRestaurant()) ListeEvent = selection;
 
         
         Button inboxButton = new Button("Inbox", inboxImage);
@@ -62,14 +63,20 @@ public class BaseForm extends Form {
         inboxButton.addActionListener(e -> new InboxForm().show());
 
         getToolbar().addCommandToSideMenu("Home", trendingImage, e -> new TrendingForm(res).show());
+        getToolbar().addCommandToSideMenu("evenements", ListeEvent, e -> new ListEvent(res).show());
+
 if (SessionManager.isActif()) {
     getToolbar().addComponentToSideMenu(inbox);
+    if (SessionManager.getRole().contains("ROLE_VENDEUR")) {
+        getToolbar().addCommandToSideMenu("Ajouter Restaurant", AjoutRestaurantImage, e -> new AjoutRestaurantForm(res).show());
+        getToolbar().addCommandToSideMenu("mes Restaurant", mesRestaurantImage, e -> new ToggleForm(res).show());
+    }
+    if (SessionManager.getRole().contains("ROLE_ADMIN")){
+        getToolbar().addCommandToSideMenu("Stats", statsImage, e -> new StatsForm(res).show());
 
-    getToolbar().addCommandToSideMenu("Ajouter Restaurant", AjoutRestaurantImage, e -> new AjoutRestaurantForm(res).show());
-    getToolbar().addCommandToSideMenu("mes Restaurant", mesRestaurantImage, e -> new ToggleForm(res).show());
-    getToolbar().addCommandToSideMenu("Stats", statsImage, e -> new StatsForm(res).show());
+    }
     getToolbar().addCommandToSideMenu("Calendar", calendarImage, e -> new CalendarForm(res).show());
-    getToolbar().addCommandToSideMenu("Map", null, e -> {
+    getToolbar().addCommandToSideMenu("Map", null, e -> { new MapForm();
     });
     getToolbar().addCommandToSideMenu("Settings", null, e -> {
     });

@@ -11,6 +11,8 @@ import com.codename1.ui.util.Resources;
 import com.mycompagny.entities.Commande;
 import com.mycompagny.services.ServiceCommande;
 
+import java.util.Vector;
+
 public class ModifierCommandeForm extends BaseForm{
 
     Form current;
@@ -31,15 +33,18 @@ public class ModifierCommandeForm extends BaseForm{
         adresseLivraison.setUIID("NewsTopLine");
         adresseLivraison.setSingleLineTextArea(focusScrolling);
 
-        TextField modeLivraison = new TextField(cmd.getModeLivraison(),"modeLivraison",20,TextField.ANY);
+        Vector<String> vectormodeLiv;
+        vectormodeLiv = new Vector();
+        vectormodeLiv.add("Livraison à domicile");
+        vectormodeLiv.add("Retrait en restaurant");
+        ComboBox<String>modeLivraison = new ComboBox<>(vectormodeLiv);
         modeLivraison.setUIID("NewsTopLine");
-        modeLivraison.setSingleLineTextArea(focusScrolling);
 
         Button modifier = new Button("UPDATE");
         modifier.addPointerPressedListener(l->{
 
             cmd.setAdresseLivraison(adresseLivraison.getText());
-            cmd.setModeLivraison(modeLivraison.getText());
+            cmd.setModeLivraison(modeLivraison.getSelectedItem());
 
 
             if(ServiceCommande.getInsance().modifierCommande(cmd)){
@@ -65,7 +70,7 @@ public class ModifierCommandeForm extends BaseForm{
                 l1, l2,
                 new FloatingHint(adresseLivraison),
                 createLineSeparator(),
-                new FloatingHint(modeLivraison),
+                new ComboBox(modeLivraison),
                 createLineSeparator(),
                 modifier,
                 annuler

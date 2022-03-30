@@ -13,6 +13,7 @@ import com.codename1.ui.Toolbar;
 import java.io.IOException;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.io.NetworkEvent;
+import com.mycompagny.entities.Reclamation;
 import com.mycompagny.entities.Restaurant;
 import com.mycompagny.gui.*;
 
@@ -56,7 +57,9 @@ public class MyApplication {
         //new TrendingForm(theme).show();
         //new AjouterCouponForm().show();
         //new ListeCouponsForm(theme).show();
-        //new AjouterCommandeForm(theme).show();
+         //new AjouterCommandeForm(theme).show();
+          //  new SignInForm(theme).show();
+        //new ListeCommandesForm(theme).show();
         new SignInForm(theme).show();
     }
 
